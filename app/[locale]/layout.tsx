@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t('description'),
       url: 'https://akinvisuals.com',
       type: 'website',
-      images: [{ url: '/brand_assets/og-image.jpg' }],
+      images: [{ url: '/brand_assets/screen.png' }],
     },
     twitter: {
       card: 'summary_large_image',
