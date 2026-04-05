@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "AKIN Visuals — Video-editing voor Coaches & Personal Brands",
+    "description": "AKIN Visuals helpt coaches en personal brands rauwe content omzetten in hoge-retentie video's die views en inbound klanten opleveren."
+  },
+  "nav": {
+    "about": "Over Ons",
+    "portfolio": "Portfolio",
+    "services": "Diensten",
+    "testimonials": "Ervaringen",
+    "contact": "Contact",
+    "cta": "Neem Contact Op"
+  },
+  "hero": {
+    "label": "Vertrouwd door creators met 100K–1M+ views",
+    "titleLine1": "Verander je content in",
+    "titleHighlight": "hoge-retentie video's",
+    "titleLine3": "die views én klanten opleveren",
+    "sub": "Wij helpen coaches en personal brands rauwe content omzetten in consistente views, engagement en inbound klanten via strategische video-editing.",
+    "cta1": "Plan een Gesprek",
+    "cta2": "Bekijk Ons Werk",
+    "trust": "Hoge-retentie editing • Strategisch knippen • Consistent resultaat"
+  },
+  "about": {
+    "label": "Over Ons",
+    "title": "Wie Wij Zijn",
+    "body": "AKIN Visuals is een boutique video-editing studio voor coaches en personal brands die online willen groeien. Wij knippen geen beelden — wij bouwen contentstrategieën die van elke video een groeimiddel maken. Met ons hoef jij nooit meer na te denken over editen.",
+    "stat1Val": "50M+",
+    "stat1Label": "Views Gegenereerd",
+    "stat2Val": "40+",
+    "stat2Label": "Creators Geholpen",
+    "stat3Val": "100%",
+    "stat3Label": "Volledig Verzorgd"
+  },
+  "portfolio": {
+    "label": "Ons Werk",
+    "title": "Portfolio",
+    "sub": "Zie hoe wij rauwe beelden omzetten in hoge-retentie content voor coaches en personal brands.",
+    "ytCardDesc": "Long-form video's bewerkt voor maximale retentie en groei op YouTube.",
+    "ytVideoCount": "3 video's",
+    "ttCardDesc": "Short-form clips voor dagelijkse groei, sterke hooks en viraal bereik.",
+    "ttVideoCount": "4 video's",
+    "openYoutube": "Open YouTube",
+    "openTiktok": "Open TikTok"
+  },
+  "services": {
+    "label": "Wat Wij Bieden",
+    "title": "Onze Diensten",
+    "sub": "Drie manieren waarop wij coaches en personal brands helpen groeien online.",
+    "recommended": "AANBEVOLEN",
+    "cta": "Boek een Gratis Gesprek",
+    "s1Title": "Long-Form Bewerking",
+    "s1Desc": "Hoge-retentie, verhalende video's die kijkers van begin tot einde betrokken houden. Gestructureerde storytelling, professionele montage, geoptimaliseerd voor YouTube en personal brands.",
+    "s2Title": "Short-Form Content",
+    "s2Desc": "Consistente, hoogwaardige clips voor dagelijkse groei. Hook-optimalisatie, strak tempo, ondertitels en platform-opmaak — gemaakt voor TikTok, Reels en Shorts.",
+    "s3Title": "Content Systeem",
+    "s3Desc": "Wij bewerken je long-form content én genereren er meerdere short-form clips van — voor consistente output op elk platform. Gebouwd om elk stuk content maximaal te benutten."
+  },
+  "testimonials": {
+    "title": "Ervaringen",
+    "t1": "\"AKIN heeft de visuele identiteit van ons merk volledig opnieuw gedefinieerd. Het ritme en kleurwerk op onze laatste documentaire waren ronduit wereldklasse.\"",
+    "t1Name": "Jameson Reed",
+    "t1Role": "Director, Skybound Media",
+    "t2": "\"Als creator heb je een editor nodig die het begrijpt. De snelheid en technische precisie die AKIN levert op elke TikTok en Reel is ongeëvenaard.\"",
+    "t2Name": "Sarah Chen",
+    "t2Role": "Tech Influencer"
+  },
+  "contact": {
+    "label": "Plan een Gesprek",
+    "title": "Vertel ons over je contentdoelen",
+    "sub": "Plan een gesprek en we stellen samen het beste content systeem voor jouw merk op. We reageren binnen 24 uur.",
+    "formName": "Volledige Naam",
+    "formNamePh": "Jouw naam",
+    "formEmail": "E-mailadres",
+    "formEmailPh": "jij@voorbeeld.nl",
+    "formSocial": "Social Media / Website",
+    "formSocialPh": "youtube.com/jouwkanaal of @handle",
+    "formSocialOptional": "(optioneel)",
+    "formNeedLabel": "Waar ben je naar op zoek?",
+    "formNeed1": "Long-form bewerking",
+    "formNeed2": "Short-form clips",
+    "formNeed3": "Beide (content systeem)",
+    "formPopular": "Populair",
+    "formVolumeLabel": "Hoeveel content wil je produceren?",
+    "formVol1": "1–2 / maand",
+    "formVol2": "3–5 / maand",
+    "formVol3": "Wekelijks",
+    "formVol4": "Dagelijks",
+    "formBudgetLabel": "Maandelijks budget voor content",
+    "formBudget1": "Onder €500",
+    "formBudget2": "€500–€1.000",
+    "formBudget3": "€1.000–€2.500",
+    "formBudget4": "€2.500+",
+    "formGoalsLabel": "Vertel ons over je doelen of huidige uitdagingen",
+    "formGoalsPh": "bijv. Ik wil mijn YouTube-kanaal laten groeien en consistent Reels posten, maar heb geen tijd om te editen...",
+    "formSubmit": "Plan een Gesprek"
+  },
+  "footer": {
+    "tagline": "Klaar om je content naar een hoger niveau te tillen?",
+    "line1": "LATEN WE IETS",
+    "line2": "BIJZONDERS",
+    "line3": "CREËREN.",
+    "cta": "Start een Project"
+  }
+}

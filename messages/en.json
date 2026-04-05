@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "title": "AKIN Visuals — Video Editing for Coaches & Personal Brands",
+    "description": "AKIN Visuals helps coaches and personal brands turn raw footage into high-retention videos that drive views and inbound clients."
+  },
+  "nav": {
+    "about": "About",
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "testimonials": "Testimonials",
+    "contact": "Contact",
+    "cta": "Get In Touch"
+  },
+  "hero": {
+    "label": "Trusted by creators generating 100K–1M+ views",
+    "titleLine1": "Turn your content into",
+    "titleHighlight": "high-retention videos",
+    "titleLine3": "that drive views and clients",
+    "sub": "We help coaches and personal brands turn raw content into consistent views, engagement, and inbound clients through strategic video editing.",
+    "cta1": "Book a Call",
+    "cta2": "View Our Work",
+    "trust": "High-retention editing • Strategic clipping • Consistent output"
+  },
+  "about": {
+    "label": "About Us",
+    "title": "Who We Are",
+    "body": "AKIN Visuals is a boutique video editing studio built for coaches and personal brands who want to grow online. We don't just cut footage — we build content strategies that turn every video into a growth asset. With us, you never have to worry about editing again.",
+    "stat1Val": "50M+",
+    "stat1Label": "Views Generated",
+    "stat2Val": "40+",
+    "stat2Label": "Creators Served",
+    "stat3Val": "100%",
+    "stat3Label": "Done For You"
+  },
+  "portfolio": {
+    "label": "Our Work",
+    "title": "Portfolio",
+    "sub": "See how we turn raw footage into high-retention content for coaches and personal brands.",
+    "ytCardDesc": "Long-form videos edited for maximum retention and growth on YouTube.",
+    "ytVideoCount": "3 videos",
+    "ttCardDesc": "Short-form clips built for daily posting, hooks, and viral growth.",
+    "ttVideoCount": "4 videos",
+    "openYoutube": "Open YouTube",
+    "openTiktok": "Open TikTok"
+  },
+  "services": {
+    "label": "What We Offer",
+    "title": "Our Services",
+    "sub": "Three ways we help coaches and personal brands grow online.",
+    "recommended": "RECOMMENDED",
+    "cta": "Book a Free Call",
+    "s1Title": "Long-Form Editing",
+    "s1Desc": "High-retention, story-driven videos designed to keep viewers engaged from start to finish. Structured storytelling, clean professional editing, optimized for YouTube and personal brands.",
+    "s2Title": "Short-Form Content",
+    "s2Desc": "Consistent, high-quality clips designed for daily posting and growth. Hook optimization, fast pacing, captions and platform formatting — built for TikTok, Reels, and Shorts.",
+    "s3Title": "Content System",
+    "s3Desc": "We edit your long-form content and generate multiple short-form clips from it — giving you consistent output across every platform. Built to maximize every piece of content you create."
+  },
+  "testimonials": {
+    "title": "Direct Feedback",
+    "t1": "\"AKIN completely redefined our brand's visual identity. The pacing and color work on our latest documentary were simply world-class. Truly professional.\"",
+    "t1Name": "Jameson Reed",
+    "t1Role": "Director, Skybound Media",
+    "t2": "\"As a creator, I need an editor who 'gets it'. The turnaround speed and technical precision AKIN brings to every TikTok and Reel is unmatched.\"",
+    "t2Name": "Sarah Chen",
+    "t2Role": "Tech Influencer"
+  },
+  "contact": {
+    "label": "Book a Call",
+    "title": "Tell us about your content goals",
+    "sub": "Book a call and we'll map out the best content system for your brand. We reply within 24 hours.",
+    "formName": "Full Name",
+    "formNamePh": "Your name",
+    "formEmail": "Email Address",
+    "formEmailPh": "you@example.com",
+    "formSocial": "Social Media / Website",
+    "formSocialPh": "youtube.com/yourchannel or @handle",
+    "formSocialOptional": "(optional)",
+    "formNeedLabel": "What are you looking for?",
+    "formNeed1": "Long-form editing",
+    "formNeed2": "Short-form clips",
+    "formNeed3": "Both (content system)",
+    "formPopular": "Popular",
+    "formVolumeLabel": "How much content do you want to produce?",
+    "formVol1": "1–2 / month",
+    "formVol2": "3–5 / month",
+    "formVol3": "Weekly",
+    "formVol4": "Daily",
+    "formBudgetLabel": "Monthly budget for content",
+    "formBudget1": "Under $500",
+    "formBudget2": "$500–$1,000",
+    "formBudget3": "$1,000–$2,500",
+    "formBudget4": "$2,500+",
+    "formGoalsLabel": "Tell us about your goals or current challenges",
+    "formGoalsPh": "e.g. I want to grow my YouTube channel and post Reels consistently but I don't have time to edit...",
+    "formSubmit": "Book a Call"
+  },
+  "footer": {
+    "tagline": "Ready to elevate your content?",
+    "line1": "LET'S CREATE",
+    "line2": "SOMETHING",
+    "line3": "LEGENDARY.",
+    "cta": "Start a Project"
+  }
+}
