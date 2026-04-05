@@ -4,7 +4,10 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
-images: {
+  turbopack: {
+    root: __dirname,
+  },
+  images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'img.youtube.com' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
