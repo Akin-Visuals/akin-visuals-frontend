@@ -1,14 +1,14 @@
-import Navbar from '@/app/components/layout/Navbar';
-import NowEditing from '@/app/components/layout/NowEditing';
-import Footer from '@/app/components/layout/Footer';
-import Hero from '@/app/components/sections/Hero';
-import About from '@/app/components/sections/About';
-import Portfolio from '@/app/components/sections/Portfolio';
-import Testimonials from '@/app/components/sections/Testimonials';
-import Services from '@/app/components/sections/Services';
-import Contact from '@/app/components/sections/Contact';
-import GsapInit from '@/app/components/ui/GsapInit';
-import FadeUpInit from '@/app/components/ui/FadeUpInit';
+import Navbar from '@/components/layout/Navbar';
+import NowEditing from '@/components/layout/NowEditing';
+import Footer from '@/components/layout/Footer';
+import Hero from '@/components/sections/Hero';
+import About from '@/components/sections/About';
+import Portfolio from '@/components/sections/Portfolio';
+import Testimonials from '@/components/sections/Testimonials';
+import Services from '@/components/sections/Services';
+import Contact from '@/components/sections/Contact';
+import GsapInit from '@/components/ui/GsapInit';
+import FadeUpInit from '@/components/ui/FadeUpInit';
 
 export default function HomePage() {
   return (
