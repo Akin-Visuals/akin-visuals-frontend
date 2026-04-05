@@ -26,8 +26,8 @@ export default function Navbar() {
         <nav className="hidden md:flex items-center gap-7 flex-1 justify-center">
           <a href="#about"        className="nav-link">{t('about')}</a>
           <a href="#work"         className="nav-link">{t('portfolio')}</a>
-          <a href="#services"     className="nav-link">{t('services')}</a>
           <a href="#testimonials" className="nav-link">{t('testimonials')}</a>
+          <a href="#services"     className="nav-link">{t('services')}</a>
         </nav>
 
         <div className="flex items-center gap-3 flex-shrink-0">
