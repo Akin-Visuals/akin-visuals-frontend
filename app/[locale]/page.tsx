@@ -1,4 +1,3 @@
-import Script from 'next/script';
 import Navbar from '@/app/components/layout/Navbar';
 import NowEditing from '@/app/components/layout/NowEditing';
 import Footer from '@/app/components/layout/Footer';
@@ -14,11 +13,6 @@ import FadeUpInit from '@/app/components/ui/FadeUpInit';
 export default function HomePage() {
   return (
     <>
-      {/* CDN scripts — load before page JS runs */}
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" strategy="beforeInteractive" />
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" strategy="beforeInteractive" />
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" strategy="beforeInteractive" />
-
       {/* Global UI */}
       <div id="grain" aria-hidden="true" />
       <div id="cursor-dot"  aria-hidden="true" />
