@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+'use client';
+
+import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { loadGsap, getGsap } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
@@ -8,7 +10,6 @@ import { prefersReducedMotion } from '@/lib/animations';
 export default function Hero() {
   const t = useTranslations('hero');
   const shaderRef = useRef<HTMLDivElement>(null);
-  const [videoActive, setVideoActive] = useState(false);
   const videoWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -204,22 +205,9 @@ export default function Hero() {
               <div className="dot" />
               Showreel
             </div>
-            {videoActive ? (
-              <video autoPlay muted playsInline preload="auto">
-                <source src="/brand_assets/31b07c0b00407242cdbc56d56d0327fc_1775314448_puougnxu.mp4" type="video/mp4" />
-              </video>
-            ) : (
-              <button
-                onClick={() => setVideoActive(true)}
-                className="video-play-btn"
-                aria-label="Play showreel"
-              >
-                <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-                  <circle cx="26" cy="26" r="26" fill="rgba(255,255,255,0.12)" />
-                  <polygon points="21,17 39,26 21,35" fill="white" />
-                </svg>
-              </button>
-            )}
+            <video autoPlay muted playsInline loop preload="none">
+              <source src="/brand_assets/31b07c0b00407242cdbc56d56d0327fc_1775314448_puougnxu.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </div>
