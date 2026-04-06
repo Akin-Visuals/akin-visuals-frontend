@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { getGsap } from '@/lib/gsap-cdn';
+import { prefersReducedMotion } from '@/lib/animations';
 
 const ABOUT_IMAGES = [
   {
@@ -52,6 +54,11 @@ export default function About() {
     const gallery = galleryRef.current;
     const wrap    = wrapRef.current;
     if (!gallery || !wrap) return;
+
+    if (prefersReducedMotion()) {
+      // Disable 3D effects when motion is reduced
+      return;
+    }
 
     const gsap = getGsap();
 
@@ -108,11 +115,14 @@ export default function About() {
                       className={`vtab-img ${state}`}
                       style={{ background: img.bg }}
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={img.src}
                         alt={img.alt}
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 600px"
+                        priority={i === 0}
+                        quality={85}
+                        onError={() => {}}
                       />
                     </div>
                   );

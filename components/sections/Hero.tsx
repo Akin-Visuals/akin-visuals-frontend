@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { getGsap } from '@/lib/gsap-cdn';
+import { prefersReducedMotion, getAnimationDuration, getAnimationEase } from '@/lib/animations';
 
 export default function Hero() {
   const t = useTranslations('hero');
@@ -132,14 +133,23 @@ export default function Hero() {
     const gsap = getGsap();
     if (!gsap) return;
 
-    const heroTl = gsap.timeline({ delay: 0.3 });
+    const reduceMotion = prefersReducedMotion();
+    const duration = (d: number) => reduceMotion ? 0.01 : d;
+    const ease = (e: string) => reduceMotion ? 'none' : e;
+
+    const heroTl = gsap.timeline({ delay: reduceMotion ? 0 : 0.3 });
     heroTl
-      .to('#h-label',      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0)
-      .to('#h-title',      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.2)
-      .to('#h-sub',        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.4)
-      .to('#h-cta',        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.6)
-      .to('#h-stats',      { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.75)
-      .to('#h-video-wrap', { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: 'power3.out' }, 0.2);
+      .to('#h-label',      { opacity: 1, y: 0, duration: duration(0.6), ease: ease('power3.out') }, 0)
+      .to('#h-title',      { opacity: 1, y: 0, duration: duration(0.8), ease: ease('power3.out') }, reduceMotion ? 0 : 0.2)
+      .to('#h-sub',        { opacity: 1, y: 0, duration: duration(0.7), ease: ease('power3.out') }, reduceMotion ? 0 : 0.4)
+      .to('#h-cta',        { opacity: 1, y: 0, duration: duration(0.7), ease: ease('power3.out') }, reduceMotion ? 0 : 0.6)
+      .to('#h-stats',      { opacity: 1, y: 0, duration: duration(0.6), ease: ease('power3.out') }, reduceMotion ? 0 : 0.75)
+      .to('#h-video-wrap', { opacity: 1, y: 0, scale: 1, duration: duration(1.0), ease: ease('power3.out') }, reduceMotion ? 0 : 0.2);
+
+    if (reduceMotion) {
+      // Disable 3D mouse interactions when motion is reduced
+      return;
+    }
 
     const onMouseMove = (e: MouseEvent) => {
       const rect = wrap.getBoundingClientRect();

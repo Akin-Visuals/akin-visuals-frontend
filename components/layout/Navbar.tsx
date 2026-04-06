@@ -4,6 +4,30 @@ import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/navigation';
 
+function FlagGB() {
+  return (
+    <svg width="16" height="12" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="30" fill="#012169" />
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#FFF" strokeWidth="6" />
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" strokeWidth="4" clipPath="polygon(0% 35%, 100% 35%, 100% 65%, 0% 65%)" />
+      <rect y="12" width="60" height="6" fill="#FFF" />
+      <rect x="24" width="12" height="30" fill="#FFF" />
+      <rect y="12" width="60" height="4" fill="#C8102E" />
+      <rect x="26" width="8" height="30" fill="#C8102E" />
+    </svg>
+  );
+}
+
+function FlagNL() {
+  return (
+    <svg width="16" height="12" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="10" fill="#AE1C28" />
+      <rect y="10" width="60" height="10" fill="#FFF" />
+      <rect y="20" width="60" height="10" fill="#33A1FD" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const t = useTranslations('nav');
   const locale = useLocale();
@@ -37,7 +61,7 @@ export default function Navbar() {
               aria-label="English"
               className={`lang-btn ${locale === 'en' ? 'is-active' : 'is-inactive'}`}
             >
-              <span className="lang-flag">🇬🇧</span>
+              <FlagGB />
               <span>EN</span>
             </button>
             <div className="lang-divider" />
@@ -46,7 +70,7 @@ export default function Navbar() {
               aria-label="Nederlands"
               className={`lang-btn ${locale === 'nl' ? 'is-active' : 'is-inactive'}`}
             >
-              <span className="lang-flag">🇳🇱</span>
+              <FlagNL />
               <span>NL</span>
             </button>
           </div>
