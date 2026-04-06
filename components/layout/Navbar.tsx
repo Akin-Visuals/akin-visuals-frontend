@@ -18,7 +18,7 @@ export default function Navbar() {
     <header id="navbar">
       <div id="navbar-inner" className="mx-4 lg:mx-8">
         <a href="#" className="select-none flex-shrink-0">
-          <Image src="/brand_assets/logowit.png" alt="AKIN" width={80} height={28} className="h-7 w-auto object-contain" />
+          <Image src="/brand_assets/logowit.png" alt="AKIN" width={80} height={28} className="h-7 w-auto object-contain" priority />
         </a>
 
         <div className="nav-divider" />
