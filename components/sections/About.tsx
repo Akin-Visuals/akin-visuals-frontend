@@ -8,18 +8,13 @@ import { prefersReducedMotion } from '@/lib/animations';
 
 const ABOUT_IMAGES = [
   {
-    src: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=1200',
-    alt: 'Cinematic Editing',
+    src: '/brand_assets/hrub7a7fsf7imcze2x2q.avif',
+    alt: 'AKIN Visuals — Behind the scenes',
     bg: 'linear-gradient(135deg,#000447,#6d11ad)',
   },
   {
-    src: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200',
-    alt: 'Color Grading',
-    bg: 'linear-gradient(135deg,#1a0630,#3d0080)',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200',
-    alt: 'Motion Graphics',
+    src: '/brand_assets/kpnsjrchu6opk0rdtbvp.avif',
+    alt: 'AKIN Visuals — Content creation',
     bg: 'linear-gradient(135deg,#0a1a3a,#1d2d6e)',
   },
 ];

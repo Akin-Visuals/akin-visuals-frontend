@@ -29,6 +29,13 @@ export default function GsapInit() {
     };
     animRing();
 
+    // Pause grain animation when tab is hidden (saves GPU)
+    const grain = document.getElementById('grain');
+    const onVisibility = () => {
+      if (grain) grain.style.animationPlayState = document.hidden ? 'paused' : 'running';
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     // Single scroll handler for all scroll-dependent UI
     const bar     = document.getElementById('progress-bar');
     const navbar  = document.getElementById('navbar');
@@ -51,6 +58,7 @@ export default function GsapInit() {
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(rafId);
     };
