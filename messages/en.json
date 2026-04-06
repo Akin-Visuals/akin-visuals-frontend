@@ -47,6 +47,8 @@
     "sub": "Three ways we help coaches and personal brands grow online.",
     "recommended": "RECOMMENDED",
     "cta": "Book a Free Call",
+    "ctaPre": "Ready to grow your content?",
+    "ctaSub": "Free 15-min strategy call · No obligations",
     "s1Title": "Long-Form Editing",
     "s1Desc": "High-retention, story-driven videos designed to keep viewers engaged from start to finish. Structured storytelling, clean professional editing, optimized for YouTube and personal brands.",
     "s2Title": "Short-Form Content",
@@ -92,6 +94,17 @@
     "formGoalsLabel": "Tell us about your goals or current challenges",
     "formGoalsPh": "e.g. I want to grow my YouTube channel and post Reels consistently but I don't have time to edit...",
     "formSubmit": "Book a Call"
+  },
+  "nowEditing": {
+    "label": "Now Editing",
+    "liveNow": "Live Now",
+    "projects": [
+      "Brand Documentary — Coach X",
+      "YouTube Series — Mindset Pro",
+      "TikTok Reels — Fitness Creator",
+      "Cinematic Vlog — Travel Influencer",
+      "Short-Form Pack — Business Coach"
+    ]
   },
   "footer": {
     "tagline": "Ready to elevate your content?",

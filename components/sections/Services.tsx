@@ -51,10 +51,16 @@ export default function Services() {
 
         </div>
 
-        <div className="text-center mt-14 fade-up">
+        <div className="text-center mt-14 fade-up flex flex-col items-center gap-4">
+          <p className="text-[#e1e2e7] font-semibold text-lg" style={{ fontFamily: 'var(--font-headline)' }}>
+            {t('ctaPre')}
+          </p>
           <a href="#contact" className="btn-primary px-10 py-4 rounded-xl font-bold text-base glow-purple inline-block">
             {t('cta')}
           </a>
+          <p className="text-[#8f9095] text-xs tracking-wide" style={{ fontFamily: 'var(--font-label)' }}>
+            {t('ctaSub')}
+          </p>
         </div>
       </div>
     </section>

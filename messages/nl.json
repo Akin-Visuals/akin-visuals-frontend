@@ -47,6 +47,8 @@
     "sub": "Drie manieren waarop wij coaches en personal brands helpen groeien online.",
     "recommended": "AANBEVOLEN",
     "cta": "Boek een Gratis Gesprek",
+    "ctaPre": "Klaar om je content te laten groeien?",
+    "ctaSub": "Gratis 15-min strategiegesprek · Vrijblijvend",
     "s1Title": "Long-Form Bewerking",
     "s1Desc": "Hoge-retentie, verhalende video's die kijkers van begin tot einde betrokken houden. Gestructureerde storytelling, professionele montage, geoptimaliseerd voor YouTube en personal brands.",
     "s2Title": "Short-Form Content",
@@ -92,6 +94,17 @@
     "formGoalsLabel": "Vertel ons over je doelen of huidige uitdagingen",
     "formGoalsPh": "bijv. Ik wil mijn YouTube-kanaal laten groeien en consistent Reels posten, maar heb geen tijd om te editen...",
     "formSubmit": "Plan een Gesprek"
+  },
+  "nowEditing": {
+    "label": "Nu aan het editen",
+    "liveNow": "Live Nu",
+    "projects": [
+      "Brand Documentaire — Coach X",
+      "YouTube Serie — Mindset Pro",
+      "TikTok Reels — Fitness Creator",
+      "Cinematic Vlog — Reisinfluencer",
+      "Short-Form Pack — Business Coach"
+    ]
   },
   "footer": {
     "tagline": "Klaar om je content naar een hoger niveau te tillen?",
