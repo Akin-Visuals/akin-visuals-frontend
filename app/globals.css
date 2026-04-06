@@ -1,10 +1,5 @@
 @import "tailwindcss";
 
-:root {
-  --font-headline: 'Bebas Neue', sans-serif;
-  --font-body:     'Manrope', sans-serif;
-  --font-label:    'Inter', sans-serif;
-}
 
 *, *::before, *::after { box-sizing: border-box; }
 
