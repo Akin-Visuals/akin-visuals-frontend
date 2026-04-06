@@ -103,31 +103,30 @@ function TtMockup() {
       </div>
       <div className="tt-videos-grid">
         {TIKTOK_VIDEOS.map((v, i) => (
-          <div key={i} className="tt-video-card">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="tt-video-thumb"
-              src={v.thumb}
-              alt=""
-              onError={(e) => {
-                const el = e.target as HTMLImageElement;
-                el.style.display = 'none';
-              }}
-            />
+          <a
+            key={i}
+            className="tt-video-card"
+            href={v.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Bekijk reel ${i + 1} op Instagram`}
+          >
+            {v.thumb ? (
+              <Image
+                className="tt-video-thumb"
+                src={v.thumb}
+                alt={`Reel ${i + 1}`}
+                fill
+                sizes="(max-width: 640px) 50vw, 200px"
+                loading="lazy"
+              />
+            ) : (
+              <div className="tt-video-placeholder" />
+            )}
             <div className="tt-video-play">
               <svg width="36" height="36" viewBox="0 0 24 24" fill="white" opacity="0.9"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             </div>
-            <div className="tt-video-overlay">
-              <div className="tt-video-stat">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-                {v.likes}
-              </div>
-              <div className="tt-video-stat">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3" fill="white" stroke="none"/></svg>
-                {v.views}
-              </div>
-            </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>

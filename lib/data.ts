@@ -16,33 +16,15 @@ export const YT_VIDEOS = [
 
 export const TIKTOK_VIDEOS = [
   {
-    thumb: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=400',
-    likes: '42.1K',
-    views: '318K',
+    url: 'https://www.instagram.com/reel/DVIm30WjBKz/',
+    thumb: '',
   },
   {
-    thumb: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=400',
-    likes: '28.5K',
-    views: '201K',
+    url: 'https://www.instagram.com/reel/DVI6RFAjLnr/',
+    thumb: '',
   },
   {
-    thumb: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=400',
-    likes: '91.3K',
-    views: '745K',
-  },
-  {
-    thumb: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=400',
-    likes: '15.7K',
-    views: '98K',
-  },
-  {
-    thumb: 'https://images.unsplash.com/photo-1536240478700-b869ad10e097?q=80&w=400',
-    likes: '63.2K',
-    views: '512K',
-  },
-  {
-    thumb: 'https://images.unsplash.com/photo-1601506521793-dc748fc80b67?q=80&w=400',
-    likes: '37.8K',
-    views: '289K',
+    url: 'https://www.instagram.com/reel/DVd5rExiBN-/',
+    thumb: '',
   },
 ];

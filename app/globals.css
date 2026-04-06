@@ -912,6 +912,11 @@ body:has(button:hover) #cursor-ring {
   transition: transform 0.3s ease;
 }
 .tt-video-card:hover .tt-video-thumb { transform: scale(1.04); }
+.tt-video-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1a0630 0%, #000447 50%, #0a1a3a 100%);
+}
 .tt-video-overlay {
   position: absolute;
   inset: 0;
