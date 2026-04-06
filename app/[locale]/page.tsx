@@ -9,8 +9,12 @@ import Services from '@/components/sections/Services';
 import Contact from '@/components/sections/Contact';
 import GsapInit from '@/components/ui/GsapInit';
 import FadeUpInit from '@/components/ui/FadeUpInit';
+import { fetchYtVideos } from '@/lib/youtube';
+import { YT_VIDEOS } from '@/lib/data';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const ytVideos = await fetchYtVideos().catch(() => YT_VIDEOS);
+
   return (
     <>
       {/* Global UI */}
@@ -25,7 +29,7 @@ export default function HomePage() {
       <main className="overflow-x-hidden">
         <Hero />
         <About />
-        <Portfolio />
+        <Portfolio ytVideos={ytVideos} />
         <Testimonials />
         <Services />
         <Contact />

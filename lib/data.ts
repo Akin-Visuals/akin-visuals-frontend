@@ -7,38 +7,11 @@ export const NOW_EDITING_PROJECTS = [
 ];
 
 export const YT_VIDEOS = [
-  {
-    id: 'dQw4w9WgXcQ',
-    title: 'Cinematic Travel Film — Bali',
-    channel: 'AKIN Visuals',
-    views: '124K views',
-    ago: '2 weeks ago',
-    duration: '8:42',
-  },
-  {
-    id: 'jNQXAC9IVRw',
-    title: 'Brand Story — The Journey',
-    channel: 'AKIN Visuals',
-    views: '87K views',
-    ago: '1 month ago',
-    duration: '12:17',
-  },
-  {
-    id: 'M7FIvfx5Jr8',
-    title: 'Coach Documentary — Full Edit',
-    channel: 'AKIN Visuals',
-    views: '203K views',
-    ago: '3 months ago',
-    duration: '22:05',
-  },
-  {
-    id: 'ScMzIvxBSi4',
-    title: 'Mindset Series — Episode 4',
-    channel: 'AKIN Visuals',
-    views: '56K views',
-    ago: '5 months ago',
-    duration: '15:30',
-  },
+  { id: 'MXuwN8Trfb0', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
+  { id: 'xN3KSgaV6yM', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
+  { id: 'nz5plOO4v4s', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
+  { id: '_Ms5Vvv2WwE', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
+  { id: 'f5E9rIRRSis', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
 ];
 
 export const TIKTOK_VIDEOS = [

@@ -2,8 +2,9 @@
 
 import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { YT_VIDEOS, TIKTOK_VIDEOS } from '@/lib/data';
+import { TIKTOK_VIDEOS } from '@/lib/data';
 import { getGsap } from '@/lib/gsap-cdn';
+import type { YtVideo } from '@/lib/youtube';
 
 function YtIcon({ size = 26 }: { size?: number }) {
   return (
@@ -22,7 +23,7 @@ function TtIcon({ size = 30 }: { size?: number }) {
   );
 }
 
-function YtMockup({ onVideoClick }: { onVideoClick: (id: string) => void }) {
+function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (id: string) => void }) {
   return (
     <div id="yt-channel-mockup" style={{ display: 'block' }}>
       <div className="yt-chrome-bar">
@@ -42,7 +43,7 @@ function YtMockup({ onVideoClick }: { onVideoClick: (id: string) => void }) {
         ))}
       </div>
       <div className="yt-videos-grid">
-        {YT_VIDEOS.map(v => (
+        {videos.map(v => (
           <div key={v.id} className="yt-video-card" onClick={() => onVideoClick(v.id)}>
             <div className="yt-video-thumb-wrap">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -55,7 +56,12 @@ function YtMockup({ onVideoClick }: { onVideoClick: (id: string) => void }) {
               <span className="yt-video-badge">{v.duration}</span>
             </div>
             <div className="yt-video-info">
-              <div className="yt-video-avatar" />
+              <div className="yt-video-avatar">
+                {v.channelThumb && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={v.channelThumb} alt={v.channel} />
+                )}
+              </div>
               <div>
                 <p className="yt-video-title">{v.title}</p>
                 <p className="yt-video-meta">{v.channel}</p>
@@ -121,7 +127,7 @@ function TtMockup() {
   );
 }
 
-export default function Portfolio() {
+export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
   const t = useTranslations('portfolio');
   const [ytOpen, setYtOpen] = useState(false);
   const [ttOpen, setTtOpen] = useState(false);
@@ -203,7 +209,7 @@ export default function Portfolio() {
             </div>
 
             <div ref={ytMockupRef} style={{ display: 'none' }}>
-              <YtMockup onVideoClick={openModal} />
+              <YtMockup videos={ytVideos} onVideoClick={openModal} />
             </div>
           </div>
 
@@ -242,6 +248,7 @@ export default function Portfolio() {
         >
           <div className="yt-modal-inner" onClick={e => e.stopPropagation()}>
             <iframe
+              id="yt-iframe"
               src={`https://www.youtube.com/embed/${modalVideo}?autoplay=1&rel=0`}
               allowFullScreen
               allow="autoplay; encrypted-media"
