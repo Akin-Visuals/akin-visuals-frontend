@@ -28,7 +28,7 @@ export default async function HomePage() {
 
       <Navbar />
 
-      <main className="overflow-x-hidden">
+      <main className="overflow-x-clip">
         <Hero />
         <About />
         <Portfolio ytVideos={ytVideos} />
