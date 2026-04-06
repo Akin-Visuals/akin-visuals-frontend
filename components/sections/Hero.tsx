@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { getGsap } from '@/lib/gsap-cdn';
+import { loadGsap, getGsap } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
 
 export default function Hero() {
@@ -133,24 +133,30 @@ export default function Hero() {
     const hero = document.getElementById('hero');
     if (!wrap || !hero) return;
 
-    const gsap = getGsap();
-    if (!gsap) return;
+    let onMouseMove: ((e: MouseEvent) => void) | null = null;
+    let onMouseLeave: (() => void) | null = null;
 
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = wrap.getBoundingClientRect();
-      const cx = rect.left + rect.width  / 2;
-      const cy = rect.top  + rect.height / 2;
-      const dx = (e.clientX - cx) / (rect.width  / 2);
-      const dy = (e.clientY - cy) / (rect.height / 2);
-      gsap.to(wrap, { rotateY: dx * 8, rotateX: -dy * 5, duration: 0.6, ease: 'power2.out', transformPerspective: 900, transformOrigin: 'center center' });
-    };
-    const onMouseLeave = () => gsap.to(wrap, { rotateY: 0, rotateX: 0, duration: 0.8, ease: 'power3.out' });
+    loadGsap().then(() => {
+      const gsap = getGsap();
+      if (!gsap) return;
 
-    hero.addEventListener('mousemove', onMouseMove);
-    hero.addEventListener('mouseleave', onMouseLeave);
+      onMouseMove = (e: MouseEvent) => {
+        const rect = wrap.getBoundingClientRect();
+        const cx = rect.left + rect.width  / 2;
+        const cy = rect.top  + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width  / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        gsap.to(wrap, { rotateY: dx * 8, rotateX: -dy * 5, duration: 0.6, ease: 'power2.out', transformPerspective: 900, transformOrigin: 'center center' });
+      };
+      onMouseLeave = () => gsap.to(wrap, { rotateY: 0, rotateX: 0, duration: 0.8, ease: 'power3.out' });
+
+      hero.addEventListener('mousemove', onMouseMove);
+      hero.addEventListener('mouseleave', onMouseLeave);
+    });
+
     return () => {
-      hero.removeEventListener('mousemove', onMouseMove);
-      hero.removeEventListener('mouseleave', onMouseLeave);
+      if (onMouseMove) hero.removeEventListener('mousemove', onMouseMove);
+      if (onMouseLeave) hero.removeEventListener('mouseleave', onMouseLeave);
     };
   }, []);
 

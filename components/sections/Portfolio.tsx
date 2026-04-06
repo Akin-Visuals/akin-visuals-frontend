@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { TIKTOK_VIDEOS } from '@/lib/data';
 import { getGsap } from '@/lib/gsap-cdn';
@@ -46,20 +47,26 @@ function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (
         {videos.map(v => (
           <div key={v.id} className="yt-video-card" onClick={() => onVideoClick(v.id)}>
             <div className="yt-video-thumb-wrap">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 className="yt-video-thumb"
                 src={`https://img.youtube.com/vi/${v.id}/maxresdefault.jpg`}
-                onError={(e) => { (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${v.id}/hqdefault.jpg`; }}
                 alt={v.title}
+                fill
+                sizes="(max-width: 640px) 100vw, 300px"
+                loading="lazy"
               />
               <span className="yt-video-badge">{v.duration}</span>
             </div>
             <div className="yt-video-info">
               <div className="yt-video-avatar">
                 {v.channelThumb && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={v.channelThumb} alt={v.channel} />
+                  <Image
+                    src={v.channelThumb}
+                    alt={v.channel}
+                    width={36}
+                    height={36}
+                    loading="lazy"
+                  />
                 )}
               </div>
               <div>

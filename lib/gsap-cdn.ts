@@ -1,12 +1,27 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import type gsap from 'gsap';
+import type { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+type GsapType = typeof gsap;
+type ScrollTriggerType = typeof ScrollTrigger;
 
-export function getGsap() {
-  return gsap;
+let _gsap: GsapType | null = null;
+let _st: ScrollTriggerType | null = null;
+let _loading: Promise<void> | null = null;
+
+async function _load(): Promise<void> {
+  const [{ default: g }, { ScrollTrigger: ST }] = await Promise.all([
+    import('gsap'),
+    import('gsap/ScrollTrigger'),
+  ]);
+  g.registerPlugin(ST);
+  _gsap = g;
+  _st = ST;
 }
 
-export function getScrollTrigger() {
-  return ScrollTrigger;
+export function loadGsap(): Promise<void> {
+  if (!_loading) _loading = _load();
+  return _loading;
 }
+
+export function getGsap(): GsapType | null { return _gsap; }
+export function getScrollTrigger(): ScrollTriggerType | null { return _st; }

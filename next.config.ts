@@ -10,9 +10,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'img.youtube.com' },
+      { protocol: 'https', hostname: 'yt3.ggpht.com' },
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
     ],
+    minimumCacheTTL: 86400,
   },
 };
 

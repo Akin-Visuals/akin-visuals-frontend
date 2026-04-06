@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { getGsap } from '@/lib/gsap-cdn';
+import { loadGsap, getGsap } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
 
 const ABOUT_IMAGES = [
@@ -56,28 +56,33 @@ export default function About() {
     if (!gallery || !wrap) return;
 
     if (prefersReducedMotion()) {
-      // Disable 3D effects when motion is reduced
       return;
     }
 
-    const gsap = getGsap();
+    let onEnter: (() => void) | null = null;
+    let onLeave: (() => void) | null = null;
+    let onMove: ((e: MouseEvent) => void) | null = null;
 
-    const onEnter = () => { pausedRef.current = true; };
-    const onLeave = () => {
-      pausedRef.current = false;
-      if (gsap) gsap.to(gallery, { rotateX: 0, rotateY: 0, duration: 0.8, ease: 'power3.out' });
-    };
-    const onMove = (e: MouseEvent) => {
+    loadGsap().then(() => {
+      const gsap = getGsap();
       if (!gsap) return;
-      const rect = gallery.getBoundingClientRect();
-      const dx = (e.clientX - (rect.left + rect.width  / 2)) / (rect.width  / 2);
-      const dy = (e.clientY - (rect.top  + rect.height / 2)) / (rect.height / 2);
-      gsap.to(gallery, { rotateY: dx * 10, rotateX: -dy * 7, duration: 0.5, ease: 'power2.out', transformPerspective: 900 });
-    };
 
-    gallery.addEventListener('mouseenter', onEnter);
-    gallery.addEventListener('mouseleave', onLeave);
-    wrap.addEventListener('mousemove', onMove);
+      onEnter = () => { pausedRef.current = true; };
+      onLeave = () => {
+        pausedRef.current = false;
+        gsap.to(gallery, { rotateX: 0, rotateY: 0, duration: 0.8, ease: 'power3.out' });
+      };
+      onMove = (e: MouseEvent) => {
+        const rect = gallery.getBoundingClientRect();
+        const dx = (e.clientX - (rect.left + rect.width  / 2)) / (rect.width  / 2);
+        const dy = (e.clientY - (rect.top  + rect.height / 2)) / (rect.height / 2);
+        gsap.to(gallery, { rotateY: dx * 10, rotateX: -dy * 7, duration: 0.5, ease: 'power2.out', transformPerspective: 900 });
+      };
+
+      gallery.addEventListener('mouseenter', onEnter);
+      gallery.addEventListener('mouseleave', onLeave);
+      wrap.addEventListener('mousemove', onMove);
+    });
 
     const sectionEl = document.getElementById('about');
     const obs = new IntersectionObserver(entries => {
@@ -88,9 +93,9 @@ export default function About() {
 
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
-      gallery.removeEventListener('mouseenter', onEnter);
-      gallery.removeEventListener('mouseleave', onLeave);
-      wrap.removeEventListener('mousemove', onMove);
+      if (onEnter) gallery.removeEventListener('mouseenter', onEnter);
+      if (onLeave) gallery.removeEventListener('mouseleave', onLeave);
+      if (onMove) wrap.removeEventListener('mousemove', onMove);
       obs.disconnect();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps

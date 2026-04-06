@@ -19,6 +19,12 @@
     "react-dom": "19.2.4",
     "three": "^0.183.2"
   },
+  "browserslist": [
+    "chrome >= 91",
+    "firefox >= 90",
+    "safari >= 15.4",
+    "edge >= 91"
+  ],
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
