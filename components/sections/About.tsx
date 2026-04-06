@@ -103,7 +103,6 @@ export default function About() {
 
   return (
     <section id="about" className="section-snap relative px-8 min-h-screen flex items-center">
-      <div className="blob w-[500px] h-[500px] bg-[rgba(224,182,255,0.08)] top-0 right-1/4" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">

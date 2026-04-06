@@ -9,6 +9,7 @@ import Services from '@/components/sections/Services';
 import Contact from '@/components/sections/Contact';
 import GsapInit from '@/components/ui/GsapInit';
 import FadeUpInit from '@/components/ui/FadeUpInit';
+import StarField from '@/components/ui/StarField';
 import { fetchYtVideos } from '@/lib/youtube';
 import { YT_VIDEOS } from '@/lib/data';
 
@@ -18,6 +19,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Global UI */}
+      <StarField />
       <div id="grain" aria-hidden="true" />
       <div id="cursor-dot"  aria-hidden="true" />
       <div id="cursor-ring" aria-hidden="true" />
