@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getGsap } from '@/lib/gsap-cdn';
-import { prefersReducedMotion, getAnimationDuration, getAnimationEase } from '@/lib/animations';
+import { prefersReducedMotion } from '@/lib/animations';
 
 export default function Hero() {
   const t = useTranslations('hero');
   const shaderRef = useRef<HTMLDivElement>(null);
+  const [videoActive, setVideoActive] = useState(false);
   const videoWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -126,30 +127,14 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
+    if (prefersReducedMotion()) return;
+
     const wrap = videoWrapRef.current;
     const hero = document.getElementById('hero');
     if (!wrap || !hero) return;
 
     const gsap = getGsap();
     if (!gsap) return;
-
-    const reduceMotion = prefersReducedMotion();
-    const duration = (d: number) => reduceMotion ? 0.01 : d;
-    const ease = (e: string) => reduceMotion ? 'none' : e;
-
-    const heroTl = gsap.timeline({ delay: reduceMotion ? 0 : 0.3 });
-    heroTl
-      .to('#h-label',      { opacity: 1, y: 0, duration: duration(0.6), ease: ease('power3.out') }, 0)
-      .to('#h-title',      { opacity: 1, y: 0, duration: duration(0.8), ease: ease('power3.out') }, reduceMotion ? 0 : 0.2)
-      .to('#h-sub',        { opacity: 1, y: 0, duration: duration(0.7), ease: ease('power3.out') }, reduceMotion ? 0 : 0.4)
-      .to('#h-cta',        { opacity: 1, y: 0, duration: duration(0.7), ease: ease('power3.out') }, reduceMotion ? 0 : 0.6)
-      .to('#h-stats',      { opacity: 1, y: 0, duration: duration(0.6), ease: ease('power3.out') }, reduceMotion ? 0 : 0.75)
-      .to('#h-video-wrap', { opacity: 1, y: 0, scale: 1, duration: duration(1.0), ease: ease('power3.out') }, reduceMotion ? 0 : 0.2);
-
-    if (reduceMotion) {
-      // Disable 3D mouse interactions when motion is reduced
-      return;
-    }
 
     const onMouseMove = (e: MouseEvent) => {
       const rect = wrap.getBoundingClientRect();
@@ -176,21 +161,21 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
         {/* Left: Text */}
         <div>
-          <span id="h-label" className="font-[var(--font-label)] text-[#e0b6ff] tracking-[0.35em] uppercase text-xs mb-6 block font-semibold" style={{ opacity: 0, transform: 'translateY(16px)' }}>
+          <span id="h-label" className="font-[var(--font-label)] text-[#e0b6ff] tracking-[0.35em] uppercase text-xs mb-6 block font-semibold">
             {t('label')}
           </span>
 
-          <h1 id="h-title" className="font-[var(--font-headline)] font-bold text-[#e1e2e7] mb-7" style={{ fontFamily: 'var(--font-headline)', fontSize: 'clamp(2.8rem,5.5vw,4.5rem)', lineHeight: 1.05, letterSpacing: '0.01em', opacity: 0, transform: 'translateY(20px)', contentVisibility: 'auto' }}>
+          <h1 id="h-title" className="font-[var(--font-headline)] font-bold text-[#e1e2e7] mb-7" style={{ fontFamily: 'var(--font-headline)', fontSize: 'clamp(2.8rem,5.5vw,4.5rem)', lineHeight: 1.05, letterSpacing: '0.01em' }}>
             {t('titleLine1')}<br />
             <span className="gradient-text">{t('titleHighlight')}</span><br />
             {t('titleLine3')}
           </h1>
 
-          <p id="h-sub" className="text-lg text-[#c6c6cb] max-w-lg mb-10 leading-relaxed" style={{ fontFamily: 'var(--font-body)', opacity: 0, transform: 'translateY(20px)' }}>
+          <p id="h-sub" className="text-lg text-[#c6c6cb] max-w-lg mb-10 leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
             {t('sub')}
           </p>
 
-          <div id="h-cta" className="flex flex-col sm:flex-row gap-4 mb-10" style={{ opacity: 0, transform: 'translateY(20px)' }}>
+          <div id="h-cta" className="flex flex-col sm:flex-row gap-4 mb-10">
             <a href="#contact" className="btn-primary px-9 py-4 rounded-xl font-bold text-base glow-purple text-center">
               {t('cta1')}
             </a>
@@ -199,7 +184,7 @@ export default function Hero() {
             </a>
           </div>
 
-          <div id="h-stats" style={{ opacity: 0, transform: 'translateY(16px)' }}>
+          <div id="h-stats">
             <p className="text-sm text-[rgba(225,226,231,0.6)] tracking-wide" style={{ fontFamily: 'var(--font-label)' }}>
               {t('trust')}
             </p>
@@ -207,15 +192,28 @@ export default function Hero() {
         </div>
 
         {/* Right: Video */}
-        <div ref={videoWrapRef} id="h-video-wrap" style={{ opacity: 0, transform: 'translateY(24px) scale(0.97)' }}>
+        <div ref={videoWrapRef} id="h-video-wrap">
           <div className="video-frame-wrap">
             <div className="video-badge">
               <div className="dot" />
               Showreel
             </div>
-            <video autoPlay muted playsInline preload="none">
-              <source src="/brand_assets/31b07c0b00407242cdbc56d56d0327fc_1775314448_puougnxu.mp4" type="video/mp4" />
-            </video>
+            {videoActive ? (
+              <video autoPlay muted playsInline preload="auto">
+                <source src="/brand_assets/31b07c0b00407242cdbc56d56d0327fc_1775314448_puougnxu.mp4" type="video/mp4" />
+              </video>
+            ) : (
+              <button
+                onClick={() => setVideoActive(true)}
+                className="video-play-btn"
+                aria-label="Play showreel"
+              >
+                <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+                  <circle cx="26" cy="26" r="26" fill="rgba(255,255,255,0.12)" />
+                  <polygon points="21,17 39,26 21,35" fill="white" />
+                </svg>
+              </button>
+            )}
           </div>
         </div>
       </div>
