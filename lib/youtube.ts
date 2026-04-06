@@ -36,6 +36,18 @@ function timeAgo(dateStr: string): string {
   return `${Math.floor(days / 365)} years ago`;
 }
 
+type YtApiVideoItem = {
+  id: string;
+  snippet: { title: string; channelId: string; channelTitle: string; publishedAt: string };
+  statistics: { viewCount: string };
+  contentDetails: { duration: string };
+};
+
+type YtApiChannelItem = {
+  id: string;
+  snippet: { thumbnails?: { default?: { url: string } } };
+};
+
 export async function fetchYtVideos(): Promise<YtVideo[]> {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) throw new Error('Missing YOUTUBE_API_KEY');
@@ -44,15 +56,13 @@ export async function fetchYtVideos(): Promise<YtVideo[]> {
   const videoRes = await fetch(videoUrl, { next: { revalidate: 3600 } });
   if (!videoRes.ok) throw new Error(`YouTube API error: ${videoRes.status}`);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const videoData: { items: any[] } = await videoRes.json();
+  const videoData: { items: YtApiVideoItem[] } = await videoRes.json();
 
   const channelIds = [...new Set(videoData.items.map((i) => i.snippet.channelId))].join(',');
   const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${channelIds}&key=${key}`;
   const channelRes = await fetch(channelUrl, { next: { revalidate: 3600 } });
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const channelData: { items: any[] } = channelRes.ok ? await channelRes.json() : { items: [] };
+  const channelData: { items: YtApiChannelItem[] } = channelRes.ok ? await channelRes.json() : { items: [] };
   const thumbMap: Record<string, string> = {};
   for (const ch of channelData.items) {
     thumbMap[ch.id] = ch.snippet.thumbnails?.default?.url ?? '';

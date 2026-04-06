@@ -28,7 +28,7 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-label',
-  preload: false,
+  preload: true,
 });
 
 type Props = {

@@ -29,33 +29,29 @@ export default function GsapInit() {
     };
     animRing();
 
-    // Scroll progress bar
+    // Single scroll handler for all scroll-dependent UI
+    const bar     = document.getElementById('progress-bar');
+    const navbar  = document.getElementById('navbar');
+    const hint    = document.getElementById('scroll-hint');
+    let hintGone  = false;
+
     const onScroll = () => {
-      const scrolled = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      const bar = document.getElementById('progress-bar');
-      if (bar) bar.style.width = (scrolled * 100) + '%';
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
+      const y        = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
 
-    // Navbar glass
-    const onNavScroll = () => {
-      document.getElementById('navbar')?.classList.toggle('scrolled', window.scrollY > 80);
-    };
-    window.addEventListener('scroll', onNavScroll, { passive: true });
+      if (bar) bar.style.width = (y / maxScroll * 100) + '%';
+      navbar?.classList.toggle('scrolled', y > 80);
 
-    // Scroll hint fade
-    const onScrollHint = () => {
-      if (window.scrollY > 60) {
-        const hint = document.getElementById('scroll-hint');
+      if (!hintGone && y > 60) {
         if (hint) hint.style.opacity = '0';
+        hintGone = true;
       }
     };
-    window.addEventListener('scroll', onScrollHint, { passive: true, once: true } as EventListenerOptions);
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('scroll', onNavScroll);
       cancelAnimationFrame(rafId);
     };
   }, []);
