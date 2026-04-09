@@ -57,13 +57,20 @@
     "s3Desc": "We edit your long-form content and generate multiple short-form clips from it — giving you consistent output across every platform. Built to maximize every piece of content you create."
   },
   "testimonials": {
+    "label": "What our clients say",
     "title": "Direct Feedback",
-    "t1": "\"AKIN completely redefined our brand's visual identity. The pacing and color work on our latest documentary were simply world-class. Truly professional.\"",
+    "t1Q": "How was the final result?",
+    "t1": "AKIN completely redefined our brand's visual identity. The pacing and color work on our latest documentary were simply world-class. Truly professional.",
     "t1Name": "Jameson Reed",
     "t1Role": "Director, Skybound Media",
-    "t2": "\"As a creator, I need an editor who 'gets it'. The turnaround speed and technical precision AKIN brings to every TikTok and Reel is unmatched.\"",
+    "t2Q": "What did you think of the speed and quality?",
+    "t2": "As a creator, I need an editor who 'gets it'. The turnaround speed and technical precision AKIN brings to every TikTok and Reel is unmatched.",
     "t2Name": "Sarah Chen",
-    "t2Role": "Tech Influencer"
+    "t2Role": "Tech Influencer",
+    "t3Q": "What did working with AKIN bring you?",
+    "t3": "Our YouTube channel grew from 5K to 40K subscribers in 3 months. AKIN thinks along with strategy, not just editing.",
+    "t3Name": "Mark Koster",
+    "t3Role": "Business Coach"
   },
   "contact": {
     "label": "Book a Call",

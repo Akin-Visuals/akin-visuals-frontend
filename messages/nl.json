@@ -57,13 +57,20 @@
     "s3Desc": "Wij bewerken je long-form content én genereren er meerdere short-form clips van — voor consistente output op elk platform. Gebouwd om elk stuk content maximaal te benutten."
   },
   "testimonials": {
+    "label": "Wat onze klanten zeggen",
     "title": "Ervaringen",
-    "t1": "\"AKIN heeft de visuele identiteit van ons merk volledig opnieuw gedefinieerd. Het ritme en kleurwerk op onze laatste documentaire waren ronduit wereldklasse.\"",
+    "t1Q": "Hoe was het eindresultaat?",
+    "t1": "AKIN heeft de visuele identiteit van ons merk volledig opnieuw gedefinieerd. Het ritme en kleurwerk op onze laatste documentaire waren ronduit wereldklasse.",
     "t1Name": "Jameson Reed",
     "t1Role": "Director, Skybound Media",
-    "t2": "\"Als creator heb je een editor nodig die het begrijpt. De snelheid en technische precisie die AKIN levert op elke TikTok en Reel is ongeëvenaard.\"",
+    "t2Q": "Wat vond je van de snelheid en kwaliteit?",
+    "t2": "Als creator heb je een editor nodig die het begrijpt. De snelheid en technische precisie die AKIN levert op elke TikTok en Reel is ongeëvenaard.",
     "t2Name": "Sarah Chen",
-    "t2Role": "Tech Influencer"
+    "t2Role": "Tech Influencer",
+    "t3Q": "Wat heeft samenwerken met AKIN jou opgeleverd?",
+    "t3": "Ons YouTube kanaal groeide van 5K naar 40K subscribers in 3 maanden. AKIN denkt mee over strategie, niet alleen over editen.",
+    "t3Name": "Mark Koster",
+    "t3Role": "Business Coach"
   },
   "contact": {
     "label": "Plan een Gesprek",
