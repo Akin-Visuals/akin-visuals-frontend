@@ -1,20 +1,27 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { loadGsap, getGsap } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
+import { YT_VIDEOS } from '@/lib/data';
+
+const HERO_THUMBS = YT_VIDEOS.slice(0, 3).map(v => ({
+  id: v.id,
+  src: `https://img.youtube.com/vi/${v.id}/maxresdefault.jpg`,
+}));
 
 export default function Hero() {
   const t = useTranslations('hero');
-  const videoWrapRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
-    const wrap = videoWrapRef.current;
+    const grid = gridRef.current;
     const hero = document.getElementById('hero');
-    if (!wrap || !hero) return;
+    if (!grid || !hero) return;
 
     let onMouseMove: ((e: MouseEvent) => void) | null = null;
     let onMouseLeave: (() => void) | null = null;
@@ -24,14 +31,14 @@ export default function Hero() {
       if (!gsap) return;
 
       onMouseMove = (e: MouseEvent) => {
-        const rect = wrap.getBoundingClientRect();
+        const rect = grid.getBoundingClientRect();
         const cx = rect.left + rect.width  / 2;
         const cy = rect.top  + rect.height / 2;
         const dx = (e.clientX - cx) / (rect.width  / 2);
         const dy = (e.clientY - cy) / (rect.height / 2);
-        gsap.to(wrap, { rotateY: dx * 8, rotateX: -dy * 5, duration: 0.6, ease: 'power2.out', transformPerspective: 900, transformOrigin: 'center center' });
+        gsap.to(grid, { rotateY: dx * 8, rotateX: -dy * 5, duration: 0.6, ease: 'power2.out', transformPerspective: 900, transformOrigin: 'center center' });
       };
-      onMouseLeave = () => gsap.to(wrap, { rotateY: 0, rotateX: 0, duration: 0.8, ease: 'power3.out' });
+      onMouseLeave = () => gsap.to(grid, { rotateY: 0, rotateX: 0, duration: 0.8, ease: 'power3.out' });
 
       hero.addEventListener('mousemove', onMouseMove);
       hero.addEventListener('mouseleave', onMouseLeave);
@@ -52,6 +59,7 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
+
         {/* Left: Text */}
         <div>
           <span id="h-label" className="font-[var(--font-label)] text-[#e0b6ff] tracking-[0.35em] uppercase text-xs mb-6 block font-semibold">
@@ -68,32 +76,94 @@ export default function Hero() {
             {t('sub')}
           </p>
 
-          <div id="h-cta" className="flex flex-col sm:flex-row gap-4 mb-10">
-            <a href="#contact" className="btn-primary px-9 py-4 rounded-xl font-bold text-base glow-purple text-center">
+          {/* CTA — pill + social proof */}
+          <div id="h-cta" className="flex flex-col items-start gap-4">
+            <a
+              href="#contact"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'linear-gradient(135deg, #5c6dff, #6d11ad)',
+                color: '#fff',
+                fontSize: '1rem',
+                fontWeight: 700,
+                padding: '0.85rem 2rem',
+                borderRadius: '9px',
+                textDecoration: 'none',
+                letterSpacing: '0.02em',
+                boxShadow: '0 0 32px rgba(109,17,173,0.45)',
+                transition: 'filter 0.2s',
+              }}
+            >
               {t('cta1')}
             </a>
-            <a href="#work" className="btn-ghost px-9 py-4 rounded-xl font-bold text-base text-center">
-              {t('cta2')}
-            </a>
-          </div>
-
-          <div id="h-stats">
-            <p className="text-sm text-[rgba(225,226,231,0.6)] tracking-wide" style={{ fontFamily: 'var(--font-label)' }}>
-              {t('trust')}
-            </p>
+            <div className="flex items-center gap-3">
+              {/* Avatars */}
+              <div className="flex">
+                {[
+                  { initials: 'JR', style: { background: 'linear-gradient(135deg,#000447,#6d11ad)' } },
+                  { initials: 'SC', style: { background: 'linear-gradient(135deg,#6d11ad,#3d00b5)' } },
+                  { initials: 'MK', style: { background: 'linear-gradient(135deg,#5c6dff,#6d11ad)' } },
+                ].map((av, i) => (
+                  <div
+                    key={i}
+                    className="w-7 h-7 rounded-full border-2 border-[#0d0520] flex items-center justify-center text-white font-bold text-[9px] flex-shrink-0"
+                    style={{ ...av.style, marginLeft: i === 0 ? 0 : '-8px' }}
+                  >
+                    {av.initials}
+                  </div>
+                ))}
+              </div>
+              {/* Text */}
+              <div>
+                <div className="text-[#e0b6ff] text-[11px] leading-none mb-0.5">★★★★★</div>
+                <div className="text-[rgba(225,226,231,0.35)] text-[11px]" style={{ fontFamily: 'var(--font-label)' }}>
+                  {t('trust')}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Right: Video */}
-        <div ref={videoWrapRef} id="h-video-wrap">
-          <div className="video-frame-wrap">
-            <div className="video-badge">
-              <div className="dot" />
-              Showreel
-            </div>
-            <video autoPlay muted playsInline preload="none">
-              <source src="/brand_assets/31b07c0b00407242cdbc56d56d0327fc_1775314448_puougnxu.mp4" type="video/mp4" />
-            </video>
+        {/* Right: Thumbnail grid */}
+        <div ref={gridRef} id="h-video-wrap">
+          <div
+            className="grid gap-2.5 rounded-2xl overflow-hidden"
+            style={{
+              gridTemplateColumns: '1fr 1fr',
+              gridTemplateRows: '1fr 1fr',
+              height: '520px',
+            }}
+          >
+            {HERO_THUMBS.map((thumb, i) => (
+              <div
+                key={thumb.id}
+                className="relative rounded-xl overflow-hidden bg-[#0d1535]"
+                style={i === 0 ? { gridRow: 'span 2' } : {}}
+              >
+                <Image
+                  src={thumb.src}
+                  alt={`AKIN Visuals project ${i + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover"
+                  priority={i === 0}
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent z-10" />
+                {/* Play icon */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white/30 flex items-center justify-center z-20" style={{ background: 'rgba(0,0,0,0.2)', backdropFilter: 'blur(4px)' }}>
+                  <svg width="9" height="11" viewBox="0 0 9 11" fill="white" opacity="0.75">
+                    <polygon points="0,0 9,5.5 0,11" />
+                  </svg>
+                </div>
+                {/* Label */}
+                <span className="absolute bottom-2 left-2.5 z-20 text-[9px] font-bold tracking-[0.15em] uppercase text-white/50" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  {i === 0 ? 'YouTube' : i === 1 ? 'Reel' : 'TikTok'}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
