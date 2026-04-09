@@ -93,7 +93,7 @@ export default function About() {
       if (onMove) wrap.removeEventListener('mousemove', onMove);
       obs.disconnect();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, []);
 
   return (

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { loadGsap, getGsap, getScrollTrigger } from '@/lib/gsap-cdn';
-import { prefersReducedMotion, getAnimationDuration, getAnimationEase } from '@/lib/animations';
+import { prefersReducedMotion } from '@/lib/animations';
 
 export default function FadeUpInit() {
   useEffect(() => {
@@ -20,13 +20,18 @@ export default function FadeUpInit() {
       if (!gsap || !ScrollTrigger) return;
 
       gsap.utils.toArray('.fade-up').forEach((el: unknown) => {
-        gsap.to(el as Element, {
-          opacity: 1,
-          y: 0,
-          duration: 0.85,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: el as Element, start: 'top 88%', once: true },
-        });
+        gsap.fromTo(
+          el as Element,
+          { opacity: 0, y: 32, force3D: true },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            force3D: true,
+            scrollTrigger: { trigger: el as Element, start: 'top 88%', once: true },
+          }
+        );
       });
     });
   }, []);

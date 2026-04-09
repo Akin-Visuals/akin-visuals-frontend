@@ -56,6 +56,23 @@
     "s3Title": "Content System",
     "s3Desc": "We edit your long-form content and generate multiple short-form clips from it — giving you consistent output across every platform. Built to maximize every piece of content you create."
   },
+  "caseStudies": {
+    "label": "Proven Results",
+    "title": "Case Studies",
+    "sub": "Real numbers from real clients — here's what happens when strategy meets editing.",
+    "c1Client": "Business Coach",
+    "c1Niche": "YouTube · Personal Brand",
+    "c2Client": "Fitness Creator",
+    "c2Niche": "Instagram · Short-Form",
+    "c3Client": "Mindset Coach",
+    "c3Niche": "YouTube · Long-Form",
+    "views": "Views / video",
+    "subs": "Subscribers",
+    "watchTime": "Avg watch time",
+    "followers": "Followers",
+    "shares": "Shares / reel",
+    "ctr": "Click-through rate"
+  },
   "testimonials": {
     "label": "What our clients say",
     "title": "Direct Feedback",

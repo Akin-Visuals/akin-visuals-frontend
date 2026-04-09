@@ -56,6 +56,23 @@
     "s3Title": "Content Systeem",
     "s3Desc": "Wij bewerken je long-form content én genereren er meerdere short-form clips van — voor consistente output op elk platform. Gebouwd om elk stuk content maximaal te benutten."
   },
+  "caseStudies": {
+    "label": "Bewezen Resultaten",
+    "title": "Case Studies",
+    "sub": "Echte cijfers van echte klanten — dit is wat er gebeurt als strategie en editing samenkomen.",
+    "c1Client": "Business Coach",
+    "c1Niche": "YouTube · Personal Brand",
+    "c2Client": "Fitness Creator",
+    "c2Niche": "Instagram · Short-Form",
+    "c3Client": "Mindset Coach",
+    "c3Niche": "YouTube · Long-Form",
+    "views": "Views / video",
+    "subs": "Abonnees",
+    "watchTime": "Gem. kijktijd",
+    "followers": "Volgers",
+    "shares": "Shares / reel",
+    "ctr": "Click-through rate"
+  },
   "testimonials": {
     "label": "Wat onze klanten zeggen",
     "title": "Ervaringen",

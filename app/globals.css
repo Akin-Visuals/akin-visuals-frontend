@@ -349,7 +349,8 @@ body {
 /* ── Section entrance animation ── */
 .fade-up {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translate3d(0, 32px, 0);
+  will-change: transform, opacity;
 }
 
 /* ── Portfolio items ── */
