@@ -349,8 +349,37 @@ body {
 /* ── Section entrance animation ── */
 .fade-up {
   opacity: 0;
-  transform: translate3d(0, 32px, 0);
+  transform: translate3d(0, 28px, 0);
   will-change: transform, opacity;
+}
+.fade-up.is-visible {
+  animation: fadeUpIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes fadeUpIn {
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* ── Testimonials marquee ── */
+.testimonial-marquee-wrap {
+  overflow: hidden;
+  width: 100%;
+}
+.testimonial-marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: marqueeScroll 32s linear infinite;
+  padding: 0.5rem 0;
+}
+.testimonial-marquee-wrap:hover .testimonial-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-marquee-track { animation: none; }
 }
 
 /* ── Portfolio items ── */

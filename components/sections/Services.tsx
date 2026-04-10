@@ -1,67 +1,278 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
+
+// Timeline track art — represents long-form video editing
+function TimelineArt() {
+  return (
+    <div className="w-full h-full flex flex-col justify-center gap-2 px-2" aria-hidden="true">
+      {[
+        { w: '85%', color: 'rgba(92,109,255,0.5)',  delay: 0 },
+        { w: '60%', color: 'rgba(189,194,255,0.25)', delay: 0.05 },
+        { w: '92%', color: 'rgba(109,17,173,0.45)', delay: 0.1 },
+        { w: '45%', color: 'rgba(92,109,255,0.3)',  delay: 0.15 },
+        { w: '75%', color: 'rgba(189,194,255,0.2)', delay: 0.2 },
+      ].map((t, i) => (
+        <div key={i} className="flex items-center gap-2">
+          <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: t.color }} />
+          <div
+            className="h-1.5 rounded-full"
+            style={{ width: t.w, background: t.color, opacity: 0.9 }}
+          />
+        </div>
+      ))}
+      {/* Playhead */}
+      <div
+        className="absolute top-0 bottom-0 w-px"
+        style={{ left: '38%', background: 'rgba(224,182,255,0.4)' }}
+      />
+    </div>
+  );
+}
+
+// Vertical phone shapes — represents short-form / reels
+function ReelsArt() {
+  const phones = [
+    { x: '8%',  scale: 0.85, opacity: 0.25, rotate: '-8deg' },
+    { x: '28%', scale: 0.92, opacity: 0.4,  rotate: '-3deg' },
+    { x: '50%', scale: 1,    opacity: 0.7,  rotate: '0deg'  },
+  ];
+  return (
+    <div className="w-full h-full relative" aria-hidden="true">
+      {phones.map((p, i) => (
+        <div
+          key={i}
+          className="absolute top-1/2"
+          style={{
+            left: p.x,
+            transform: `translateY(-50%) rotate(${p.rotate}) scale(${p.scale})`,
+            opacity: p.opacity,
+          }}
+        >
+          <div
+            className="rounded-xl"
+            style={{
+              width: '36px',
+              height: '64px',
+              border: '2px solid rgba(189,194,255,0.6)',
+              background: i === 2 ? 'rgba(92,109,255,0.12)' : 'transparent',
+              position: 'relative',
+            }}
+          >
+            <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full" style={{ background: 'rgba(189,194,255,0.4)' }} />
+            {i === 2 && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div style={{ width: 0, height: 0, borderTop: '6px solid transparent', borderBottom: '6px solid transparent', borderLeft: '10px solid rgba(224,182,255,0.6)' }} />
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Flow diagram — long + short merging into one output
+function SystemArt() {
+  return (
+    <svg width="100%" height="100%" viewBox="0 0 160 80" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      {/* Source nodes */}
+      <rect x="4"  y="12" width="44" height="14" rx="4" fill="rgba(92,109,255,0.2)"  stroke="rgba(92,109,255,0.5)"  strokeWidth="1" />
+      <rect x="4"  y="54" width="44" height="14" rx="4" fill="rgba(109,17,173,0.2)" stroke="rgba(109,17,173,0.5)" strokeWidth="1" />
+      {/* Connecting lines */}
+      <path d="M48 19 Q90 19 90 40" stroke="rgba(189,194,255,0.3)" strokeWidth="1.5" fill="none" strokeDasharray="4 3" />
+      <path d="M48 61 Q90 61 90 40" stroke="rgba(189,194,255,0.3)" strokeWidth="1.5" fill="none" strokeDasharray="4 3" />
+      {/* Center merge node */}
+      <circle cx="90" cy="40" r="7" fill="rgba(92,109,255,0.15)" stroke="rgba(189,194,255,0.6)" strokeWidth="1.5" />
+      <circle cx="90" cy="40" r="3" fill="rgba(224,182,255,0.7)" />
+      {/* Output line */}
+      <path d="M97 40 L125 40" stroke="rgba(189,194,255,0.4)" strokeWidth="1.5" />
+      {/* Output node */}
+      <rect x="125" y="30" width="32" height="20" rx="4" fill="rgba(224,182,255,0.12)" stroke="rgba(224,182,255,0.5)" strokeWidth="1.5" />
+      {/* Labels */}
+      <text x="26" y="22" textAnchor="middle" fontSize="5" fill="rgba(189,194,255,0.7)" fontFamily="monospace">LONG</text>
+      <text x="26" y="64" textAnchor="middle" fontSize="5" fill="rgba(189,194,255,0.7)" fontFamily="monospace">SHORT</text>
+      <text x="141" y="43" textAnchor="middle" fontSize="5" fill="rgba(224,182,255,0.8)" fontFamily="monospace">OUTPUT</text>
+    </svg>
+  );
+}
+
+const SERVICES = [
+  {
+    num: '01',
+    key: 's1',
+    Art: TimelineArt,
+    accent: '#5c6dff',
+    accentBg: 'rgba(92,109,255,0.06)',
+  },
+  {
+    num: '02',
+    key: 's3',
+    Art: SystemArt,
+    accent: '#e0b6ff',
+    accentBg: 'rgba(109,17,173,0.08)',
+    featured: true,
+  },
+  {
+    num: '03',
+    key: 's2',
+    Art: ReelsArt,
+    accent: '#bdc2ff',
+    accentBg: 'rgba(92,109,255,0.04)',
+  },
+];
 
 export default function Services() {
   const t = useTranslations('services');
 
   return (
     <section id="services" className="py-28 px-8 relative overflow-hidden section-snap section-muted">
-
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center mb-16 fade-up">
-          <span className="text-[#e0b6ff] tracking-[0.35em] uppercase text-xs mb-4 block font-semibold" style={{ fontFamily: 'var(--font-label)' }}>
+
+        {/* Header */}
+        <div className="mb-16 fade-up">
+          <span
+            className="text-[#e0b6ff] tracking-[0.35em] uppercase text-xs mb-4 block font-semibold"
+            style={{ fontFamily: 'var(--font-label)' }}
+          >
             {t('label')}
           </span>
-          <h2 className="font-bold text-5xl text-[#e1e2e7] mb-4" style={{ fontFamily: 'var(--font-headline)' }}>
-            {t('title')}
-          </h2>
-          <p className="text-[#c6c6cb] max-w-xl mx-auto">{t('sub')}</p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <h2
+              className="font-bold text-5xl text-[#e1e2e7]"
+              style={{ fontFamily: 'var(--font-headline)' }}
+            >
+              {t('title')}
+            </h2>
+            <p
+              className="text-[rgba(225,226,231,0.35)] text-sm max-w-xs md:text-right leading-relaxed"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              {t('sub')}
+            </p>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+        {/* Service panels */}
+        <div className="flex flex-col gap-4">
+          {SERVICES.map((s, i) => (
+            <div
+              key={s.num}
+              className="fade-up group relative rounded-2xl overflow-hidden"
+              style={{
+                animationDelay: `${i * 0.1}s`,
+                background: s.accentBg,
+                border: s.featured
+                  ? '1px solid rgba(224,182,255,0.18)'
+                  : '1px solid rgba(255,255,255,0.06)',
+                boxShadow: s.featured
+                  ? '0 0 60px rgba(109,17,173,0.12), inset 0 0 40px rgba(109,17,173,0.04)'
+                  : 'none',
+              }}
+            >
+              {/* Featured top accent */}
+              {s.featured && (
+                <div
+                  className="absolute top-0 left-0 right-0 h-px"
+                  style={{ background: 'linear-gradient(90deg, transparent, rgba(224,182,255,0.5), transparent)' }}
+                />
+              )}
 
-          {/* Long-Form */}
-          <div className="glass-card p-6 sm:p-10 relative fade-up flex flex-col">
-            <div className="mb-6">
-              <span className="material-symbols-outlined text-[#bdc2ff] mb-4 block" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}>movie</span>
-              <h4 className="font-bold text-lg sm:text-xl text-[#e1e2e7]" style={{ fontFamily: 'var(--font-headline)' }}>{t('s1Title')}</h4>
-            </div>
-            <p className="text-[#c6c6cb] text-sm leading-relaxed flex-1" style={{ fontFamily: 'var(--font-body)' }}>{t('s1Desc')}</p>
-          </div>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_140px_1fr] gap-0 items-stretch">
 
-          {/* Content System (featured) */}
-          <div className="glass-card plan-active p-6 sm:p-10 relative fade-up flex flex-col" style={{ transitionDelay: '0.1s' }}>
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#e0b6ff] text-[#4c007d] px-3 sm:px-5 py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-widest whitespace-nowrap" style={{ fontFamily: 'var(--font-label)' }}>
-              {t('recommended')}
-            </div>
-            <div className="mb-6">
-              <span className="material-symbols-outlined text-[#e0b6ff] mb-4 block" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}>hub</span>
-              <h4 className="font-bold text-xl sm:text-2xl text-[#e1e2e7]" style={{ fontFamily: 'var(--font-headline)' }}>{t('s3Title')}</h4>
-            </div>
-            <p className="text-[#e1e2e7] text-sm leading-relaxed flex-1" style={{ fontFamily: 'var(--font-body)' }}>{t('s3Desc')}</p>
-          </div>
+                {/* Left: number + title + desc */}
+                <div className="p-8 md:p-10 flex flex-col justify-between gap-6">
+                  <div className="flex items-start gap-5">
+                    <span
+                      className="font-bold leading-none select-none flex-shrink-0"
+                      style={{
+                        fontFamily: 'var(--font-headline)',
+                        fontSize: 'clamp(3rem, 6vw, 5rem)',
+                        color: s.featured ? 'rgba(224,182,255,0.18)' : 'rgba(255,255,255,0.05)',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {s.num}
+                    </span>
+                    <div className="pt-1.5">
+                      {s.featured && (
+                        <span
+                          className="text-[9px] font-bold tracking-[0.25em] uppercase mb-2 block"
+                          style={{ color: '#e0b6ff', fontFamily: 'var(--font-label)' }}
+                        >
+                          {t('recommended')}
+                        </span>
+                      )}
+                      <h3
+                        className="font-bold leading-tight"
+                        style={{
+                          fontFamily: 'var(--font-headline)',
+                          fontSize: 'clamp(1.4rem, 3vw, 2rem)',
+                          color: '#e1e2e7',
+                        }}
+                      >
+                        {t(`${s.key}Title`)}
+                      </h3>
+                    </div>
+                  </div>
 
-          {/* Short-Form */}
-          <div className="glass-card p-6 sm:p-10 relative fade-up flex flex-col" style={{ transitionDelay: '0.2s' }}>
-            <div className="mb-6">
-              <span className="material-symbols-outlined text-[#bdc2ff] mb-4 block" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}>smartphone</span>
-              <h4 className="font-bold text-lg sm:text-xl text-[#e1e2e7]" style={{ fontFamily: 'var(--font-headline)' }}>{t('s2Title')}</h4>
-            </div>
-            <p className="text-[#c6c6cb] text-sm leading-relaxed flex-1" style={{ fontFamily: 'var(--font-body)' }}>{t('s2Desc')}</p>
-          </div>
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      color: s.featured ? 'rgba(225,226,231,0.6)' : 'rgba(225,226,231,0.35)',
+                      maxWidth: '380px',
+                    }}
+                  >
+                    {t(`${s.key}Desc`)}
+                  </p>
+                </div>
 
+                {/* Center: decorative art */}
+                <div
+                  className="hidden md:block relative"
+                  style={{
+                    borderLeft: '1px solid rgba(255,255,255,0.05)',
+                    borderRight: '1px solid rgba(255,255,255,0.05)',
+                    minHeight: '160px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <s.Art />
+                </div>
+
+                {/* Right: CTA area */}
+                <div className="p-8 md:p-10 flex flex-col justify-end items-end gap-4">
+                  <a
+                    href="#contact"
+                    className="group/btn flex items-center gap-2 font-bold text-sm transition-all duration-200"
+                    style={{
+                      color: s.featured ? '#e0b6ff' : 'rgba(189,194,255,0.5)',
+                      textDecoration: 'none',
+                      fontFamily: 'var(--font-label)',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    {t('cta')}
+                    <span
+                      className="material-symbols-outlined transition-transform duration-200 group-hover/btn:translate-x-1"
+                      style={{ fontSize: '1rem' }}
+                    >
+                      arrow_forward
+                    </span>
+                  </a>
+                  <p
+                    className="text-[10px] text-right"
+                    style={{ fontFamily: 'var(--font-label)', color: 'rgba(225,226,231,0.2)', maxWidth: '160px' }}
+                  >
+                    {t('ctaSub')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="text-center mt-14 fade-up flex flex-col items-center gap-4">
-          <p className="text-[#e1e2e7] font-semibold text-lg" style={{ fontFamily: 'var(--font-headline)' }}>
-            {t('ctaPre')}
-          </p>
-          <a href="#contact" className="btn-primary px-10 py-4 rounded-xl font-bold text-base glow-purple inline-block">
-            {t('cta')}
-          </a>
-          <p className="text-[#8f9095] text-xs tracking-wide" style={{ fontFamily: 'var(--font-label)' }}>
-            {t('ctaSub')}
-          </p>
-        </div>
       </div>
     </section>
   );

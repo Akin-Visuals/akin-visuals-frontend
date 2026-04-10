@@ -1,39 +1,33 @@
 'use client';
 
 import { useEffect } from 'react';
-import { loadGsap, getGsap, getScrollTrigger } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
 
 export default function FadeUpInit() {
   useEffect(() => {
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.fade-up'));
+
     if (prefersReducedMotion()) {
-      document.querySelectorAll('.fade-up').forEach((el) => {
-        (el as HTMLElement).style.opacity = '1';
-        (el as HTMLElement).style.transform = 'none';
-      });
+      els.forEach(el => el.classList.add('is-visible'));
       return;
     }
 
-    loadGsap().then(() => {
-      const gsap = getGsap();
-      const ScrollTrigger = getScrollTrigger();
-      if (!gsap || !ScrollTrigger) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const delay = el.style.transitionDelay || '0s';
+          el.style.animationDelay = delay;
+          el.classList.add('is-visible');
+          observer.unobserve(el);
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
 
-      gsap.utils.toArray('.fade-up').forEach((el: unknown) => {
-        gsap.fromTo(
-          el as Element,
-          { opacity: 0, y: 32, force3D: true },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power3.out',
-            force3D: true,
-            scrollTrigger: { trigger: el as Element, start: 'top 88%', once: true },
-          }
-        );
-      });
-    });
+    els.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   return null;

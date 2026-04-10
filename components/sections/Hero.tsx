@@ -1,21 +1,34 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { loadGsap, getGsap } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
-import { YT_VIDEOS } from '@/lib/data';
 
-const HERO_THUMBS = YT_VIDEOS.slice(0, 3).map(v => ({
-  id: v.id,
-  src: `https://img.youtube.com/vi/${v.id}/maxresdefault.jpg`,
-}));
+const VIDEO_SRC = '/brand_assets/highlights-reel.mp4';
+
+// Each panel shows a different segment of the same video
+const PANELS = [
+  { startTime: 0,  label: 'YouTube' },
+  { startTime: 13, label: 'Reel'    },
+  { startTime: 26, label: 'TikTok'  },
+];
 
 export default function Hero() {
   const t = useTranslations('hero');
-  const gridRef = useRef<HTMLDivElement>(null);
+  const gridRef  = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
+  // Set start times after mount
+  useEffect(() => {
+    videoRefs.current.forEach((vid, i) => {
+      if (!vid) return;
+      vid.currentTime = PANELS[i].startTime;
+      vid.play().catch(() => {/* autoplay blocked — muted so this shouldn't happen */});
+    });
+  }, []);
+
+  // GSAP tilt on mouse move
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
@@ -76,7 +89,7 @@ export default function Hero() {
             {t('sub')}
           </p>
 
-          {/* CTA — pill + social proof */}
+          {/* CTA */}
           <div id="h-cta" className="flex flex-col items-start gap-4">
             <a
               href="#contact"
@@ -99,7 +112,6 @@ export default function Hero() {
               {t('cta1')}
             </a>
             <div className="flex items-center gap-3">
-              {/* Avatars */}
               <div className="flex">
                 {[
                   { initials: 'JR', style: { background: 'linear-gradient(135deg,#000447,#6d11ad)' } },
@@ -115,7 +127,6 @@ export default function Hero() {
                   </div>
                 ))}
               </div>
-              {/* Text */}
               <div>
                 <div className="text-[#e0b6ff] text-[11px] leading-none mb-0.5">★★★★★</div>
                 <div className="text-[rgba(225,226,231,0.35)] text-[11px]" style={{ fontFamily: 'var(--font-label)' }}>
@@ -126,7 +137,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: Thumbnail grid */}
+        {/* Right: Video grid */}
         <div ref={gridRef} id="h-video-wrap">
           <div
             className="grid gap-2.5 rounded-2xl overflow-hidden"
@@ -136,32 +147,23 @@ export default function Hero() {
               height: '520px',
             }}
           >
-            {HERO_THUMBS.map((thumb, i) => (
+            {PANELS.map((panel, i) => (
               <div
-                key={thumb.id}
+                key={i}
                 className="relative rounded-xl overflow-hidden bg-[#0d1535]"
                 style={i === 0 ? { gridRow: 'span 2' } : {}}
               >
-                <Image
-                  src={thumb.src}
-                  alt={`AKIN Visuals project ${i + 1}`}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover"
-                  priority={i === 0}
+                <video
+                  ref={el => { videoRefs.current[i] = el; }}
+                  src={VIDEO_SRC}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent z-10" />
-                {/* Play icon */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white/30 flex items-center justify-center z-20" style={{ background: 'rgba(0,0,0,0.2)', backdropFilter: 'blur(4px)' }}>
-                  <svg width="9" height="11" viewBox="0 0 9 11" fill="white" opacity="0.75">
-                    <polygon points="0,0 9,5.5 0,11" />
-                  </svg>
-                </div>
-                {/* Label */}
-                <span className="absolute bottom-2 left-2.5 z-20 text-[9px] font-bold tracking-[0.15em] uppercase text-white/50" style={{ fontFamily: 'Inter, sans-serif' }}>
-                  {i === 0 ? 'YouTube' : i === 1 ? 'Reel' : 'TikTok'}
-                </span>
               </div>
             ))}
           </div>

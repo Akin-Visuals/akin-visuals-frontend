@@ -30,13 +30,25 @@ export default function Testimonials() {
     },
   ];
 
+  // Duplicate for seamless loop
+  const items = [...conversations, ...conversations];
+
   return (
-    <section id="testimonials" className="py-28 px-8 section-snap relative overflow-hidden">
+    <section id="testimonials" className="py-28 section-snap relative overflow-hidden">
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      {/* Fade edges */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-10"
+        style={{ width: '120px', background: 'linear-gradient(to right, #0d1117, transparent)' }}
+      />
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 z-10"
+        style={{ width: '120px', background: 'linear-gradient(to left, #0d1117, transparent)' }}
+      />
 
-        {/* Header — zelfde stijl als Portfolio */}
-        <div className="text-center mb-12 fade-up">
+      <div className="max-w-7xl mx-auto px-8 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-14 fade-up">
           <span
             className="text-[#bdc2ff] tracking-[0.35em] uppercase text-xs mb-4 block font-semibold"
             style={{ fontFamily: 'var(--font-label)' }}
@@ -50,20 +62,22 @@ export default function Testimonials() {
             {t('title')}
           </h2>
         </div>
+      </div>
 
-        {/* Chat grid — 3 kolommen */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {conversations.map((convo, i) => (
+      {/* Marquee track */}
+      <div className="testimonial-marquee-wrap">
+        <div className="testimonial-marquee-track">
+          {items.map((convo, i) => (
             <div
               key={i}
-              className="fade-up rounded-2xl overflow-hidden"
+              className="testimonial-card rounded-2xl overflow-hidden flex-shrink-0"
               style={{
+                width: '340px',
                 background: 'rgba(255,255,255,0.025)',
                 border: '1px solid rgba(255,255,255,0.07)',
-                transitionDelay: `${i * 0.1}s`,
               }}
             >
-              {/* Chat header bar */}
+              {/* Card header */}
               <div
                 className="flex items-center gap-3 px-5 py-4"
                 style={{ borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}
@@ -77,8 +91,8 @@ export default function Testimonials() {
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-[#e1e2e7] leading-tight truncate">{convo.name}</p>
                   <p
-                    className="text-[10px] text-[rgba(189,194,255,0.5)] uppercase tracking-widest leading-tight mt-0.5 truncate"
-                    style={{ fontFamily: 'var(--font-label)' }}
+                    className="text-[10px] uppercase tracking-widest leading-tight mt-0.5 truncate"
+                    style={{ fontFamily: 'var(--font-label)', color: 'rgba(189,194,255,0.5)' }}
                   >
                     {convo.role}
                   </p>
@@ -88,7 +102,7 @@ export default function Testimonials() {
 
               {/* Messages */}
               <div className="p-5 flex flex-col gap-3">
-                {/* AKIN vraag — rechts */}
+                {/* AKIN question — right */}
                 <div className="flex flex-col items-end gap-1">
                   <div
                     className="max-w-[85%] px-4 py-3 rounded-2xl rounded-br-sm text-sm text-white leading-relaxed"
@@ -97,14 +111,14 @@ export default function Testimonials() {
                     {convo.question}
                   </div>
                   <span
-                    className="text-[10px] text-[rgba(225,226,231,0.2)] pr-1"
-                    style={{ fontFamily: 'var(--font-label)' }}
+                    className="text-[10px] pr-1"
+                    style={{ fontFamily: 'var(--font-label)', color: 'rgba(225,226,231,0.2)' }}
                   >
                     AKIN Visuals
                   </span>
                 </div>
 
-                {/* Klant antwoord — links */}
+                {/* Client answer — left */}
                 <div className="flex flex-col items-start gap-1">
                   <div
                     className="max-w-[85%] px-4 py-3 rounded-2xl rounded-bl-sm text-sm leading-relaxed"
@@ -113,8 +127,8 @@ export default function Testimonials() {
                     {convo.answer}
                   </div>
                   <span
-                    className="text-[10px] text-[rgba(225,226,231,0.2)] pl-1"
-                    style={{ fontFamily: 'var(--font-label)' }}
+                    className="text-[10px] pl-1"
+                    style={{ fontFamily: 'var(--font-label)', color: 'rgba(225,226,231,0.2)' }}
                   >
                     {convo.name}
                   </span>

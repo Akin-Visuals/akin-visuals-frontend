@@ -66,12 +66,18 @@
     "c2Niche": "Instagram · Short-Form",
     "c3Client": "Mindset Coach",
     "c3Niche": "YouTube · Long-Form",
-    "views": "Views / video",
+    "views": "Views",
     "subs": "Subscribers",
     "watchTime": "Avg watch time",
     "followers": "Followers",
-    "shares": "Shares / reel",
-    "ctr": "Click-through rate"
+    "shares": "Shares",
+    "ctr": "Click-through rate",
+    "colClient": "Client · Metric",
+    "colPlatform": "Platform",
+    "colBefore": "Before",
+    "colAfter": "After",
+    "colGrowth": "Growth",
+    "clickHint": "Click a row to see the full case study"
   },
   "testimonials": {
     "label": "What our clients say",
