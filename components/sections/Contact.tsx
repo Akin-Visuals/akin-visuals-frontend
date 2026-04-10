@@ -35,8 +35,8 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-28 px-8 fade-up section-snap">
-      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '140px', background: 'linear-gradient(to bottom, #0e1220, #0d1117)' }} />
-      <div className="max-w-5xl mx-auto">
+      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '220px', background: 'linear-gradient(to bottom, #0e1220, #0d1117)' }} />
+      <div className="max-w-5xl mx-auto relative z-10">
 
         <div className="text-center mb-14">
           <span className="text-[#e0b6ff] tracking-[0.35em] uppercase text-xs mb-4 block font-semibold" style={{ fontFamily: 'var(--font-label)' }}>

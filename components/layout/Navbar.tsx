@@ -40,21 +40,20 @@ export default function Navbar() {
 
   return (
     <header id="navbar">
-      <div id="navbar-inner" className="mx-4 lg:mx-8">
+      <div id="navbar-inner">
         <a href="#" className="select-none flex-shrink-0">
-          <Image src="/brand_assets/logowit.png" alt="AKIN" width={80} height={28} className="h-7 w-auto object-contain" priority />
+          <Image src="/brand_assets/logowit.png" alt="AKIN" width={110} height={38} className="h-10 w-auto object-contain" priority />
         </a>
 
-        <div className="nav-divider" />
-
-        <nav className="hidden md:flex items-center gap-7 flex-1 justify-center">
-          <a href="#about"        className="nav-link">{t('about')}</a>
-          <a href="#work"         className="nav-link">{t('portfolio')}</a>
-          <a href="#testimonials" className="nav-link">{t('testimonials')}</a>
+        <nav className="hidden md:flex items-center gap-8 justify-center">
           <a href="#services"     className="nav-link">{t('services')}</a>
+          <a href="#work"         className="nav-link">{t('portfolio')}</a>
+          <a href="#case-studies" className="nav-link">{t('caseStudies')}</a>
+          <a href="#testimonials" className="nav-link">{t('testimonials')}</a>
+          <a href="#about"        className="nav-link">{t('about')}</a>
         </nav>
 
-        <div className="flex items-center gap-3 flex-shrink-0">
+        <div className="flex items-center gap-3 justify-end">
           <div className="lang-switcher">
             <button
               onClick={() => switchLocale('en')}

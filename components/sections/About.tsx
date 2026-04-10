@@ -98,7 +98,7 @@ export default function About() {
 
   return (
     <section id="about" className="section-snap section-muted relative px-8 min-h-screen flex items-center">
-      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '140px', background: 'linear-gradient(to bottom, #0d1117, #0e1220)' }} />
+      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '220px', background: 'linear-gradient(to bottom, #0d1117, #0e1220)' }} />
 
       <div className="max-w-7xl mx-auto w-full relative z-10 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">

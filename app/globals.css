@@ -228,64 +228,102 @@ body {
 }
 
 /* ── Navbar ── */
+/* ── Navbar — Option B: full-width with gradient accent line ── */
 #navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 1rem 0;
-  transition: padding 0.4s cubic-bezier(.25,.46,.45,.94);
+  background: rgba(13,17,23,0);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
-#navbar-inner {
-  max-width: 80rem;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  background: rgba(13,17,23,0.55);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 9999px;
-  padding: 0.55rem 0.55rem 0.55rem 1.4rem;
-  transition: background 0.3s, box-shadow 0.3s;
+
+/* Gradient accent line at bottom */
+#navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(92,109,255,0.45) 30%, rgba(109,17,173,0.45) 65%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
-#navbar.scrolled #navbar-inner {
-  background: rgba(13,17,23,0.82);
-  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
-}
+
 #navbar.scrolled {
-  padding: 0.6rem 0;
+  background: rgba(13,17,23,0.92);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+}
+
+#navbar.scrolled::after { opacity: 1; }
+
+#navbar-inner {
+  max-width: 88rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.1rem 2.5rem;
+  background: none;
+  border: none;
+  border-radius: 0;
+  backdrop-filter: none;
+  transition: padding 0.4s ease;
+}
+
+#navbar.scrolled #navbar-inner {
+  padding: 0.75rem 2.5rem;
+  background: none;
+  box-shadow: none;
 }
 
 /* Nav links */
 .nav-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: rgba(225,226,231,0.55);
-  text-decoration: none;
-  transition: color 0.2s;
-  white-space: nowrap;
-}
-.nav-link:hover { color: #e1e2e7; }
-
-/* CTA pill */
-.nav-cta {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(225,226,231,0.45);
+  text-decoration: none;
   white-space: nowrap;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.2s;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #5c6dff, #e0b6ff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
+}
+
+.nav-link:hover { color: #e1e2e7; }
+.nav-link:hover::after { transform: scaleX(1); }
+
+/* CTA — consistent with site */
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: linear-gradient(135deg, #5c6dff, #6d11ad);
   color: #fff;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
   border: none;
-  border-radius: 9999px;
-  padding: 0.55rem 1.2rem;
+  border-radius: 9px;
+  padding: 0.6rem 1.3rem;
   cursor: pointer;
   transition: filter 0.2s, transform 0.1s;
   text-decoration: none;
+  box-shadow: 0 0 24px rgba(109,17,173,0.35);
 }
 .nav-cta:hover  { filter: brightness(1.15); }
 .nav-cta:active { transform: scale(0.96); }
@@ -295,8 +333,8 @@ body {
   display: flex;
   align-items: center;
   gap: 2px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -306,15 +344,16 @@ body {
   gap: 5px;
   padding: 6px 10px;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   transition: background 0.2s, color 0.2s;
   border: none;
+  background: none;
 }
-.lang-btn.is-active   { background: rgba(92,109,255,0.25); color: #fff; }
-.lang-btn.is-inactive { background: transparent; color: rgba(255,255,255,0.45); }
+.lang-btn.is-active   { background: rgba(92,109,255,0.2); color: #bdc2ff; }
+.lang-btn.is-inactive { background: transparent; color: rgba(255,255,255,0.35); }
 .lang-flag   { font-size: 1rem; line-height: 1; }
 .lang-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
 
@@ -901,7 +940,7 @@ body:has(button:hover) #cursor-ring {
 }
 
 /* ── Sections ── */
-.section-dark      { background: rgba(12,14,18,0.5); }
+.section-dark  { background: #0d1117; }
 .section-muted { background: #0e1220; }
 
 /* ── Hero CTA pill + social proof ── */

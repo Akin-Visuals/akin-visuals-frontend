@@ -35,7 +35,7 @@ export default function Testimonials() {
 
   return (
     <section id="testimonials" className="py-28 section-snap relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '140px', background: 'linear-gradient(to bottom, #0e1220, #0d1117)' }} />
+      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '220px', background: 'linear-gradient(to bottom, #0e1220, #0d1117)' }} />
 
       {/* Fade edges */}
       <div
