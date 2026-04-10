@@ -31,11 +31,11 @@ export default async function HomePage() {
 
       <main className="overflow-x-clip">
         <Hero />
-        <About />
+        <Services />
         <Portfolio ytVideos={ytVideos} />
         <CaseStudies />
         <Testimonials />
-        <Services />
+        <About />
         <Contact />
       </main>
 
