@@ -191,8 +191,9 @@ export default function CaseStudies() {
     <section
       ref={sectionRef}
       id="case-studies"
-      className="py-28 px-8 section-snap relative overflow-hidden"
+      className="py-28 px-8 section-snap section-muted relative overflow-hidden"
     >
+      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '140px', background: 'linear-gradient(to bottom, #0d1117, #0e1220)' }} />
       <div className="max-w-5xl mx-auto relative z-10">
 
         {/* Header */}

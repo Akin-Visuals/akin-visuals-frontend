@@ -127,6 +127,8 @@ export default function Services() {
 
   return (
     <section id="services" className="py-28 px-8 relative overflow-hidden section-snap section-muted">
+      {/* Top fade — blends into previous section */}
+      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '140px', background: 'linear-gradient(to bottom, #0d1117, #0e1220)' }} />
       <div className="max-w-7xl mx-auto relative z-10">
 
         {/* Header */}

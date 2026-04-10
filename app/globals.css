@@ -902,7 +902,7 @@ body:has(button:hover) #cursor-ring {
 
 /* ── Sections ── */
 .section-dark      { background: rgba(12,14,18,0.5); }
-.section-muted     { background: rgba(25,28,31,0.15); }
+.section-muted { background: #0e1220; }
 
 /* ── Hero CTA pill + social proof ── */
 .hero-cta-pill {
