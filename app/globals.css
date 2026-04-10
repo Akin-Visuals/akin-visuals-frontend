@@ -1007,56 +1007,29 @@ body:has(button:hover) #cursor-ring {
 .hero-shader {
   position: absolute; inset: 0;
   z-index: 0; pointer-events: none; overflow: hidden;
+  background:
+    /* Spotlight cone — originates top-left, fans out diagonally */
+    conic-gradient(
+      from 135deg at -5% -5%,
+      transparent 0deg,
+      rgba(92,109,255,0.07) 18deg,
+      rgba(189,194,255,0.13) 26deg,
+      rgba(92,109,255,0.07) 34deg,
+      transparent 52deg
+    ),
+    /* Soft fill inside the cone */
+    radial-gradient(ellipse 65% 60% at 0% 0%, rgba(109,17,173,0.18) 0%, transparent 70%),
+    /* Vignette — pulls focus inward */
+    radial-gradient(ellipse 120% 120% at 50% 50%, transparent 45%, rgba(0,0,0,0.5) 100%);
 }
 
-.hero-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  will-change: transform;
-}
-
-.hero-blob-1 {
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(109,17,173,0.7) 0%, transparent 70%);
-  top: -15%; left: 15%;
-  animation: auroraBlob1 12s ease-in-out infinite alternate;
-}
-
-.hero-blob-2 {
-  width: 550px; height: 550px;
-  background: radial-gradient(circle, rgba(92,109,255,0.65) 0%, transparent 70%);
-  top: 5%; right: 5%;
-  animation: auroraBlob2 16s ease-in-out infinite alternate;
-}
-
-.hero-blob-3 {
-  width: 450px; height: 450px;
-  background: radial-gradient(circle, rgba(0,180,210,0.35) 0%, transparent 70%);
-  bottom: -10%; left: 35%;
-  animation: auroraBlob3 20s ease-in-out infinite alternate;
-}
-
-@keyframes auroraBlob1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(80px, 50px) scale(1.12); }
-  100% { transform: translate(-50px, 90px) scale(0.92); }
-}
-
-@keyframes auroraBlob2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-70px, 70px) scale(1.18); }
-  100% { transform: translate(50px, -50px) scale(0.88); }
-}
-
-@keyframes auroraBlob3 {
-  0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(60px, -60px) scale(1.08); }
-  100% { transform: translate(-90px, 40px) scale(1.22); }
-}
+/* Blobs no longer used but kept as empty rules to avoid reference errors */
+.hero-blob {}
+.hero-blob-1 {}
+.hero-blob-2 {}
+.hero-blob-3 {}
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-blob { animation: none; }
   .hero-star { animation: none; opacity: 0; }
 }
 
