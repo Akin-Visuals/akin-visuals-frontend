@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { submitContactForm } from '@/lib/api';
 
 type RadioGroupProps = {
   name: string;
@@ -20,7 +21,7 @@ function RadioGroup({ name, options, cols = 'grid-cols-1 sm:grid-cols-3', dotSm 
           className={`contact-option${dotSm ? ' contact-option-sm' : ''}${opt.featured ? ' contact-option-featured' : ''}${selected === opt.value ? ' is-selected' : ''}`}
           onClick={() => setSelected(opt.value)}
         >
-          <input className="contact-radio" type="radio" name={name} value={opt.value} readOnly />
+          <input className="contact-radio" type="radio" name={name} value={opt.value} onChange={() => setSelected(opt.value)} />
           <span className={`co-dot${dotSm ? ' co-dot-sm' : ''}`} />
           <span className="font-[var(--font-label)] text-sm text-[#c6c6cb]">{opt.label}</span>
           {opt.badge && <span className="contact-badge">{opt.badge}</span>}
@@ -32,6 +33,22 @@ function RadioGroup({ name, options, cols = 'grid-cols-1 sm:grid-cols-3', dotSm 
 
 export default function Contact() {
   const t = useTranslations('contact');
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    setStatus('loading');
+    try {
+      await submitContactForm(data);
+      setStatus('success');
+      form.reset();
+    } catch {
+      setStatus('error');
+    }
+  }
 
   return (
     <section id="contact" className="py-28 px-8 fade-up section-snap">
@@ -49,7 +66,7 @@ export default function Contact() {
         </div>
 
         <div className="glass-card p-8 md:p-12 rounded-2xl" style={{ background: 'rgba(25,28,31,0.65)', borderColor: 'rgba(93,109,255,0.1)' }}>
-          <form className="space-y-8" onSubmit={e => e.preventDefault()}>
+          <form ref={formRef} className="space-y-8" onSubmit={handleSubmit}>
 
             {/* Name + Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -57,13 +74,13 @@ export default function Contact() {
                 <label className="text-xs font-bold uppercase tracking-widest text-[#c6c6cb] ml-1 block" style={{ fontFamily: 'var(--font-label)' }}>
                   {t('formName')} <span className="text-[#e0b6ff]">*</span>
                 </label>
-                <input className="form-input w-full rounded-xl px-5 py-4" placeholder={t('formNamePh')} type="text" required />
+                <input className="form-input w-full rounded-xl px-5 py-4" placeholder={t('formNamePh')} type="text" name="name" required />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-[#c6c6cb] ml-1 block" style={{ fontFamily: 'var(--font-label)' }}>
                   {t('formEmail')} <span className="text-[#e0b6ff]">*</span>
                 </label>
-                <input className="form-input w-full rounded-xl px-5 py-4" placeholder={t('formEmailPh')} type="email" required />
+                <input className="form-input w-full rounded-xl px-5 py-4" placeholder={t('formEmailPh')} type="email" name="email" required />
               </div>
             </div>
 
@@ -72,7 +89,7 @@ export default function Contact() {
               <label className="text-xs font-bold uppercase tracking-widest text-[#c6c6cb] ml-1 block" style={{ fontFamily: 'var(--font-label)' }}>
                 {t('formSocial')} <span className="form-optional">{t('formSocialOptional')}</span>
               </label>
-              <input className="form-input w-full rounded-xl px-5 py-4" placeholder={t('formSocialPh')} type="text" />
+              <input className="form-input w-full rounded-xl px-5 py-4" placeholder={t('formSocialPh')} type="text" name="social" />
             </div>
 
             {/* Content Needs */}
@@ -134,13 +151,21 @@ export default function Contact() {
               <textarea
                 className="form-textarea w-full rounded-xl px-5 py-4 resize-none"
                 rows={4}
+                name="goals"
                 placeholder={t('formGoalsPh')}
               />
             </div>
 
-            <button type="submit" className="btn-primary w-full py-5 rounded-xl font-bold text-base glow-purple">
-              {t('formSubmit')}
+            <button type="submit" disabled={status === 'loading'} className="btn-primary w-full py-5 rounded-xl font-bold text-base glow-purple disabled:opacity-60">
+              {status === 'loading' ? '...' : t('formSubmit')}
             </button>
+
+            {status === 'success' && (
+              <p className="text-center text-green-400 text-sm font-medium">{t('formSuccess')}</p>
+            )}
+            {status === 'error' && (
+              <p className="text-center text-red-400 text-sm font-medium">{t('formError')}</p>
+            )}
 
           </form>
         </div>

@@ -147,7 +147,9 @@
     "formBudget4": "€2.500+",
     "formGoalsLabel": "Vertel ons over je doelen of huidige uitdagingen",
     "formGoalsPh": "bijv. Ik wil mijn YouTube-kanaal laten groeien en consistent Reels posten, maar heb geen tijd om te editen...",
-    "formSubmit": "Plan een Gesprek"
+    "formSubmit": "Plan een Gesprek",
+    "formSuccess": "Je aanvraag is verstuurd! We nemen binnen 1–2 werkdagen contact met je op.",
+    "formError": "Er ging iets mis. Probeer opnieuw of stuur ons een email."
   },
   "nowEditing": {
     "label": "Nu aan het editen",

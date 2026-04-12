@@ -147,7 +147,9 @@
     "formBudget4": "$2,500+",
     "formGoalsLabel": "Tell us about your goals or current challenges",
     "formGoalsPh": "e.g. I want to grow my YouTube channel and post Reels consistently but I don't have time to edit...",
-    "formSubmit": "Book a Call"
+    "formSubmit": "Book a Call",
+    "formSuccess": "Your request has been sent! We'll get back to you within 1–2 business days.",
+    "formError": "Something went wrong. Please try again or email us directly."
   },
   "nowEditing": {
     "label": "Now Editing",
