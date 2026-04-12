@@ -88,6 +88,7 @@ export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [toast, setToast] = useState<'success' | 'error' | null>(null);
+  const [formKey, setFormKey] = useState(0);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -98,7 +99,7 @@ export default function Contact() {
       await submitContactForm(data);
       setStatus('idle');
       setToast('success');
-      form.reset();
+      setFormKey(k => k + 1);
     } catch {
       setStatus('idle');
       setToast('error');
@@ -122,7 +123,7 @@ export default function Contact() {
         </div>
 
         <div className="glass-card p-8 md:p-12 rounded-2xl" style={{ background: 'rgba(25,28,31,0.65)', borderColor: 'rgba(93,109,255,0.1)' }}>
-          <form ref={formRef} className="space-y-8" onSubmit={handleSubmit}>
+          <form key={formKey} ref={formRef} className="space-y-8" onSubmit={handleSubmit}>
 
             {/* Name + Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
