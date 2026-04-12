@@ -1,8 +1,60 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { submitContactForm } from '@/lib/api';
+
+type ToastProps = {
+  type: 'success' | 'error';
+  message: string;
+  onClose: () => void;
+};
+
+function Toast({ type, message, onClose }: ToastProps) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    requestAnimationFrame(() => setVisible(true));
+    const timer = setTimeout(() => {
+      setVisible(false);
+      setTimeout(onClose, 400);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  const isSuccess = type === 'success';
+
+  return (
+    <div
+      className="fixed bottom-6 right-6 z-50 flex items-start gap-3 max-w-sm w-full rounded-xl px-5 py-4 shadow-2xl transition-all duration-[400ms] ease-out"
+      style={{
+        background: isSuccess ? 'rgba(20, 30, 25, 0.95)' : 'rgba(30, 18, 18, 0.95)',
+        border: `1px solid ${isSuccess ? 'rgba(74, 222, 128, 0.3)' : 'rgba(248, 113, 113, 0.3)'}`,
+        backdropFilter: 'blur(12px)',
+        transform: visible ? 'translateX(0)' : 'translateX(calc(100% + 1.5rem))',
+        opacity: visible ? 1 : 0,
+      }}
+    >
+      <span className="mt-0.5 shrink-0 text-lg leading-none">
+        {isSuccess ? '✓' : '✕'}
+      </span>
+      <p className="text-sm leading-snug flex-1" style={{
+        fontFamily: 'var(--font-body)',
+        color: isSuccess ? '#86efac' : '#fca5a5',
+      }}>
+        {message}
+      </p>
+      <button
+        onClick={() => { setVisible(false); setTimeout(onClose, 400); }}
+        className="shrink-0 opacity-50 hover:opacity-100 transition-opacity text-sm leading-none mt-0.5"
+        style={{ color: isSuccess ? '#86efac' : '#fca5a5' }}
+        aria-label="Sluiten"
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
 
 type RadioGroupProps = {
   name: string;
@@ -35,6 +87,7 @@ export default function Contact() {
   const t = useTranslations('contact');
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [toast, setToast] = useState<'success' | 'error' | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -43,14 +96,17 @@ export default function Contact() {
     setStatus('loading');
     try {
       await submitContactForm(data);
-      setStatus('success');
+      setStatus('idle');
+      setToast('success');
       form.reset();
     } catch {
-      setStatus('error');
+      setStatus('idle');
+      setToast('error');
     }
   }
 
   return (
+    <>
     <section id="contact" className="py-28 px-8 fade-up section-snap">
       <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '220px', background: 'linear-gradient(to bottom, #0e1220, #0d1117)' }} />
       <div className="max-w-5xl mx-auto relative z-10">
@@ -160,16 +216,18 @@ export default function Contact() {
               {status === 'loading' ? '...' : t('formSubmit')}
             </button>
 
-            {status === 'success' && (
-              <p className="text-center text-green-400 text-sm font-medium">{t('formSuccess')}</p>
-            )}
-            {status === 'error' && (
-              <p className="text-center text-red-400 text-sm font-medium">{t('formError')}</p>
-            )}
-
           </form>
         </div>
       </div>
     </section>
+
+    {toast && (
+      <Toast
+        type={toast}
+        message={toast === 'success' ? t('formSuccess') : t('formError')}
+        onClose={() => setToast(null)}
+      />
+    )}
+    </>
   );
 }
