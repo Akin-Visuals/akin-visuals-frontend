@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/navigation';
@@ -28,15 +29,47 @@ function FlagNL() {
   );
 }
 
+const NAV_LINKS = ['services', 'portfolio', 'caseStudies', 'testimonials', 'about'] as const;
+const HREF_MAP: Record<string, string> = {
+  services: '#services',
+  portfolio: '#work',
+  caseStudies: '#case-studies',
+  testimonials: '#testimonials',
+  about: '#about',
+};
+
 export default function Navbar() {
   const t = useTranslations('nav');
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const switchLocale = (next: string) => {
     router.replace(pathname, { locale: next });
   };
+
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    if (menuOpen) {
+      document.addEventListener('keydown', onKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen, closeMenu]);
+
+  const navLinks = NAV_LINKS.map((key) => (
+    <a key={key} href={HREF_MAP[key]} className="nav-link" onClick={closeMenu}>
+      {t(key)}
+    </a>
+  ));
 
   return (
     <header id="navbar">
@@ -46,15 +79,11 @@ export default function Navbar() {
         </a>
 
         <nav className="hidden md:flex items-center gap-8 justify-center">
-          <a href="#services"     className="nav-link">{t('services')}</a>
-          <a href="#work"         className="nav-link">{t('portfolio')}</a>
-          <a href="#case-studies" className="nav-link">{t('caseStudies')}</a>
-          <a href="#testimonials" className="nav-link">{t('testimonials')}</a>
-          <a href="#about"        className="nav-link">{t('about')}</a>
+          {navLinks}
         </nav>
 
         <div className="flex items-center gap-3 justify-end">
-          <div className="lang-switcher">
+          <div className="desktop-only lang-switcher">
             <button
               onClick={() => switchLocale('en')}
               aria-label="English"
@@ -74,6 +103,48 @@ export default function Navbar() {
             </button>
           </div>
           <a href="#contact" className="nav-cta">{t('cta')}</a>
+
+          <button
+            id="hamburger"
+            className={`flex flex-col items-center justify-center ${menuOpen ? 'is-open' : ''}`}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </div>
+
+      <div id="mobile-drawer" className={menuOpen ? 'is-open' : ''}>
+        <div id="mobile-backdrop" onClick={closeMenu} />
+
+        <div id="mobile-panel">
+          <nav id="mobile-nav">
+            {navLinks}
+          </nav>
+
+          <div id="mobile-lang">
+            <button
+              onClick={() => switchLocale('en')}
+              className={`lang-btn ${locale === 'en' ? 'is-active' : 'is-inactive'}`}
+            >
+              <FlagGB />
+              <span>EN</span>
+            </button>
+            <div className="lang-divider" />
+            <button
+              onClick={() => switchLocale('nl')}
+              className={`lang-btn ${locale === 'nl' ? 'is-active' : 'is-inactive'}`}
+            >
+              <FlagNL />
+              <span>NL</span>
+            </button>
+          </div>
+
+          <a href="#contact" className="nav-cta" onClick={closeMenu}>{t('cta')}</a>
         </div>
       </div>
     </header>

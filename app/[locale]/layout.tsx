@@ -54,6 +54,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         nl: 'https://akinvisuals.com/nl',
       },
     },
+    icons: {
+      icon: '/brand_assets/logowit.png',
+      apple: '/brand_assets/logowit.png',
+    },
     openGraph: {
       title: t('title'),
       description: t('description'),
