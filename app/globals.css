@@ -614,8 +614,18 @@ a.desktop-only.nav-cta { display: none; }
   100% { transform: translate(0,     0); }
 }
 
-/* ── Custom cursor ── */
-* { cursor: none !important; }
+/* ── Custom cursor (desktop only) ── */
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+}
+#cursor-dot, #cursor-ring {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  #cursor-dot, #cursor-ring {
+    display: block;
+  }
+}
 #cursor-dot {
   position: fixed;
   width: 8px; height: 8px;
