@@ -168,5 +168,24 @@
     "line2": "BIJZONDERS",
     "line3": "CREËREN.",
     "cta": "Start een Project"
+  },
+  "analytics": {
+    "label": "Bewezen Resultaten",
+    "title": "Echte Analytics",
+    "sub": "Bekijk hoe onze video's presteren bij verschillende klanten en platformen.",
+    "overview": "Overzicht",
+    "reach": "Bereik",
+    "engagement": "Betrokkenheid",
+    "audience": "Publiek",
+    "revenue": "Opbrengst",
+    "videoTitle": "Deze video heeft {views} weergaven gegenereerd voor {name} sinds publicatie",
+    "statViews": "Weergaven",
+    "statWatchTime": "Kijktijd (uur)",
+    "statSubs": "Abonnees",
+    "statRevenue": "Gesch. opbrengst",
+    "statTypical": "Boven gemiddeld",
+    "thisVideo": "Deze video",
+    "typicalPerf": "Gebruikelijke prestaties",
+    "watchOnYoutube": "Bekijk op YouTube"
   }
 }

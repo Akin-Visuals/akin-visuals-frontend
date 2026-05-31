@@ -6,6 +6,8 @@ import { useTranslations } from 'next-intl';
 import { TIKTOK_VIDEOS } from '@/lib/data';
 import { getGsap } from '@/lib/gsap-cdn';
 import type { YtVideo } from '@/lib/youtube';
+import { YT_TO_CLIENT, type ClientId } from '@/lib/analytics-data';
+import ProjectDetail from '@/components/ui/ProjectDetail';
 
 function YtIcon({ size = 26 }: { size?: number }) {
   return (
@@ -24,7 +26,7 @@ function TtIcon({ size = 30 }: { size?: number }) {
   );
 }
 
-function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (id: string) => void }) {
+function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (v: YtVideo) => void }) {
   return (
     <div id="yt-channel-mockup" style={{ display: 'block' }}>
       <div className="yt-chrome-bar">
@@ -45,7 +47,7 @@ function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (
       </div>
       <div className="yt-videos-grid">
         {videos.map(v => (
-          <div key={v.id} className="yt-video-card" onClick={() => onVideoClick(v.id)}>
+          <div key={v.id} className="yt-video-card" onClick={() => onVideoClick(v)}>
             <div className="yt-video-thumb-wrap">
               <Image
                 className="yt-video-thumb"
@@ -137,7 +139,12 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
   const t = useTranslations('portfolio');
   const [ytOpen, setYtOpen] = useState(false);
   const [ttOpen, setTtOpen] = useState(false);
-  const [modalVideo, setModalVideo] = useState<string | null>(null);
+  const [projectDetail, setProjectDetail] = useState<{
+    videoId: string;
+    title: string;
+    channel: string;
+    clientId: ClientId;
+  } | null>(null);
 
   const ytTeaserRef = useRef<HTMLDivElement>(null);
   const ytMockupRef = useRef<HTMLDivElement>(null);
@@ -172,8 +179,16 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
     setTtOpen(true);
   };
 
-  const openModal = (id: string) => setModalVideo(id);
-  const closeModal = () => setModalVideo(null);
+  const openProjectDetail = (video: YtVideo) => {
+    const clientId = YT_TO_CLIENT[video.id] || 'coach-x';
+    setProjectDetail({
+      videoId: video.id,
+      title: video.title,
+      channel: video.channel,
+      clientId,
+    });
+  };
+  const closeProjectDetail = () => setProjectDetail(null);
 
   return (
     <section id="work" className="py-28 relative section-snap section-dark">
@@ -216,7 +231,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
             </div>
 
             <div ref={ytMockupRef} style={{ display: 'none' }}>
-              <YtMockup videos={ytVideos} onVideoClick={openModal} />
+              <YtMockup videos={ytVideos} onVideoClick={openProjectDetail} />
             </div>
           </div>
 
@@ -246,25 +261,15 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
         </div>
       </div>
 
-      {/* YouTube Lightbox */}
-      {modalVideo && (
-        <div
-          id="yt-modal"
-          style={{ display: 'flex' }}
-          onClick={closeModal}
-        >
-          <div className="yt-modal-inner" onClick={e => e.stopPropagation()}>
-            <iframe
-              id="yt-iframe"
-              src={`https://www.youtube.com/embed/${modalVideo}?autoplay=1&rel=0`}
-              allowFullScreen
-              allow="autoplay; encrypted-media"
-            />
-            <button className="yt-modal-close" onClick={closeModal}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-        </div>
+      {/* Project Detail overlay */}
+      {projectDetail && (
+        <ProjectDetail
+          videoId={projectDetail.videoId}
+          title={projectDetail.title}
+          channel={projectDetail.channel}
+          clientId={projectDetail.clientId}
+          onClose={closeProjectDetail}
+        />
       )}
     </section>
   );

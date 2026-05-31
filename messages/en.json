@@ -168,5 +168,24 @@
     "line2": "SOMETHING",
     "line3": "LEGENDARY.",
     "cta": "Start a Project"
+  },
+  "analytics": {
+    "label": "Proven Results",
+    "title": "Real Analytics",
+    "sub": "See how our edits perform across different clients and platforms.",
+    "overview": "Overview",
+    "reach": "Reach",
+    "engagement": "Engagement",
+    "audience": "Audience",
+    "revenue": "Revenue",
+    "videoTitle": "This video has generated {views} views for {name} since publishing",
+    "statViews": "Views",
+    "statWatchTime": "Watch time (hrs)",
+    "statSubs": "Subscribers",
+    "statRevenue": "Est. revenue",
+    "statTypical": "Above typical",
+    "thisVideo": "This video",
+    "typicalPerf": "Typical performance",
+    "watchOnYoutube": "Watch on YouTube"
   }
 }
