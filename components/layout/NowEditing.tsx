@@ -46,7 +46,7 @@ export default function NowEditing() {
       <div className={`ne-preview${hovered ? ' ne-preview--visible' : ''}`}>
         <video
           ref={videoRef}
-          src="/brand_assets/compressed-video (1).mp4"
+          src="/brand_assets/compressed-video.webm"
           muted
           playsInline
           loop

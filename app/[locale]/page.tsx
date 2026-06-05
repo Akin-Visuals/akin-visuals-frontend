@@ -6,7 +6,6 @@ import About from '@/components/sections/About';
 import Portfolio from '@/components/sections/Portfolio';
 import Testimonials from '@/components/sections/Testimonials';
 import Services from '@/components/sections/Services';
-// import CaseStudies from '@/components/sections/CaseStudies';
 import Contact from '@/components/sections/Contact';
 import GsapInit from '@/components/ui/GsapInit';
 import FadeUpInit from '@/components/ui/FadeUpInit';
@@ -37,7 +36,6 @@ export default async function HomePage() {
         <Hero />
         <Services />
         <Portfolio ytVideos={ytVideos} />
-        {/* <CaseStudies /> */}
         <Testimonials />
         <About />
         <Contact />

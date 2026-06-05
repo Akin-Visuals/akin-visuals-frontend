@@ -1,5 +1,3 @@
-export type ClientId = 'coach-x' | 'mindset-pro' | 'fitness-creator' | 'brand-doc' | 'yt-series' | 'vid-1084' | 'vid-288' | 'vid-1564' | 'vid-1775' | 'vid-mxuw';
-
 export interface ClientData {
   name: string;
   views: string;
@@ -8,7 +6,7 @@ export interface ClientData {
   chartData: { day: number; thisVideo: number; typical: number }[];
 }
 
-export const CLIENTS: Record<ClientId, ClientData> = {
+export const CLIENTS = {
   'coach-x': {
     name: 'Coach X',
     views: '2.3K',
@@ -219,7 +217,9 @@ export const CLIENTS: Record<ClientId, ClientData> = {
       { day: 114, thisVideo: 2100, typical: 1580 },
     ],
   },
-};
+} satisfies Record<string, ClientData>;
+
+export type ClientId = keyof typeof CLIENTS;
 
 /** Maps YouTube video IDs to client analytics */
 export const YT_TO_CLIENT: Record<string, ClientId> = {

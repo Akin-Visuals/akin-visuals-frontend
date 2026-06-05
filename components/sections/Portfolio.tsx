@@ -7,7 +7,9 @@ import { TIKTOK_VIDEOS } from '@/lib/data';
 import { getGsap } from '@/lib/gsap-cdn';
 import type { YtVideo } from '@/lib/youtube';
 import { YT_TO_CLIENT, type ClientId } from '@/lib/analytics-data';
-import ProjectDetail from '@/components/ui/ProjectDetail';
+import dynamic from 'next/dynamic';
+
+const ProjectDetail = dynamic(() => import('@/components/ui/ProjectDetail'));
 
 function YtIcon({ size = 26 }: { size?: number }) {
   return (
@@ -27,6 +29,19 @@ function TtIcon({ size = 30 }: { size?: number }) {
 }
 
 function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (v: YtVideo) => void }) {
+  const [failedThumbs, setFailedThumbs] = useState<Set<string>>(new Set());
+
+  const getThumbSrc = (id: string) =>
+    failedThumbs.has(id)
+      ? `https://img.youtube.com/vi/${id}/hqdefault.jpg`
+      : `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+
+  const onThumbError = (id: string) => {
+    if (!failedThumbs.has(id)) {
+      setFailedThumbs(prev => new Set(prev).add(id));
+    }
+  };
+
   return (
     <div id="yt-channel-mockup" style={{ display: 'block' }}>
       <div className="yt-chrome-bar">
@@ -51,11 +66,12 @@ function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (
             <div className="yt-video-thumb-wrap">
               <Image
                 className="yt-video-thumb"
-                src={`https://img.youtube.com/vi/${v.id}/maxresdefault.jpg`}
+                src={getThumbSrc(v.id)}
                 alt={v.title}
                 fill
                 sizes="(max-width: 640px) 100vw, 300px"
                 loading="lazy"
+                onError={() => onThumbError(v.id)}
               />
               <span className="yt-video-badge">{v.duration}</span>
             </div>

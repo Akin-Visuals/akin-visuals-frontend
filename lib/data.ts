@@ -1,4 +1,6 @@
-export const YT_VIDEOS = [
+import type { YtVideo } from '@/lib/youtube';
+
+export const YT_VIDEOS: YtVideo[] = [
   { id: 'MXuwN8Trfb0', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
   { id: 'xN3KSgaV6yM', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
   { id: 'nz5plOO4v4s', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
