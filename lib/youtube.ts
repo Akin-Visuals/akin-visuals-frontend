@@ -8,8 +8,6 @@ export type YtVideo = {
   duration: string;
 };
 
-const YT_IDS = ['MXuwN8Trfb0', 'xN3KSgaV6yM', 'nz5plOO4v4s', '_Ms5Vvv2WwE', 'f5E9rIRRSis'];
-
 function parseDuration(iso: string): string {
   const match = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
   if (!match) return '0:00';
@@ -48,11 +46,11 @@ type YtApiChannelItem = {
   snippet: { thumbnails?: { default?: { url: string } } };
 };
 
-export async function fetchYtVideos(): Promise<YtVideo[]> {
+export async function fetchYtVideos(ids: string[]): Promise<YtVideo[]> {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) throw new Error('Missing YOUTUBE_API_KEY');
 
-  const videoUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${YT_IDS.join(',')}&key=${key}`;
+  const videoUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${ids.join(',')}&key=${key}`;
   const videoRes = await fetch(videoUrl, { next: { revalidate: 3600 } });
   if (!videoRes.ok) throw new Error(`YouTube API error: ${videoRes.status}`);
 

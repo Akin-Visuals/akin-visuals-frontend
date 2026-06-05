@@ -15,7 +15,11 @@ import { fetchYtVideos } from '@/lib/youtube';
 import { YT_VIDEOS } from '@/lib/data';
 
 export default async function HomePage() {
-  const ytVideos = await fetchYtVideos().catch(() => YT_VIDEOS);
+  const ids = YT_VIDEOS.map((v) => v.id);
+  const apiVideos = await fetchYtVideos(ids).catch(() => []);
+  const apiIds = new Set(apiVideos.map((v) => v.id));
+  const fallbackVideos = YT_VIDEOS.filter((v) => !apiIds.has(v.id));
+  const ytVideos = [...apiVideos, ...fallbackVideos];
 
   return (
     <>
