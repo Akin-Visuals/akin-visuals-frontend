@@ -139,5 +139,21 @@
     "thisVideo": "This video",
     "typicalPerf": "Typical performance",
     "watchOnYoutube": "Watch on YouTube"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Direct Answers",
+    "q1Q": "What type of content do you edit?",
+    "q1A": "We edit long-form YouTube videos, short-form content for TikTok, Instagram Reels, and YouTube Shorts. We specialize in content for coaches, consultants, and personal brands who want high-retention videos that convert viewers into clients.",
+    "q2Q": "How does the editing process work?",
+    "q2A": "You send us your raw footage via Google Drive or Dropbox. We handle everything — cutting, pacing, color grading, captions, thumbnails, and sound design. You receive the finished video within your agreed turnaround time, ready to publish.",
+    "q3Q": "What's the typical turnaround time?",
+    "q3A": "Standard turnaround is 48–72 hours for short-form content and 4–7 days for long-form videos. Rush delivery is available for an additional fee. We'll agree on a schedule that fits your content calendar during onboarding.",
+    "q4Q": "Do you offer ongoing retainer packages?",
+    "q4A": "Yes. Most of our clients work with us on a monthly retainer basis. This gives you a dedicated editor, priority turnaround, and a consistent posting schedule. We offer flexible packages based on your volume needs.",
+    "q5Q": "Can I request revisions?",
+    "q5A": "Absolutely. Every project includes one round of revisions at no extra cost. Additional revision rounds are available. We want to make sure you're completely satisfied with every video we deliver.",
+    "q6Q": "How do I get started?",
+    "q6A": "Fill out the contact form above or book a free strategy call. We'll discuss your content goals, current workflow, and how we can help. No commitment — just a conversation to see if we're a good fit."
   }
 }

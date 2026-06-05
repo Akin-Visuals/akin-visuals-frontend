@@ -7,6 +7,7 @@ import Portfolio from '@/components/sections/Portfolio';
 import Testimonials from '@/components/sections/Testimonials';
 import Services from '@/components/sections/Services';
 import Contact from '@/components/sections/Contact';
+import FAQ from '@/components/sections/FAQ';
 import GsapInit from '@/components/ui/GsapInit';
 import FadeUpInit from '@/components/ui/FadeUpInit';
 import StarField from '@/components/ui/StarField';
@@ -39,6 +40,7 @@ export default async function HomePage() {
         <Testimonials />
         <About />
         <Contact />
+        <FAQ />
       </main>
 
       <Footer />
