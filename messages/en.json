@@ -100,9 +100,14 @@
     "formBudget4": "$2,500+",
     "formGoalsLabel": "Tell us about your goals or current challenges",
     "formGoalsPh": "e.g. I want to grow my YouTube channel and post Reels consistently but I don't have time to edit...",
-    "formSubmit": "Book a Call",
-    "formSuccess": "Your request has been sent! We'll get back to you within 1–2 business days.",
-    "formError": "Something went wrong. Please try again or email us directly."
+    "ctaLabel": "Next Step",
+    "ctaTitle": "Before we talk",
+    "ctaSub": "In this 30-minute call we'll discuss your content goals and see how we can help. No strings attached.",
+    "item1": "We review your current content & channels",
+    "item2": "Identify quick wins and growth opportunities",
+    "item3": "Discuss your editing style & turnaround needs",
+    "item4": "Get a custom proposal within 24 hours",
+    "loading": "Loading calendar..."
   },
   "nowEditing": {
     "label": "Now Editing",

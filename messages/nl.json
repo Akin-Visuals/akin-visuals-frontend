@@ -100,9 +100,14 @@
     "formBudget4": "€2.500+",
     "formGoalsLabel": "Vertel ons over je doelen of huidige uitdagingen",
     "formGoalsPh": "bijv. Ik wil mijn YouTube-kanaal laten groeien en consistent Reels posten, maar heb geen tijd om te editen...",
-    "formSubmit": "Plan een Gesprek",
-    "formSuccess": "Je aanvraag is verstuurd! We nemen binnen 1–2 werkdagen contact met je op.",
-    "formError": "Er ging iets mis. Probeer opnieuw of stuur ons een email."
+    "ctaLabel": "Volgende Stap",
+    "ctaTitle": "Voor we praten",
+    "ctaSub": "In dit 30-minuten gesprek bespreken we je contentdoelen en hoe we kunnen helpen. Vrijblijvend.",
+    "item1": "We bekijken je huidige content & kanalen",
+    "item2": "Identificeren quick wins en groeikansen",
+    "item3": "Bespreek je editing-stijl & levertijd",
+    "item4": "Ontvang een voorstel op maat binnen 24 uur",
+    "loading": "Agenda laden..."
   },
   "nowEditing": {
     "label": "Nu aan het editen",
