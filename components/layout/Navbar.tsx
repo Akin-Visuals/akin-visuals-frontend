@@ -74,7 +74,7 @@ export default function Navbar() {
     <header id="navbar">
       <div id="navbar-inner">
         <a href="#" className="select-none flex-shrink-0">
-          <Image src="/brand_assets/logowit.png8" alt="AKIN" width={110} height={38} className="h-10 w-auto object-contain" priority />
+          <Image src="/brand_assets/logowit.png" alt="AKIN" width={110} height={38} className="h-10 w-auto object-contain" priority />
         </a>
 
         <nav className="hidden md:flex items-center gap-8 justify-center">

@@ -55,8 +55,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     icons: {
-      icon: '/brand_assets/logowit.png8',
-      apple: '/brand_assets/logowit.png8',
+      icon: '/brand_assets/logowit.png',
+      apple: '/brand_assets/logowit.png',
     },
     openGraph: {
       title: t('title'),
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         name: 'AKIN Visuals',
         description: 'Video editing agency for coaches and personal brands.',
         url: 'https://akinvisuals.com',
-        logo: 'https://akinvisuals.com/brand_assets/logowit.png8',
+        logo: 'https://akinvisuals.com/brand_assets/logowit.png',
         serviceType: ['Video Editing', 'Content Strategy', 'Short-Form Content Creation'],
         areaServed: 'Worldwide',
         priceRange: '$$',
