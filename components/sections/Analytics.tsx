@@ -145,7 +145,6 @@ export default function Analytics() {
             <StatCard label={t('statViews')} value={client.views} note={t('statTypical')} positive />
             <StatCard label={t('statWatchTime')} value={client.watchHours} note={t('statTypical')} positive />
             <StatCard label={t('statSubs')} value={client.subscribers} positive />
-            <StatCard label={t('statRevenue')} value={client.revenue} />
           </div>
 
           {/* Chart */}

@@ -1631,7 +1631,7 @@ footer {
 
 @media (min-width: 640px) {
   .analytics-stats-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -1833,14 +1833,6 @@ footer {
   font-size: 0.75rem;
   color: rgba(225, 226, 231, 0.4);
   margin-bottom: 0.25rem;
-}
-
-#pd-video-client {
-  font-family: var(--font-label);
-  font-size: 0.65rem;
-  color: #bdc2ff;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
 #pd-analytics {

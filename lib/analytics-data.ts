@@ -1,21 +1,19 @@
-export type ClientId = 'coach-x' | 'mindset-pro' | 'fitness-creator';
+export type ClientId = 'coach-x' | 'mindset-pro' | 'fitness-creator' | 'brand-doc' | 'yt-series' | 'vid-1084' | 'vid-288' | 'vid-1564' | 'vid-1775' | 'vid-mxuw';
 
 export interface ClientData {
   name: string;
   views: string;
   watchHours: string;
   subscribers: string;
-  revenue: string;
   chartData: { day: number; thisVideo: number; typical: number }[];
 }
 
 export const CLIENTS: Record<ClientId, ClientData> = {
   'coach-x': {
     name: 'Coach X',
-    views: '2.321',
+    views: '2.3K',
     watchHours: '189,7',
     subscribers: '+34',
-    revenue: '€ 0,01',
     chartData: [
       { day: 0, thisVideo: 0, typical: 0 },
       { day: 10, thisVideo: 1200, typical: 900 },
@@ -37,7 +35,6 @@ export const CLIENTS: Record<ClientId, ClientData> = {
     views: '5.842',
     watchHours: '412,3',
     subscribers: '+89',
-    revenue: '€ 0,03',
     chartData: [
       { day: 0, thisVideo: 0, typical: 0 },
       { day: 10, thisVideo: 2800, typical: 1800 },
@@ -59,7 +56,6 @@ export const CLIENTS: Record<ClientId, ClientData> = {
     views: '12.450',
     watchHours: '876,1',
     subscribers: '+156',
-    revenue: '€ 0,12',
     chartData: [
       { day: 0, thisVideo: 0, typical: 0 },
       { day: 10, thisVideo: 6000, typical: 4000 },
@@ -76,9 +72,162 @@ export const CLIENTS: Record<ClientId, ClientData> = {
       { day: 114, thisVideo: 9800, typical: 7400 },
     ],
   },
+  'brand-doc': {
+    name: 'Brand Documentary',
+    views: '3,6K',
+    watchHours: '237,3',
+    subscribers: '+66',
+    chartData: [
+      { day: 0, thisVideo: 0, typical: 0 },
+      { day: 10, thisVideo: 600, typical: 500 },
+      { day: 19, thisVideo: 1300, typical: 1000 },
+      { day: 28, thisVideo: 2000, typical: 1550 },
+      { day: 38, thisVideo: 2600, typical: 2000 },
+      { day: 48, thisVideo: 2900, typical: 2200 },
+      { day: 57, thisVideo: 3100, typical: 2350 },
+      { day: 66, thisVideo: 3250, typical: 2450 },
+      { day: 76, thisVideo: 3380, typical: 2500 },
+      { day: 86, thisVideo: 3480, typical: 2550 },
+      { day: 95, thisVideo: 3540, typical: 2580 },
+      { day: 105, thisVideo: 3580, typical: 2600 },
+      { day: 114, thisVideo: 3600, typical: 2600 },
+    ],
+  },
+  'yt-series': {
+    name: 'YouTube Series',
+    views: '2,4K',
+    watchHours: '227,6',
+    subscribers: '+38',
+    chartData: [
+      { day: 0, thisVideo: 0, typical: 0 },
+      { day: 10, thisVideo: 400, typical: 300 },
+      { day: 19, thisVideo: 900, typical: 700 },
+      { day: 28, thisVideo: 1400, typical: 1100 },
+      { day: 38, thisVideo: 1800, typical: 1400 },
+      { day: 48, thisVideo: 2000, typical: 1550 },
+      { day: 57, thisVideo: 2100, typical: 1650 },
+      { day: 66, thisVideo: 2180, typical: 1720 },
+      { day: 76, thisVideo: 2250, typical: 1780 },
+      { day: 86, thisVideo: 2300, typical: 1830 },
+      { day: 95, thisVideo: 2350, typical: 1870 },
+      { day: 105, thisVideo: 2380, typical: 1900 },
+      { day: 114, thisVideo: 2400, typical: 1920 },
+    ],
+  },
+  'vid-1084': {
+    name: 'AKIN Visuals',
+    views: '1,1K',
+    watchHours: '89,4',
+    subscribers: '+12',
+    chartData: [
+      { day: 0, thisVideo: 0, typical: 0 },
+      { day: 10, thisVideo: 200, typical: 150 },
+      { day: 19, thisVideo: 420, typical: 310 },
+      { day: 28, thisVideo: 620, typical: 460 },
+      { day: 38, thisVideo: 780, typical: 570 },
+      { day: 48, thisVideo: 880, typical: 640 },
+      { day: 57, thisVideo: 940, typical: 680 },
+      { day: 66, thisVideo: 980, typical: 710 },
+      { day: 76, thisVideo: 1020, typical: 740 },
+      { day: 86, thisVideo: 1050, typical: 760 },
+      { day: 95, thisVideo: 1070, typical: 770 },
+      { day: 105, thisVideo: 1090, typical: 780 },
+      { day: 114, thisVideo: 1100, typical: 780 },
+    ],
+  },
+  'vid-288': {
+    name: 'AKIN Visuals',
+    views: '288',
+    watchHours: '24,1',
+    subscribers: '+3',
+    chartData: [
+      { day: 0, thisVideo: 0, typical: 0 },
+      { day: 10, thisVideo: 50, typical: 40 },
+      { day: 19, thisVideo: 110, typical: 80 },
+      { day: 28, thisVideo: 160, typical: 115 },
+      { day: 38, thisVideo: 200, typical: 140 },
+      { day: 48, thisVideo: 225, typical: 155 },
+      { day: 57, thisVideo: 242, typical: 165 },
+      { day: 66, thisVideo: 255, typical: 172 },
+      { day: 76, thisVideo: 265, typical: 178 },
+      { day: 86, thisVideo: 275, typical: 183 },
+      { day: 95, thisVideo: 280, typical: 186 },
+      { day: 105, thisVideo: 284, typical: 188 },
+      { day: 114, thisVideo: 288, typical: 190 },
+    ],
+  },
+  'vid-1564': {
+    name: 'AKIN Visuals',
+    views: '1,6K',
+    watchHours: '132,8',
+    subscribers: '+18',
+    chartData: [
+      { day: 0, thisVideo: 0, typical: 0 },
+      { day: 10, thisVideo: 300, typical: 240 },
+      { day: 19, thisVideo: 600, typical: 470 },
+      { day: 28, thisVideo: 880, typical: 680 },
+      { day: 38, thisVideo: 1100, typical: 850 },
+      { day: 48, thisVideo: 1250, typical: 960 },
+      { day: 57, thisVideo: 1350, typical: 1040 },
+      { day: 66, thisVideo: 1430, typical: 1080 },
+      { day: 76, thisVideo: 1490, typical: 1120 },
+      { day: 86, thisVideo: 1530, typical: 1150 },
+      { day: 95, thisVideo: 1560, typical: 1170 },
+      { day: 105, thisVideo: 1580, typical: 1180 },
+      { day: 114, thisVideo: 1600, typical: 1190 },
+    ],
+  },
+  'vid-1775': {
+    name: 'AKIN Visuals',
+    views: '1,8K',
+    watchHours: '148,3',
+    subscribers: '+22',
+    chartData: [
+      { day: 0, thisVideo: 0, typical: 0 },
+      { day: 10, thisVideo: 350, typical: 280 },
+      { day: 19, thisVideo: 680, typical: 530 },
+      { day: 28, thisVideo: 1000, typical: 760 },
+      { day: 38, thisVideo: 1250, typical: 950 },
+      { day: 48, thisVideo: 1420, typical: 1080 },
+      { day: 57, thisVideo: 1530, typical: 1160 },
+      { day: 66, thisVideo: 1620, typical: 1220 },
+      { day: 76, thisVideo: 1680, typical: 1260 },
+      { day: 86, thisVideo: 1730, typical: 1290 },
+      { day: 95, thisVideo: 1760, typical: 1310 },
+      { day: 105, thisVideo: 1780, typical: 1320 },
+      { day: 114, thisVideo: 1800, typical: 1330 },
+    ],
+  },
+  'vid-mxuw': {
+    name: 'AKIN Visuals',
+    views: '2,1K',
+    watchHours: '176,2',
+    subscribers: '+25',
+    chartData: [
+      { day: 0, thisVideo: 0, typical: 0 },
+      { day: 10, thisVideo: 400, typical: 320 },
+      { day: 19, thisVideo: 800, typical: 620 },
+      { day: 28, thisVideo: 1150, typical: 880 },
+      { day: 38, thisVideo: 1450, typical: 1100 },
+      { day: 48, thisVideo: 1650, typical: 1250 },
+      { day: 57, thisVideo: 1780, typical: 1350 },
+      { day: 66, thisVideo: 1880, typical: 1420 },
+      { day: 76, thisVideo: 1960, typical: 1480 },
+      { day: 86, thisVideo: 2020, typical: 1520 },
+      { day: 95, thisVideo: 2060, typical: 1550 },
+      { day: 105, thisVideo: 2090, typical: 1570 },
+      { day: 114, thisVideo: 2100, typical: 1580 },
+    ],
+  },
 };
 
 /** Maps YouTube video IDs to client analytics */
 export const YT_TO_CLIENT: Record<string, ClientId> = {
-  // Map real YT video IDs to clients — placeholder, fill with real IDs later
+  '6yqd4BWQ8_U': 'brand-doc',
+  'Gklxxaml_Tc': 'yt-series',
+  'xN3KSgaV6yM': 'vid-1084',
+  'nz5plOO4v4s': 'vid-288',
+  '_Ms5Vvv2WwE': 'vid-1564',
+  'f5E9rIRRSis': 'vid-1775',
+  'MXuwN8Trfb0': 'vid-mxuw',
 };

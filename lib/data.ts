@@ -4,6 +4,8 @@ export const YT_VIDEOS = [
   { id: 'nz5plOO4v4s', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
   { id: '_Ms5Vvv2WwE', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
   { id: 'f5E9rIRRSis', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
+  { id: '6yqd4BWQ8_U', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
+  { id: 'Gklxxaml_Tc', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
 ];
 
 export const TIKTOK_VIDEOS = [

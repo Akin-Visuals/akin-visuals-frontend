@@ -9,8 +9,7 @@
     "services": "Diensten",
     "testimonials": "Ervaringen",
     "contact": "Contact",
-    "cta": "Neem Contact Op",
-    "caseStudies": "Resultaten"
+    "cta": "Neem Contact Op"
   },
   "hero": {
     "label": "Vertrouwd door creators met 100K–1M+ views",
@@ -182,7 +181,6 @@
     "statViews": "Weergaven",
     "statWatchTime": "Kijktijd (uur)",
     "statSubs": "Abonnees",
-    "statRevenue": "Gesch. opbrengst",
     "statTypical": "Boven gemiddeld",
     "thisVideo": "Deze video",
     "typicalPerf": "Gebruikelijke prestaties",

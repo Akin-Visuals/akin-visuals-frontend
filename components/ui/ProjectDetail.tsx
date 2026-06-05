@@ -65,7 +65,7 @@ export default function ProjectDetail({ videoId, title, channel, clientId, onClo
       id="project-detail"
       role="dialog"
       aria-modal="true"
-      aria-label={`${title} — ${client.name}`}
+      aria-label={`${title} — ${channel}`}
     >
       <div id="pd-backdrop" onClick={onClose} />
 
@@ -92,7 +92,6 @@ export default function ProjectDetail({ videoId, title, channel, clientId, onClo
           <div id="pd-video-meta">
             <h3 id="pd-video-title">{title}</h3>
             <p id="pd-video-channel">{channel}</p>
-            <p id="pd-video-client">Client: {client.name}</p>
           </div>
         </div>
 
@@ -101,14 +100,13 @@ export default function ProjectDetail({ videoId, title, channel, clientId, onClo
           <h4 id="pd-analytics-heading">{t('label')}</h4>
 
           <p className="analytics-video-title" style={{ marginBottom: '1rem' }}>
-            {t('videoTitle', { views: client.views, name: client.name })}
+            {t('videoTitle', { views: client.views, name: channel })}
           </p>
 
           <div className="analytics-stats-grid" style={{ marginBottom: '1.25rem' }}>
             <StatCard label={t('statViews')} value={client.views} note={t('statTypical')} positive />
             <StatCard label={t('statWatchTime')} value={client.watchHours} note={t('statTypical')} positive />
             <StatCard label={t('statSubs')} value={client.subscribers} positive />
-            <StatCard label={t('statRevenue')} value={client.revenue} />
           </div>
 
           <div className="analytics-chart-wrap">

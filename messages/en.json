@@ -9,8 +9,7 @@
     "services": "Services",
     "testimonials": "Testimonials",
     "contact": "Contact",
-    "cta": "Get In Touch",
-    "caseStudies": "Results"
+    "cta": "Get In Touch"
   },
   "hero": {
     "label": "Trusted by creators generating 100K–1M+ views",
@@ -182,7 +181,6 @@
     "statViews": "Views",
     "statWatchTime": "Watch time (hrs)",
     "statSubs": "Subscribers",
-    "statRevenue": "Est. revenue",
     "statTypical": "Above typical",
     "thisVideo": "This video",
     "typicalPerf": "Typical performance",
