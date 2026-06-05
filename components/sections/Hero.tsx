@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { loadGsap, getGsap } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
 
-const VIDEO_SRC = '/brand_assets/highlights-reel.mp4';
+const VIDEO_SRC = '/brand_assets/highlights-reel.webm';
 
 // Each panel shows a different segment of the same video
 const PANELS = [
