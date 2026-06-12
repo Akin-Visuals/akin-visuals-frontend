@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -27,9 +28,9 @@ export default function Footer() {
             © {new Date().getFullYear()} AKIN Visuals. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="footer-link">Privacy</a>
-            <a href="#" className="footer-link">Terms</a>
-            <a href="#" className="footer-link">Instagram</a>
+            <Link href="/privacy" className="footer-link">{t('privacy')}</Link>
+            <Link href="/terms" className="footer-link">{t('terms')}</Link>
+            <a href="https://www.instagram.com/akin_visuals/" target="_blank" rel="noopener noreferrer" className="footer-link">Instagram</a>
           </div>
         </div>
       </div>
