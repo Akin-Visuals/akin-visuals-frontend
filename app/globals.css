@@ -719,6 +719,8 @@ body:has(button:hover) #cursor-ring {
   background: rgba(13,17,23,0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
 }
 .platform-accent {
   height: 3px;
@@ -737,7 +739,7 @@ body:has(button:hover) #cursor-ring {
   align-items: center;
   text-align: center;
   gap: 20px;
-  min-height: auto;
+  min-height: 280px;
   justify-content: center;
 }
 .platform-card-brand {
@@ -762,8 +764,11 @@ body:has(button:hover) #cursor-ring {
 
 /* ── YouTube Channel Mockup ── */
 #yt-channel-mockup {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   overflow: hidden;
+  min-height: 0;
 }
 .yt-chrome-bar {
   background: #212121;
@@ -771,6 +776,7 @@ body:has(button:hover) #cursor-ring {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 .yt-chrome-wordmark {
   font-family: Arial, sans-serif;
@@ -800,6 +806,7 @@ body:has(button:hover) #cursor-ring {
   border-bottom: 1px solid rgba(255,255,255,0.06);
   overflow-x: auto;
   scrollbar-width: none;
+  flex-shrink: 0;
 }
 .yt-filter-bar::-webkit-scrollbar { display: none; }
 .yt-filter-chip {
@@ -826,6 +833,9 @@ body:has(button:hover) #cursor-ring {
   gap: 20px;
   padding: 24px;
   background: #0f0f0f;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 .yt-video-card { cursor: pointer; }
 .yt-video-thumb-wrap {
@@ -888,6 +898,7 @@ body:has(button:hover) #cursor-ring {
 }
 @media (max-width: 640px) {
   .yt-videos-grid { grid-template-columns: 1fr; padding: 16px; }
+  .tt-video-item { padding: 4px 12px; }
 }
 
 /* ── TikTok Mockup ── */
@@ -911,8 +922,11 @@ body:has(button:hover) #cursor-ring {
 .tt-open-btn:active { transform: scale(0.97); }
 
 #tt-channel-mockup {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   overflow: hidden;
+  background: #000;
 }
 .tt-chrome-bar {
   background: #000;
@@ -950,66 +964,66 @@ body:has(button:hover) #cursor-ring {
 }
 .tt-tab:hover    { color: #fff; }
 .tt-tab-active   { color: #fff; border-bottom-color: #fff; }
-.tt-videos-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+.tt-videos-feed {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
   background: #000;
-  padding: 16px;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  position: relative;
+}
+.tt-videos-feed::-webkit-scrollbar { display: none; }
+.tt-video-item {
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 12px 16px;
 }
 .tt-video-card {
   position: relative;
   aspect-ratio: 9/16;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
   border-radius: 10px;
   overflow: hidden;
   background: #111;
   cursor: pointer;
+  margin: 0 auto;
+  flex-shrink: 0;
 }
 .tt-video-thumb {
-  width: 100%; height: 100%;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
+  max-width: 100%;
+  max-height: 100%;
 }
-.tt-video-card:hover .tt-video-thumb { transform: scale(1.04); }
+
+.tt-video-card video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+}
+.tt-video-card:hover .tt-video-thumb { transform: scale(1.02); }
 .tt-video-placeholder {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, #1a0630 0%, #000447 50%, #0a1a3a 100%);
 }
-.tt-video-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 10px;
-  gap: 4px;
-}
-.tt-video-play {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.tt-video-card:hover .tt-video-play { opacity: 1; }
-.tt-video-stat {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: var(--font-label);
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #fff;
-}
-@media (max-width: 640px) {
-  .tt-videos-grid { grid-template-columns: repeat(2, 1fr); padding: 12px; }
-}
-
 /* ── Sections ── */
 .section-dark  { background: var(--color-bg); }
 .section-muted { background: var(--color-bg-alt); }

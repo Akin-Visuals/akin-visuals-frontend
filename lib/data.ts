@@ -10,17 +10,8 @@ export const YT_VIDEOS: YtVideo[] = [
   { id: 'Gklxxaml_Tc', title: '', channel: 'AKIN Visuals', channelThumb: '', views: '', ago: '', duration: '' },
 ];
 
-export const TIKTOK_VIDEOS = [
-  {
-    url: 'https://www.instagram.com/reel/DVIm30WjBKz/',
-    thumb: '',
-  },
-  {
-    url: 'https://www.instagram.com/reel/DVI6RFAjLnr/',
-    thumb: '',
-  },
-  {
-    url: 'https://www.instagram.com/reel/DVd5rExiBN-/',
-    thumb: '',
-  },
+export const REEL_VIDEOS = [
+  { src: '/brand_assets/1.mp4', thumb: '' },
+  { src: '/brand_assets/2.mp4', thumb: '' },
+  { src: '/brand_assets/3.mp4', thumb: '' },
 ];

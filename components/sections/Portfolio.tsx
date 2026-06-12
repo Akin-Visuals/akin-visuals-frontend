@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { TIKTOK_VIDEOS } from '@/lib/data';
+import { REEL_VIDEOS } from '@/lib/data';
 import { getGsap } from '@/lib/gsap-cdn';
 import type { YtVideo } from '@/lib/youtube';
 import { YT_TO_CLIENT, type ClientId } from '@/lib/analytics-data';
@@ -43,7 +43,7 @@ function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (
   };
 
   return (
-    <div id="yt-channel-mockup" style={{ display: 'block' }}>
+    <div id="yt-channel-mockup">
       <div className="yt-chrome-bar">
         <div className="flex items-center gap-2 flex-shrink-0">
           <YtIcon />
@@ -101,8 +101,39 @@ function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (
 }
 
 function TtMockup() {
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const idx = Number(entry.target.getAttribute('data-index'));
+          const video = videoRefs.current[idx];
+          if (!video) return;
+          
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: [0, 0.5, 1],
+        root: null,
+      }
+    );
+
+    itemRefs.current.forEach((item) => {
+      if (item) observer.observe(item);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div id="tt-channel-mockup" style={{ display: 'block' }}>
+    <div id="tt-channel-mockup">
       <div className="tt-chrome-bar">
         <div className="flex items-center gap-2 flex-shrink-0">
           <TtIcon size={16} />
@@ -112,39 +143,34 @@ function TtMockup() {
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           tiktok.com
         </div>
-        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#bdc2ff] to-[#e0b6ff] flex-shrink-0" />
+        <Image src="/brand_assets/logowit.png" alt="AKIN" width={28} height={28} className="w-7 h-7 rounded-full object-cover flex-shrink-0" />
       </div>
       <div className="tt-tab-bar">
         {['Following', 'For You', 'Explore'].map((tab) => (
           <button key={tab} className={`tt-tab${tab === 'For You' ? ' tt-tab-active' : ''}`}>{tab}</button>
         ))}
       </div>
-      <div className="tt-videos-grid">
-        {TIKTOK_VIDEOS.map((v, i) => (
-          <a
-            key={i}
-            className="tt-video-card"
-            href={v.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Bekijk reel ${i + 1} op Instagram`}
+      <div className="tt-videos-feed">
+        {REEL_VIDEOS.map((v, i) => (
+          <div 
+            key={i} 
+            ref={(el) => { itemRefs.current[i] = el; }}
+            data-index={i}
+            className="tt-video-item"
           >
-            {v.thumb ? (
-              <Image
+            <div className="tt-video-card">
+              <video
+                ref={(el) => { videoRefs.current[i] = el; }}
                 className="tt-video-thumb"
-                src={v.thumb}
-                alt={`Reel ${i + 1}`}
-                fill
-                sizes="(max-width: 640px) 50vw, 200px"
-                loading="lazy"
+                src={v.src}
+                preload="metadata"
+                playsInline
+                muted
+                loop
+                controls={false}
               />
-            ) : (
-              <div className="tt-video-placeholder" />
-            )}
-            <div className="tt-video-play">
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="white" opacity="0.9"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>
@@ -173,7 +199,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
     gsap.timeline()
       .to(ytTeaserRef.current,  { opacity: 0, y: -10, duration: 0.3, ease: 'power2.in' })
       .set(ytTeaserRef.current,  { display: 'none' })
-      .set(ytMockupRef.current,  { display: 'block' })
+      .set(ytMockupRef.current,  { display: 'flex' })
       .fromTo(ytMockupRef.current,
         { opacity: 0, scale: 0.94, y: 32 },
         { opacity: 1, scale: 1,    y: 0, duration: 0.65, ease: 'power3.out' },
@@ -187,7 +213,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
     gsap.timeline()
       .to(ttTeaserRef.current,  { opacity: 0, y: -10, duration: 0.3, ease: 'power2.in' })
       .set(ttTeaserRef.current,  { display: 'none' })
-      .set(ttMockupRef.current,  { display: 'block' })
+      .set(ttMockupRef.current,  { display: 'flex' })
       .fromTo(ttMockupRef.current,
         { opacity: 0, scale: 0.94, y: 32 },
         { opacity: 1, scale: 1,    y: 0, duration: 0.65, ease: 'power3.out' },
@@ -223,10 +249,10 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
           {/* YouTube Card */}
-          <div className="platform-card fade-up">
+          <div className="platform-card fade-up min-h-[280px] h-auto">
             <div className="platform-accent platform-accent-yt" />
 
             <div ref={ytTeaserRef} className="platform-card-teaser" style={{ display: ytOpen ? 'none' : 'flex' }}>
@@ -246,13 +272,13 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
               </button>
             </div>
 
-            <div ref={ytMockupRef} style={{ display: 'none' }}>
+            <div ref={ytMockupRef} style={{ display: 'none' }} className="flex flex-col h-[500px] lg:h-[550px]">
               <YtMockup videos={ytVideos} onVideoClick={openProjectDetail} />
             </div>
           </div>
 
           {/* TikTok Card */}
-          <div className="platform-card fade-up">
+          <div className="platform-card fade-up min-h-[280px] h-auto">
             <div className="platform-accent platform-accent-tt" />
 
             <div ref={ttTeaserRef} className="platform-card-teaser" style={{ display: ttOpen ? 'none' : 'flex' }}>
@@ -269,7 +295,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
               </button>
             </div>
 
-            <div ref={ttMockupRef} style={{ display: 'none' }}>
+            <div ref={ttMockupRef} style={{ display: 'none' }} className="flex flex-col h-[500px] lg:h-[550px]">
               <TtMockup />
             </div>
           </div>
