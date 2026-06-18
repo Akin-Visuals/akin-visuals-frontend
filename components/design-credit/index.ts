@@ -1,0 +1,1 @@
+export { DesignCredit } from './DesignCredit';
