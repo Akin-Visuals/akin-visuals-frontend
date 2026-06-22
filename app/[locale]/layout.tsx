@@ -42,16 +42,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t('title'),
     description: t('description'),
-    metadataBase: new URL('https://akinvisuals.com'),
+    metadataBase: new URL('https://akinvisual.com'),
     robots: {
       index: true,
       follow: true,
     },
     alternates: {
-      canonical: `https://akinvisuals.com/${locale}`,
+      canonical: `https://akinvisual.com/${locale}`,
       languages: {
-        en: 'https://akinvisuals.com/en',
-        nl: 'https://akinvisuals.com/nl',
+        en: 'https://akinvisual.com/en',
+        nl: 'https://akinvisual.com/nl',
       },
     },
     icons: {
@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: `https://akinvisuals.com/${locale}`,
+      url: `https://akinvisual.com/${locale}`,
       type: 'website',
       images: [{ url: '/brand_assets/screen.png', width: 1200, height: 630, alt: t('title') }],
     },
@@ -77,8 +77,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         '@type': 'ProfessionalService',
         name: 'AKIN Visuals',
         description: 'Video editing agency for coaches and personal brands.',
-        url: 'https://akinvisuals.com',
-        logo: 'https://akinvisuals.com/brand_assets/logowit.png',
+        url: 'https://akinvisual.com',
+        logo: 'https://akinvisual.com/brand_assets/logowit.png',
         serviceType: ['Video Editing', 'Content Strategy', 'Short-Form Content Creation'],
         areaServed: 'Worldwide',
         priceRange: '$$',
