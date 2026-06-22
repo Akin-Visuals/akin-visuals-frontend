@@ -256,12 +256,12 @@ export default function Services() {
                     }}
                   >
                     {t('cta')}
-                    <span
-                      className="material-symbols-outlined transition-transform duration-200 group-hover/btn:translate-x-1"
-                      style={{ fontSize: '1rem' }}
+                    <svg
+                      className="transition-transform duration-200 group-hover/btn:translate-x-1"
+                      width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
                     >
-                      arrow_forward
-                    </span>
+                      <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                    </svg>
                   </a>
                   <p
                     className="text-[10px] text-right"

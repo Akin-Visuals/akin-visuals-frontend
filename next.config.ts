@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  compress: true,
+  poweredByHeader: false,
+
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'img.youtube.com' },
@@ -15,6 +18,18 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
     ],
     minimumCacheTTL: 86400,
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/brand_assets/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+
+    ];
   },
 };
 

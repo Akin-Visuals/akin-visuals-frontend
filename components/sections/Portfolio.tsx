@@ -163,7 +163,7 @@ function TtMockup() {
                 ref={(el) => { videoRefs.current[i] = el; }}
                 className="tt-video-thumb"
                 src={v.src}
-                preload="metadata"
+                preload="none"
                 playsInline
                 muted
                 loop

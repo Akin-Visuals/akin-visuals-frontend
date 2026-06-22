@@ -1,17 +1,47 @@
 'use client';
 
-import { useState } from 'react';
-import Script from 'next/script';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
 const CALENDLY_URL = 'https://calendly.com/ramazanaliakin2006/30min';
+const CALENDLY_SCRIPT = 'https://assets.calendly.com/assets/external/widget.js';
 
 export default function Contact() {
   const t = useTranslations('contact');
   const [loaded, setLoaded] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          observer.disconnect();
+
+          const existing = document.querySelector(`script[src="${CALENDLY_SCRIPT}"]`);
+          if (existing) {
+            setLoaded(true);
+            return;
+          }
+
+          const script = document.createElement('script');
+          script.src = CALENDLY_SCRIPT;
+          script.async = true;
+          script.onload = () => setLoaded(true);
+          document.body.appendChild(script);
+        }
+      },
+      { rootMargin: '400px' }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="contact" className="py-28 px-8 fade-up section-snap relative overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-28 px-8 fade-up section-snap relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '220px', background: 'linear-gradient(to bottom, #0e1220, #0d1117)' }} />
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -78,12 +108,6 @@ export default function Contact() {
 
         </div>
       </div>
-
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="afterInteractive"
-        onLoad={() => setLoaded(true)}
-      />
     </section>
   );
 }

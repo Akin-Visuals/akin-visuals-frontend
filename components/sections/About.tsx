@@ -119,7 +119,7 @@ export default function About() {
                         src={img.src}
                         alt={img.alt}
                         fill
-                        sizes="(max-width: 768px) 100vw, 600px"
+                        sizes="(max-width: 768px) 100vw, 450px"
                         priority={i === 0}
                         quality={85}
                         onError={() => {}}
