@@ -39,6 +39,17 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
+  const tFaq = await getTranslations({ locale, namespace: 'faq' });
+
+  const faqEntities = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6'].map((key) => ({
+    '@type': 'Question',
+    name: tFaq(`${key}Q`),
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: tFaq(`${key}A`),
+    },
+  }));
+
   return {
     title: t('title'),
     description: t('description'),
@@ -52,6 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: 'https://akinvisual.com/en',
         nl: 'https://akinvisual.com/nl',
+        'x-default': 'https://akinvisual.com/en',
       },
     },
     icons: {
@@ -74,19 +86,49 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     other: {
       'script:ld+json': JSON.stringify({
         '@context': 'https://schema.org',
-        '@type': 'ProfessionalService',
-        name: 'AKIN Visuals',
-        description: 'Video editing agency for coaches and personal brands.',
-        url: 'https://akinvisual.com',
-        logo: 'https://akinvisual.com/brand_assets/logowit.png',
-        serviceType: ['Video Editing', 'Content Strategy', 'Short-Form Content Creation'],
-        areaServed: 'Worldwide',
-        priceRange: '$$',
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '5',
-          reviewCount: '3',
-        },
+        '@graph': [
+          {
+            '@type': 'ProfessionalService',
+            name: 'AKIN Visuals',
+            description: 'Video editing agency for coaches and personal brands.',
+            url: 'https://akinvisual.com',
+            logo: 'https://akinvisual.com/brand_assets/logowit.png',
+            sameAs: ['https://www.instagram.com/akin_visuals/'],
+            serviceType: ['Video Editing', 'Content Strategy', 'Short-Form Content Creation'],
+            areaServed: 'Worldwide',
+            priceRange: '$$',
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: '5',
+              reviewCount: '3',
+            },
+          },
+          {
+            '@type': 'FAQPage',
+            mainEntity: faqEntities,
+          },
+          {
+            '@type': 'HowTo',
+            name: tFaq('howToName'),
+            step: [
+              {
+                '@type': 'HowToStep',
+                position: 1,
+                text: tFaq('howToStep1'),
+              },
+              {
+                '@type': 'HowToStep',
+                position: 2,
+                text: tFaq('howToStep2'),
+              },
+              {
+                '@type': 'HowToStep',
+                position: 3,
+                text: tFaq('howToStep3'),
+              },
+            ],
+          },
+        ],
       }),
     },
   };

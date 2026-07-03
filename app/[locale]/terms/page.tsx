@@ -1,5 +1,21 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'terms' });
+  return {
+    title: `${t('title')} — AKIN Visuals`,
+    alternates: {
+      canonical: `https://akinvisual.com/${locale}/terms`,
+    },
+  };
+}
 
 export default async function TermsPage() {
   const t = await getTranslations('terms');

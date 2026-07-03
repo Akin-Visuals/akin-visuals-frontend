@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "AKIN Visuals — Video Editing for Coaches & Personal Brands",
-    "description": "AKIN Visuals helps coaches and personal brands turn raw footage into high-retention videos that drive views and inbound clients. Book a free strategy call."
+    "description": "AKIN Visuals helps coaches and personal brands turn raw footage into high-retention videos that drive views and clients. Book a free strategy call."
   },
   "nav": {
     "about": "About",
@@ -209,6 +209,10 @@
     "q5Q": "Can I request revisions?",
     "q5A": "Absolutely. Every project includes one round of revisions at no extra cost. Additional revision rounds are available. We want to make sure you're completely satisfied with every video we deliver.",
     "q6Q": "How do I get started?",
-    "q6A": "Fill out the contact form above or book a free strategy call. We'll discuss your content goals, current workflow, and how we can help. No commitment — just a conversation to see if we're a good fit."
+    "q6A": "Fill out the contact form above or book a free strategy call. We'll discuss your content goals, current workflow, and how we can help. No commitment — just a conversation to see if we're a good fit.",
+    "howToName": "How does the editing process work?",
+    "howToStep1": "You send us your raw footage via Google Drive or Dropbox.",
+    "howToStep2": "We handle everything — cutting, pacing, color grading, captions, thumbnails, and sound design.",
+    "howToStep3": "You receive the finished video within your agreed turnaround time, ready to publish."
   }
 }
