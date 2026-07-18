@@ -29,9 +29,10 @@ function FlagNL() {
   );
 }
 
-const NAV_LINKS = ['services', 'portfolio', 'testimonials', 'about'] as const;
+const NAV_LINKS = ['services', 'partnership', 'portfolio', 'testimonials', 'about'] as const;
 const HREF_MAP: Record<string, string> = {
   services: '#services',
+  partnership: '#partnership',
   portfolio: '#work',
   testimonials: '#testimonials',
   about: '#about',

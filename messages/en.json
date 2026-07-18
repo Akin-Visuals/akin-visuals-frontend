@@ -7,6 +7,7 @@
     "about": "About",
     "portfolio": "Portfolio",
     "services": "Services",
+    "partnership": "Partnership",
     "testimonials": "Testimonials",
     "contact": "Contact",
     "cta": "Get In Touch"
@@ -219,68 +220,68 @@
     "howToStep3": "You receive the finished video within your agreed turnaround time, ready to publish."
   },
   "roe7": {
-    "label": "Samenwerking",
-    "title": "Social Media Pakket",
-    "sub": "Samen met ROE7 verzorgen we jouw volledige social media aanwezigheid — van creatie en strategie tot beheer en promotie.",
-    "trial": "3 maanden proefperiode",
+    "label": "Partnership",
+    "title": "Social Media Package",
+    "sub": "Together with ROE7 we handle your entire social media presence — from creation and strategy to management and promotion.",
+    "trial": "3-month trial period",
     "intro": {
-      "heading": "Eén partner voor je volledige social media",
-      "text": "AKIN Visuals en ROE7 bundelen creatie, strategie en beheer in één pakket. Jij focust op je business, wij zorgen voor consistente content die converteert.",
+      "heading": "One partner for your entire social media",
+      "text": "AKIN Visuals and ROE7 bundle creation, strategy and management into a single package. You focus on your business, we deliver consistent content that converts.",
       "benefits": [
-        "Vast team voor opname, editing én strategie",
-        "Consistente output, elke week opnieuw",
-        "Volledig beheer van je social kanalen",
-        "Drukklaar promotiemateriaal inbegrepen"
+        "A dedicated team for filming, editing and strategy",
+        "Consistent output, every single week",
+        "Full management of your social channels",
+        "Print-ready promotional material included"
       ]
     },
     "cats": {
       "content": {
-        "title": "Content Creatie",
-        "desc": "Van opname tot afgewerkte video — klaar voor elk platform.",
+        "title": "Content Creation",
+        "desc": "From filming to finished video — ready for every platform.",
         "items": [
-          "4 video's per week voor social media (Reels / TikTok / Shorts)",
-          "Video-opnames voor social media",
-          "Video editing en optimalisatie voor elk platform",
-          "Creatieve concepten en ideeën voor content",
-          "Professionele scripts voor video's"
+          "4 videos per week for social media (Reels / TikTok / Shorts)",
+          "Video shoots for social media",
+          "Video editing and optimization for every platform",
+          "Creative concepts and ideas for content",
+          "Professional scripts for videos"
         ]
       },
       "strategy": {
-        "title": "Content Strategie",
-        "desc": "Een doordacht plan dat groei en engagement stuurt.",
+        "title": "Content Strategy",
+        "desc": "A thoughtful plan that drives growth and engagement.",
         "items": [
-          "Contentplanning per maand",
-          "Schrijven van captions en hooks",
-          "Strategie voor groei en engagement",
-          "Positionering van het merk online"
+          "Monthly content planning",
+          "Writing captions and hooks",
+          "Strategy for growth and engagement",
+          "Positioning the brand online"
         ]
       },
       "visibility": {
-        "title": "Online Zichtbaarheid & Beheer",
-        "desc": "Wij beheren, plaatsen en optimaliseren je kanalen.",
+        "title": "Online Visibility & Management",
+        "desc": "We manage, post and optimize your channels.",
         "items": [
-          "Beheer van social media accounts",
-          "Plaatsen en inplannen van content",
-          "Optimalisatie van profielen (bio, highlights, branding)",
-          "Analyse van prestaties en groei"
+          "Management of social media accounts",
+          "Posting and scheduling content",
+          "Profile optimization (bio, highlights, branding)",
+          "Analysis of performance and growth"
         ]
       },
       "promo": {
-        "title": "Promotiemateriaal",
-        "desc": "Professioneel drukwerk en digitale materialen, drukklaar.",
+        "title": "Promotional Material",
+        "desc": "Professional print and digital materials, print-ready.",
         "items": [
-          "Ontwerp van posters",
-          "Ontwerp van flyers",
-          "QR-codes gekoppeld aan social media",
-          "Drukklare bestanden"
+          "Poster design",
+          "Flyer design",
+          "QR codes linked to social media",
+          "Print-ready files"
         ]
       }
     },
-    "excludedLabel": "Advertenties niet inbegrepen",
+    "excludedLabel": "Ads not included",
     "excluded": [
       "Google Ads",
       "Meta Ads (Facebook & Instagram)"
     ],
-    "cta": "Plan een gesprek"
+    "cta": "Book a Call"
   }
 }

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 
-const RAW_SRC = '/brand_assets/before-portfolio-3.mp4';   // before (raw)
+const RAW_SRC = '/brand_assets/before-portfolio-3.webm';   // before (raw)
 const EDITED_SRC = '/brand_assets/portfolio-3.webm';        // after (edited)
 
 // Horizontal lean of the divider: top and bottom edges sit SLANT/2 either side
@@ -27,13 +27,26 @@ export default function BeforeAfterSlider() {
     raw.play().catch(() => {});
     edited.play().catch(() => {});
 
+    // Keep the two layers aligned WITHOUT expensive seeks (which stutter on mobile):
+    // nudge the before video's playbackRate to gently catch up; only hard-seek on a
+    // large gap (e.g. right after a loop wrap).
     const sync = () => {
-      if (Math.abs(raw.currentTime - edited.currentTime) > 0.08) {
+      const drift = edited.currentTime - raw.currentTime; // >0 → before is behind
+      const abs = Math.abs(drift);
+      if (abs > 0.5) {
         raw.currentTime = edited.currentTime;
+        raw.playbackRate = 1;
+      } else if (abs > 0.05) {
+        raw.playbackRate = drift > 0 ? 1.08 : 0.92;
+      } else {
+        raw.playbackRate = 1;
       }
     };
     edited.addEventListener('timeupdate', sync);
-    return () => edited.removeEventListener('timeupdate', sync);
+    return () => {
+      edited.removeEventListener('timeupdate', sync);
+      raw.playbackRate = 1;
+    };
   }, []);
 
   const setFromClientX = useCallback((clientX: number) => {
