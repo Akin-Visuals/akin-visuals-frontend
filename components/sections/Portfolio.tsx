@@ -177,7 +177,55 @@ function TtMockup() {
   );
 }
 
+// 3-row auto-scrolling YouTube wall (row 1 → left, rows 2 & 3 → right)
+function YtMarquee({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (v: YtVideo) => void }) {
+  if (!videos.length) return null;
+
+  // Split into 3 distinct groups so each row shows different videos (no cross-row repeat)
+  const n = videos.length;
+  const s0 = Math.floor(n / 3) + (n % 3 > 0 ? 1 : 0);
+  const s1 = Math.floor(n / 3) + (n % 3 > 1 ? 1 : 0);
+  const rows: { dir: 'left' | 'right'; items: YtVideo[] }[] = [
+    { dir: 'left',  items: videos.slice(0, s0) },        // row 1: right → left
+    { dir: 'right', items: videos.slice(s0, s0 + s1) },  // row 2: left → right
+    { dir: 'left',  items: videos.slice(s0 + s1) },      // row 3: right → left
+  ];
+
+  return (
+    <div className="yt-marquee fade-up">
+      {rows.map((row, ri) => (
+        <div key={ri} className={`yt-marquee-row yt-marquee-${row.dir}`}>
+          <div className="yt-marquee-track">
+            {[...row.items, ...row.items].map((v, i) => (
+              <button
+                key={`${v.id}-${i}`}
+                type="button"
+                className="yt-marquee-card"
+                onClick={() => onVideoClick(v)}
+                aria-label={v.title || 'YouTube video'}
+              >
+                <Image
+                  src={`https://img.youtube.com/vi/${v.id}/mqdefault.jpg`}
+                  alt={v.title || ''}
+                  fill
+                  sizes="320px"
+                  className="yt-marquee-thumb"
+                />
+                <span className="yt-marquee-play" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
+  // Set to true to restore the old YouTube/TikTok platform cards below
+  const SHOW_LEGACY_PLATFORMS = false;
   const t = useTranslations('portfolio');
   const [ytOpen, setYtOpen] = useState(false);
   const [ttOpen, setTtOpen] = useState(false);
@@ -185,6 +233,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
     videoId: string;
     title: string;
     channel: string;
+    views: string;
     clientId: ClientId;
   } | null>(null);
 
@@ -227,6 +276,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
       videoId: video.id,
       title: video.title,
       channel: video.channel,
+      views: video.views,
       clientId,
     });
   };
@@ -249,6 +299,11 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
           </p>
         </div>
 
+        {/* New: 3-row auto-scrolling YouTube wall */}
+        <YtMarquee videos={ytVideos} onVideoClick={openProjectDetail} />
+
+        {/* Legacy platform cards — preserved, toggle SHOW_LEGACY_PLATFORMS to restore */}
+        {SHOW_LEGACY_PLATFORMS && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
           {/* YouTube Card */}
@@ -301,6 +356,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
           </div>
 
         </div>
+        )}
       </div>
 
       {/* Project Detail overlay */}
@@ -309,6 +365,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
           videoId={projectDetail.videoId}
           title={projectDetail.title}
           channel={projectDetail.channel}
+          views={projectDetail.views}
           clientId={projectDetail.clientId}
           onClose={closeProjectDetail}
         />

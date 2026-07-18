@@ -273,6 +273,73 @@ body {
   .ba-fade { animation: none; }
 }
 
+/* ════════════════════════════
+   Portfolio — 3-row YouTube marquee
+════════════════════════════ */
+.yt-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.yt-marquee-row { overflow: hidden; }
+.yt-marquee-track {
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  will-change: transform;
+}
+.yt-marquee-left  .yt-marquee-track { animation: ytMarqueeLeft  48s linear infinite; }
+.yt-marquee-right .yt-marquee-track { animation: ytMarqueeRight 48s linear infinite; }
+.yt-marquee-row:hover .yt-marquee-track { animation-play-state: paused; }
+@keyframes ytMarqueeLeft  { from { transform: translate3d(0, 0, 0); }     to { transform: translate3d(-50%, 0, 0); } }
+@keyframes ytMarqueeRight { from { transform: translate3d(-50%, 0, 0); }  to { transform: translate3d(0, 0, 0); } }
+
+.yt-marquee-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(220px, 26vw, 320px);
+  height: clamp(124px, 14.6vw, 180px);
+  margin-right: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d1535;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.yt-marquee-card:hover {
+  transform: scale(1.03);
+  border-color: rgba(189, 194, 255, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 30px rgba(92, 109, 255, 0.15);
+}
+.yt-marquee-thumb { object-fit: cover; }
+.yt-marquee-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.yt-marquee-card:hover .yt-marquee-play { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .yt-marquee-left .yt-marquee-track,
+  .yt-marquee-right .yt-marquee-track { animation: none; }
+}
+
 /* ROE7 benefit cards */
 .roe7-benefit {
   background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012));
@@ -659,11 +726,12 @@ a.desktop-only.nav-cta { display: none; }
 }
 .testimonial-marquee-track {
   display: flex;
-  gap: 1.5rem;
   width: max-content;
   animation: marqueeScroll 32s linear infinite;
   padding: 0.5rem 0;
 }
+/* Trailing margin instead of gap so translateX(-50%) loops seamlessly */
+.testimonial-marquee-track > * { margin-right: 1.5rem; }
 .testimonial-marquee-wrap:hover .testimonial-marquee-track {
   animation-play-state: paused;
 }

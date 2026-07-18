@@ -21,6 +21,7 @@ export interface ProjectDetailProps {
   videoId: string;
   title: string;
   channel: string;
+  views: string;
   clientId: ClientId;
   onClose: () => void;
 }
@@ -29,9 +30,11 @@ export interface ProjectDetailProps {
 
 function ChartTooltip({ active, payload }: { active?: boolean; payload?: { value: number; name: string; color: string }[] }) {
   if (!active || !payload?.length) return null;
+  // Drop the gradient Area's entry (its name is the raw dataKey) so "this video" isn't listed twice
+  const items = payload.filter((entry) => entry.name !== 'thisVideo');
   return (
     <div className="pd-tooltip">
-      {payload.map((entry) => (
+      {items.map((entry) => (
         <div key={entry.name} className="flex items-center gap-2 text-xs">
           <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: entry.color }} />
           <span style={{ color: 'rgba(225,226,231,0.6)' }}>{entry.name}</span>
@@ -42,11 +45,56 @@ function ChartTooltip({ active, payload }: { active?: boolean; payload?: { value
   );
 }
 
+/* ── Derive plausible watch time / subscribers from a view count ── */
+
+function parseViews(v: string): number {
+  if (!v) return 0;
+  const s = v.trim().toUpperCase().replace(/\s/g, '');
+  const m = s.match(/^([\d.,]+)([KMB]?)$/);
+  if (!m) return 0;
+  const suffix = m[2];
+  if (suffix) {
+    let num = parseFloat(m[1].replace(',', '.')); // K/M/B → comma is decimal
+    if (suffix === 'K') num *= 1e3;
+    else if (suffix === 'M') num *= 1e6;
+    else if (suffix === 'B') num *= 1e9;
+    return Math.round(num);
+  }
+  return Math.round(parseFloat(m[1].replace(/[.,]/g, '')) || 0); // plain: strip separators
+}
+
+// ~4.5 min average watch per view, in hours (Dutch decimal formatting)
+const deriveWatchHours = (viewsNum: number) => (viewsNum * 4.5 / 60).toFixed(1).replace('.', ',');
+// ~1.5% of viewers subscribe
+const deriveSubscribers = (viewsNum: number) => `+${Math.round(viewsNum * 0.015)}`;
+
+// Build a rising cumulative-views curve (fast early growth, tapering) that ends at `total`
+function buildChartData(total: number) {
+  const days = 114;
+  const step = 3;
+  const tau = 22;          // this video: reaches ~99% by ~day 100
+  const tauT = 34;         // typical: slower
+  const normThis = 1 - Math.exp(-days / tau);
+  const normTyp = 1 - Math.exp(-days / tauT);
+  const data: { day: number; thisVideo: number; typical: number }[] = [];
+  for (let day = 0; day <= days; day += step) {
+    const thisVideo = Math.round(total * (1 - Math.exp(-day / tau)) / normThis);
+    const typical = Math.round(total * 0.58 * (1 - Math.exp(-day / tauT)) / normTyp);
+    data.push({ day, thisVideo, typical });
+  }
+  return data;
+}
+
 /* ── Main component ── */
 
-export default function ProjectDetail({ videoId, title, channel, clientId, onClose }: ProjectDetailProps) {
+export default function ProjectDetail({ videoId, title, channel, views, clientId, onClose }: ProjectDetailProps) {
   const t = useTranslations('analytics');
   const client = CLIENTS[clientId];
+  const viewsNum = parseViews(views);
+  const displayViews = views || client.views;
+  const displayWatch = viewsNum > 0 ? deriveWatchHours(viewsNum) : client.watchHours;
+  const displaySubs = viewsNum > 0 ? deriveSubscribers(viewsNum) : client.subscribers;
+  const chartData = viewsNum > 0 ? buildChartData(viewsNum) : client.chartData;
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();
@@ -101,13 +149,13 @@ export default function ProjectDetail({ videoId, title, channel, clientId, onClo
           <h4 id="pd-analytics-heading">{t('label')}</h4>
 
           <p className="analytics-video-title" style={{ marginBottom: '1rem' }}>
-            {t('videoTitle', { views: client.views, name: channel })}
+            {t('videoTitle', { views: displayViews, name: channel })}
           </p>
 
           <div className="analytics-stats-grid" style={{ marginBottom: '1.25rem' }}>
-            <StatCard label={t('statViews')} value={client.views} note={t('statTypical')} positive />
-            <StatCard label={t('statWatchTime')} value={client.watchHours} note={t('statTypical')} positive />
-            <StatCard label={t('statSubs')} value={client.subscribers} positive />
+            <StatCard label={t('statViews')} value={displayViews} note={t('statTypical')} positive />
+            <StatCard label={t('statWatchTime')} value={displayWatch} note={t('statTypical')} positive />
+            <StatCard label={t('statSubs')} value={displaySubs} positive />
           </div>
 
           <div className="analytics-chart-wrap">
@@ -123,7 +171,7 @@ export default function ProjectDetail({ videoId, title, channel, clientId, onClo
             </div>
 
             <ResponsiveContainer width="100%" height={240}>
-              <ComposedChart data={client.chartData} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
+              <ComposedChart data={chartData} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="pdGradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#5c6dff" stopOpacity={0.18} />
