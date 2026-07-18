@@ -12,7 +12,7 @@ import {
   Area,
   ComposedChart,
 } from 'recharts';
-import { CLIENTS, type ClientId } from '@/lib/analytics-data';
+import { type ClientId } from '@/lib/analytics-data';
 import StatCard from '@/components/ui/StatCard';
 
 /* ── Types ── */
@@ -68,6 +68,15 @@ const deriveWatchHours = (viewsNum: number) => (viewsNum * 4.5 / 60).toFixed(1).
 // ~1.5% of viewers subscribe
 const deriveSubscribers = (viewsNum: number) => `+${Math.round(viewsNum * 0.015)}`;
 
+// Deterministic plausible view count for videos without a real one (stable per video id)
+function hashId(id: string): number {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (Math.imul(h, 31) + id.charCodeAt(i)) >>> 0;
+  return h;
+}
+const fallbackViews = (id: string) => 700 + (hashId(id) % 5300);
+const formatViews = (n: number) => (n >= 1000 ? `${(n / 1000).toFixed(1).replace('.', ',')}K` : String(n));
+
 // Build a rising cumulative-views curve (fast early growth, tapering) that ends at `total`
 function buildChartData(total: number) {
   const days = 114;
@@ -87,14 +96,14 @@ function buildChartData(total: number) {
 
 /* ── Main component ── */
 
-export default function ProjectDetail({ videoId, title, channel, views, clientId, onClose }: ProjectDetailProps) {
+export default function ProjectDetail({ videoId, title, channel, views, onClose }: ProjectDetailProps) {
   const t = useTranslations('analytics');
-  const client = CLIENTS[clientId];
-  const viewsNum = parseViews(views);
-  const displayViews = views || client.views;
-  const displayWatch = viewsNum > 0 ? deriveWatchHours(viewsNum) : client.watchHours;
-  const displaySubs = viewsNum > 0 ? deriveSubscribers(viewsNum) : client.subscribers;
-  const chartData = viewsNum > 0 ? buildChartData(viewsNum) : client.chartData;
+  const realViews = parseViews(views);
+  const viewsNum = realViews > 0 ? realViews : fallbackViews(videoId);
+  const displayViews = views || formatViews(viewsNum);
+  const displayWatch = deriveWatchHours(viewsNum);
+  const displaySubs = deriveSubscribers(viewsNum);
+  const chartData = buildChartData(viewsNum);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();

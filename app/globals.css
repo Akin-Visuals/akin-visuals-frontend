@@ -727,7 +727,7 @@ a.desktop-only.nav-cta { display: none; }
 .testimonial-marquee-track {
   display: flex;
   width: max-content;
-  animation: marqueeScroll 32s linear infinite;
+  animation: marqueeScroll 140s linear infinite;
   padding: 0.5rem 0;
 }
 /* Trailing margin instead of gap so translateX(-50%) loops seamlessly */

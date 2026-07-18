@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 
-const RAW_SRC = '/brand_assets/before-portfolio-3.webm';   // before (raw)
+const RAW_SRC = '/brand_assets/before-portfolio-3.mp4';   // before (raw)
 const EDITED_SRC = '/brand_assets/portfolio-3.webm';        // after (edited)
 
 // Horizontal lean of the divider: top and bottom edges sit SLANT/2 either side

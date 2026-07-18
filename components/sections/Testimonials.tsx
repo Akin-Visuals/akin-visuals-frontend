@@ -30,8 +30,10 @@ export default function Testimonials() {
     },
   ];
 
-  // Duplicate for seamless loop
-  const items = [...conversations, ...conversations];
+  // Repeat enough times that one half of the track is wider than any screen,
+  // so the translateX(-50%) loop stays seamless (no empty gap on wide viewports).
+  // 6 copies → each half = 3 sets (~3.3k px).
+  const items = Array.from({ length: 6 }, () => conversations).flat();
 
   return (
     <section id="testimonials" className="py-28 section-snap relative overflow-hidden">
