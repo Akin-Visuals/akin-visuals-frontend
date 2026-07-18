@@ -4,29 +4,11 @@ import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { loadGsap, getGsap } from '@/lib/gsap-cdn';
 import { prefersReducedMotion } from '@/lib/animations';
-
-const VIDEO_SRC = '/brand_assets/highlights-reel.webm';
-
-// Each panel shows a different segment of the same video
-const PANELS = [
-  { startTime: 0,  label: 'YouTube' },
-  { startTime: 13, label: 'Reel'    },
-  { startTime: 26, label: 'TikTok'  },
-];
+import BeforeAfterSlider from './BeforeAfterSlider';
 
 export default function Hero() {
   const t = useTranslations('hero');
   const gridRef  = useRef<HTMLDivElement>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-
-  // Set start times after mount
-  useEffect(() => {
-    videoRefs.current.forEach((vid, i) => {
-      if (!vid) return;
-      vid.currentTime = PANELS[i].startTime;
-      vid.play().catch(() => {/* autoplay blocked — muted so this shouldn't happen */});
-    });
-  }, []);
 
   // GSAP tilt on mouse move
   useEffect(() => {
@@ -71,7 +53,7 @@ export default function Hero() {
         <div className="hero-blob hero-blob-3" />
       </div>
 
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
+      <div className="max-w-7xl lg:max-w-[88rem] mx-auto w-full lg:px-10 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-12 lg:gap-20 items-center relative z-10">
 
         {/* Left: Text */}
         <div>
@@ -137,37 +119,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right: Video grid */}
+        {/* Right: Before / After slider */}
         <div ref={gridRef} id="h-video-wrap">
-          <div
-            className="grid gap-2.5 rounded-2xl overflow-hidden"
-            style={{
-              gridTemplateColumns: '1fr 1fr',
-              gridTemplateRows: '1fr 1fr',
-              height: '520px',
-            }}
-          >
-            {PANELS.map((panel, i) => (
-              <div
-                key={i}
-                className="relative rounded-xl overflow-hidden bg-[#0d1535]"
-                style={i === 0 ? { gridRow: 'span 2' } : {}}
-              >
-                <video
-                  ref={el => { videoRefs.current[i] = el; }}
-                  src={VIDEO_SRC}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent z-10" />
-              </div>
-            ))}
-          </div>
+          <BeforeAfterSlider />
         </div>
       </div>
 

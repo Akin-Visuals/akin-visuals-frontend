@@ -111,6 +111,10 @@ body {
   position: relative;
   overflow: hidden;
 }
+/* Desktop: hand horizontal spacing to the inner container so it aligns with the navbar */
+@media (min-width: 1024px) {
+  #hero { padding-left: 0; padding-right: 0; }
+}
 #hero::after {
   content: '';
   position: absolute;
@@ -139,6 +143,159 @@ body {
   #h-label, #h-title, #h-sub, #h-cta, #h-stats, #h-video-wrap {
     animation: none;
   }
+}
+
+/* ════════════════════════════
+   HERO — Before / After slider
+════════════════════════════ */
+.ba-slider {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #0d1535;
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: none;
+  box-shadow:
+    0 0 0 1px rgba(189, 194, 255, 0.10),
+    0 30px 70px rgba(0, 0, 0, 0.55),
+    0 0 60px rgba(92, 109, 255, 0.10);
+}
+
+.ba-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* EDITED layer — full color, revealed by clip-path */
+.ba-after {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  will-change: clip-path;
+}
+
+/* Labels */
+.ba-label {
+  position: absolute;
+  bottom: 1rem;
+  z-index: 4;
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #e1e2e7;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(13, 17, 23, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+.ba-label--before { left: 1rem; }
+.ba-label--after  {
+  right: 1rem;
+  color: var(--color-lilac);
+  border-color: rgba(224, 182, 255, 0.28);
+  box-shadow: 0 0 18px rgba(109, 17, 173, 0.25);
+}
+
+/* Slanted divider line (SVG overlay, aligned with the clip edge) */
+.ba-divider {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(189, 194, 255, 0.55));
+}
+
+/* Draggable handle — vertically centered on the divider midpoint */
+.ba-handle {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+  outline: none;
+}
+.ba-knob {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background:
+    radial-gradient(circle at 50% 35%, #241a3d 0%, #12101f 100%);
+  border: 2px solid var(--color-lilac);
+  box-shadow:
+    0 0 0 3px rgba(13, 17, 23, 0.55),
+    0 8px 22px rgba(0, 0, 0, 0.55),
+    0 0 22px rgba(224, 182, 255, 0.55);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.ba-slider:hover .ba-knob,
+.ba-handle:focus-visible .ba-knob {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 3px rgba(13, 17, 23, 0.55),
+    0 8px 22px rgba(0, 0, 0, 0.55),
+    0 0 32px rgba(224, 182, 255, 0.85);
+}
+.ba-handle:focus-visible .ba-knob {
+  border-color: #fff;
+}
+
+@media (max-width: 1023px) {
+  .ba-slider { height: 420px; }
+}
+
+/* Tab-panel swap fade (ROE7 section) */
+@keyframes baFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.ba-fade { animation: baFade 0.35s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  .ba-fade { animation: none; }
+}
+
+/* ROE7 benefit cards */
+.roe7-benefit {
+  background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012));
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.roe7-benefit:hover {
+  transform: translateY(-3px);
+  border-color: rgba(224,182,255,0.28);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.38), 0 0 26px rgba(109,17,173,0.14);
+}
+.roe7-benefit-icon {
+  background: linear-gradient(135deg, rgba(92,109,255,0.20), rgba(109,17,173,0.20));
+  border: 1px solid rgba(224,182,255,0.22);
+  color: #e0b6ff;
+  transition: box-shadow 0.25s ease;
+}
+.roe7-benefit:hover .roe7-benefit-icon {
+  box-shadow: 0 0 18px rgba(224,182,255,0.30);
+}
+@media (prefers-reduced-motion: reduce) {
+  .roe7-benefit { transition: none; }
+  .roe7-benefit:hover { transform: none; }
 }
 
 /* Scroll indicator */

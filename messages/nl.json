@@ -19,7 +19,10 @@
     "sub": "Wij helpen coaches en personal brands rauwe content omzetten in consistente views, engagement en inbound klanten via strategische video-editing.",
     "cta1": "Plan een Gesprek",
     "cta2": "Bekijk Ons Werk",
-    "trust": "Hoge-retentie editing • Strategisch knippen • Consistent resultaat"
+    "trust": "Hoge-retentie editing • Strategisch knippen • Consistent resultaat",
+    "sliderBefore": "Rauw",
+    "sliderAfter": "Bewerkt",
+    "sliderAria": "Sleep om rauwe beelden met het bewerkte resultaat te vergelijken"
   },
   "about": {
     "label": "Over Ons",
@@ -214,5 +217,70 @@
     "howToStep1": "Je stuurt ons je ruwe footage via Google Drive of Dropbox.",
     "howToStep2": "Wij doen de rest — knippen, pacing, color grading, ondertiteling, thumbnails en sound design.",
     "howToStep3": "Je ontvangt de afgewerkte video binnen de afgesproken tijd, klaar om te publiceren."
+  },
+  "roe7": {
+    "label": "Samenwerking",
+    "title": "Social Media Pakket",
+    "sub": "Samen met ROE7 verzorgen we jouw volledige social media aanwezigheid — van creatie en strategie tot beheer en promotie.",
+    "trial": "3 maanden proefperiode",
+    "intro": {
+      "heading": "Eén partner voor je volledige social media",
+      "text": "AKIN Visuals en ROE7 bundelen creatie, strategie en beheer in één pakket. Jij focust op je business, wij zorgen voor consistente content die converteert.",
+      "benefits": [
+        "Vast team voor opname, editing én strategie",
+        "Consistente output, elke week opnieuw",
+        "Volledig beheer van je social kanalen",
+        "Drukklaar promotiemateriaal inbegrepen"
+      ]
+    },
+    "cats": {
+      "content": {
+        "title": "Content Creatie",
+        "desc": "Van opname tot afgewerkte video — klaar voor elk platform.",
+        "items": [
+          "4 video's per week voor social media (Reels / TikTok / Shorts)",
+          "Video-opnames voor social media",
+          "Video editing en optimalisatie voor elk platform",
+          "Creatieve concepten en ideeën voor content",
+          "Professionele scripts voor video's"
+        ]
+      },
+      "strategy": {
+        "title": "Content Strategie",
+        "desc": "Een doordacht plan dat groei en engagement stuurt.",
+        "items": [
+          "Contentplanning per maand",
+          "Schrijven van captions en hooks",
+          "Strategie voor groei en engagement",
+          "Positionering van het merk online"
+        ]
+      },
+      "visibility": {
+        "title": "Online Zichtbaarheid & Beheer",
+        "desc": "Wij beheren, plaatsen en optimaliseren je kanalen.",
+        "items": [
+          "Beheer van social media accounts",
+          "Plaatsen en inplannen van content",
+          "Optimalisatie van profielen (bio, highlights, branding)",
+          "Analyse van prestaties en groei"
+        ]
+      },
+      "promo": {
+        "title": "Promotiemateriaal",
+        "desc": "Professioneel drukwerk en digitale materialen, drukklaar.",
+        "items": [
+          "Ontwerp van posters",
+          "Ontwerp van flyers",
+          "QR-codes gekoppeld aan social media",
+          "Drukklare bestanden"
+        ]
+      }
+    },
+    "excludedLabel": "Advertenties niet inbegrepen",
+    "excluded": [
+      "Google Ads",
+      "Meta Ads (Facebook & Instagram)"
+    ],
+    "cta": "Plan een gesprek"
   }
 }

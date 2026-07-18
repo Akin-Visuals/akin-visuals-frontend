@@ -6,6 +6,7 @@ import About from '@/components/sections/About';
 import Portfolio from '@/components/sections/Portfolio';
 import Testimonials from '@/components/sections/Testimonials';
 import Services from '@/components/sections/Services';
+import Roe7Package from '@/components/sections/Roe7Package';
 import Contact from '@/components/sections/Contact';
 import FAQ from '@/components/sections/FAQ';
 import GsapInit from '@/components/ui/GsapInit';
@@ -36,6 +37,7 @@ export default async function HomePage() {
       <main className="overflow-x-clip">
         <Hero />
         <Services />
+        <Roe7Package />
         <Portfolio ytVideos={ytVideos} />
         <Testimonials />
         <About />

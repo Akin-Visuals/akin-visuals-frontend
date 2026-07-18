@@ -234,7 +234,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
 
   return (
     <section id="work" className="py-28 relative section-snap section-dark">
-      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '220px', background: 'linear-gradient(to bottom, #0e1220, #0d1117)' }} />
+      <div className="absolute top-0 left-0 right-0 z-0 pointer-events-none" style={{ height: '220px', background: 'linear-gradient(to bottom, #0d1117, #0d1117)' }} />
       <div className="max-w-7xl mx-auto px-8">
 
         <div className="text-center mb-12 fade-up">
