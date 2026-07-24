@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { REEL_VIDEOS, REEL_MARQUEE_ROW1, REEL_MARQUEE_ROW2, type ReelVideo } from '@/lib/data';
@@ -235,20 +235,31 @@ function YtMarquee({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: 
 }
 
 // Single auto-scrolling Reel row
-function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: 'left' | 'right'; onReelClick: (v: ReelVideo) => void }) {
+function ReelMarquee({ videos, dir, onReelClick, paused }: { videos: ReelVideo[]; dir: 'left' | 'right'; onReelClick: (v: ReelVideo) => void; paused: boolean }) {
   if (!videos.length) return null;
 
-  const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
-  const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Stable track — capped to avoid excessive DOM nodes
+  const track = useMemo(() => {
+    const repeat = Math.min(4, Math.max(2, Math.ceil(2400 / ((videos.length || 1) * 286))));
+    return [...Array(repeat)].flatMap(() => videos);
+  }, [videos]);
 
   useEffect(() => {
-    // Preload metadata 100px before entering viewport so the first frame is ready
+    const container = containerRef.current;
+    if (!container) return;
+
+    const cards = container.querySelectorAll<HTMLButtonElement>('.reel-marquee-card');
+    if (!cards.length) return;
+
+    const shimmerHandlers = new Map<HTMLVideoElement, () => void>();
+
+    // Preload 100px before viewport; play/pause based on visibility
     const preloadObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const id = entry.target.getAttribute('data-vid');
-          if (!id) return;
-          const video = videoRefs.current.get(id);
+          const video = entry.target.querySelector<HTMLVideoElement>('.reel-marquee-thumb');
           if (!video) return;
           if (entry.isIntersecting) {
             video.preload = 'auto';
@@ -258,66 +269,64 @@ function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: '
       { rootMargin: '100px', threshold: 0 }
     );
 
-    // Play only when truly in view, pause when out of view
     const playObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const id = entry.target.getAttribute('data-vid');
-          if (!id) return;
-          const video = videoRefs.current.get(id);
+          const video = entry.target.querySelector<HTMLVideoElement>('.reel-marquee-thumb');
+          const shimmer = entry.target.querySelector<HTMLDivElement>('.reel-shimmer');
           if (!video) return;
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !paused) {
             video.play().catch(() => {});
           } else {
             video.pause();
+          }
+          // Hide shimmer once first frame is ready
+          if (shimmer && !shimmer.classList.contains('hidden') && video.readyState >= 2) {
+            shimmer.classList.add('hidden');
           }
         });
       },
       { threshold: 0.25, root: null }
     );
 
-    itemRefs.current.forEach((item) => {
-      if (item) {
-        preloadObserver.observe(item);
-        playObserver.observe(item);
+    cards.forEach((card) => {
+      preloadObserver.observe(card);
+      playObserver.observe(card);
+
+      const video = card.querySelector<HTMLVideoElement>('.reel-marquee-thumb');
+      if (video) {
+        const handler = () => {
+          const shimmer = card.querySelector<HTMLDivElement>('.reel-shimmer');
+          if (shimmer) shimmer.classList.add('hidden');
+        };
+        shimmerHandlers.set(video, handler);
+        video.addEventListener('loadeddata', handler);
       }
     });
+
     return () => {
       preloadObserver.disconnect();
       playObserver.disconnect();
+      shimmerHandlers.forEach((handler, video) => {
+        video.removeEventListener('loadeddata', handler);
+      });
     };
-  }, []);
-
-  // Duplicate enough times so the track fills the viewport (card width ~286px incl. gap)
-  const repeat = Math.max(1, Math.ceil(2400 / ((videos.length || 1) * 286)));
-  const track = [...Array(repeat)].flatMap(() => videos);
+  }, [track, paused]);
 
   return (
-    <div className="reel-marquee fade-up">
+    <div className="reel-marquee fade-up" ref={containerRef}>
       <div className={`yt-marquee-row yt-marquee-${dir}`}>
         <div className="yt-marquee-track">
-          {[...track, ...track].map((v, i) => {
-            const vid = `${v.id}-${i}`;
-            return (
+          {[...track, ...track].map((v, i) => (
             <button
-              key={vid}
-              ref={(el) => { if (el) itemRefs.current.set(vid, el); }}
-              data-vid={vid}
+              key={`${v.id}-${i}`}
               type="button"
               className="reel-marquee-card"
               onClick={() => onReelClick(v)}
               aria-label={v.title || 'Reel'}
             >
-              <div className="reel-shimmer" id={`sh-${vid}`} />
+              <div className="reel-shimmer" />
               <video
-                ref={(el) => {
-                  if (!el) return;
-                  videoRefs.current.set(vid, el);
-                  el.onloadeddata = () => {
-                    const sh = document.getElementById(`sh-${vid}`);
-                    if (sh) sh.classList.add('hidden');
-                  };
-                }}
                 src={v.src}
                 muted
                 loop
@@ -329,8 +338,7 @@ function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: '
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
               </span>
             </button>
-          );
-        })}
+          ))}
         </div>
       </div>
     </div>
@@ -355,6 +363,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
     title: string;
     client: string;
   } | null>(null);
+  const isPopupOpen = projectDetail !== null || reelDetail !== null;
 
   const ytTeaserRef = useRef<HTMLDivElement>(null);
   const ytMockupRef = useRef<HTMLDivElement>(null);
@@ -453,8 +462,8 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
               <p className="portfolio-block-sub">{t('shortFormSub')}</p>
             </div>
           </div>
-          <ReelMarquee videos={REEL_MARQUEE_ROW1} dir="left" onReelClick={openReelDetail} />
-          <ReelMarquee videos={REEL_MARQUEE_ROW2} dir="right" onReelClick={openReelDetail} />
+          <ReelMarquee videos={REEL_MARQUEE_ROW1} dir="left" onReelClick={openReelDetail} paused={isPopupOpen} />
+          <ReelMarquee videos={REEL_MARQUEE_ROW2} dir="right" onReelClick={openReelDetail} paused={isPopupOpen} />
         </div>
 
         {/* Legacy platform cards — preserved, toggle SHOW_LEGACY_PLATFORMS to restore */}

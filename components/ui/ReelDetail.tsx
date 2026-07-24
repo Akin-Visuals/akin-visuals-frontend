@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef } from 'react';
 
 export interface ReelDetailProps {
   src: string;
@@ -10,6 +10,8 @@ export interface ReelDetailProps {
 }
 
 export default function ReelDetail({ src, title, client, onClose }: ReelDetailProps) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();
   }, [onClose]);
@@ -22,6 +24,18 @@ export default function ReelDetail({ src, title, client, onClose }: ReelDetailPr
       document.body.style.overflow = '';
     };
   }, [handleKeyDown]);
+
+  // Pause and clear video on unmount to free decoder resources
+  useEffect(() => {
+    return () => {
+      const video = videoRef.current;
+      if (video) {
+        video.pause();
+        video.src = '';
+        video.load();
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -42,6 +56,7 @@ export default function ReelDetail({ src, title, client, onClose }: ReelDetailPr
       <div className="rd-panel">
         <div className="rd-video-wrap">
           <video
+            ref={videoRef}
             src={src}
             autoPlay
             muted={false}
