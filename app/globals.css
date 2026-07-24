@@ -173,28 +173,6 @@ body {
   pointer-events: none;
 }
 
-/* Loading spinner until both videos are buffered */
-.ba-loading {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #0d1535;
-}
-.ba-loading span {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(189, 194, 255, 0.15);
-  border-top-color: var(--color-lilac);
-  border-radius: 999px;
-  animation: baSpin 1s linear infinite;
-}
-@keyframes baSpin {
-  to { transform: rotate(360deg); }
-}
-
 /* EDITED layer — full color, revealed by clip-path */
 .ba-after {
   position: absolute;

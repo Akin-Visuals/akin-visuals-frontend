@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 
-const RAW_SRC = 'https://pub-8f8ca6f5c6854719baa62fc4abbb3086.r2.dev/reels/before-portfolio-3%20%281%29.mp4';   // before (raw)
-const EDITED_SRC = 'https://pub-8f8ca6f5c6854719baa62fc4abbb3086.r2.dev/reels/portfolio-3.mp4';        // after (edited)
+const RAW_SRC = '/brand_assets/before-portfolio-3.webm';   // before (raw)
+const EDITED_SRC = '/brand_assets/portfolio-3.webm';        // after (edited)
 
 // Horizontal lean of the divider: top and bottom edges sit SLANT/2 either side
 // of `pos`, so the knob (at `pos`, vertically centered) rests on the line.
@@ -17,48 +17,15 @@ export default function BeforeAfterSlider() {
   const editedVideoRef = useRef<HTMLVideoElement | null>(null);
   const draggingRef = useRef(false);
   const [pos, setPos] = useState(50); // percent — centre of the divider
-  const [ready, setReady] = useState(false);
-
-  // Wait until BOTH videos can play before showing them together
-  useEffect(() => {
-    const raw = rawVideoRef.current;
-    const edited = editedVideoRef.current;
-    if (!raw || !edited) return;
-
-    let rawReady = false;
-    let editedReady = false;
-
-    const tryReady = () => {
-      if (rawReady && editedReady && !ready) {
-        setReady(true);
-        raw.play().catch(() => {});
-        edited.play().catch(() => {});
-      }
-    };
-
-    const onRawCanPlay = () => { rawReady = true; tryReady(); };
-    const onEditedCanPlay = () => { editedReady = true; tryReady(); };
-
-    // If already cached/canplay through, fire immediately
-    if (raw.readyState >= 3) rawReady = true;
-    if (edited.readyState >= 3) editedReady = true;
-    tryReady();
-
-    raw.addEventListener('canplaythrough', onRawCanPlay);
-    edited.addEventListener('canplaythrough', onEditedCanPlay);
-
-    return () => {
-      raw.removeEventListener('canplaythrough', onRawCanPlay);
-      edited.removeEventListener('canplaythrough', onEditedCanPlay);
-    };
-  }, []);
 
   // Keep both video layers playing in sync so motion lines up across the divider
   useEffect(() => {
-    if (!ready) return;
     const raw = rawVideoRef.current;
     const edited = editedVideoRef.current;
     if (!raw || !edited) return;
+
+    raw.play().catch(() => {});
+    edited.play().catch(() => {});
 
     // Keep the two layers aligned WITHOUT expensive seeks (which stutter on mobile):
     // nudge the before video's playbackRate to gently catch up; only hard-seek on a
@@ -80,7 +47,7 @@ export default function BeforeAfterSlider() {
       edited.removeEventListener('timeupdate', sync);
       raw.playbackRate = 1;
     };
-  }, [ready]);
+  }, []);
 
   const setFromClientX = useCallback((clientX: number) => {
     const el = wrapRef.current;
@@ -121,31 +88,23 @@ export default function BeforeAfterSlider() {
       className="ba-slider"
       onPointerDown={(e) => { draggingRef.current = true; setFromClientX(e.clientX); }}
     >
-      {/* Loading placeholder — shown until both videos are buffered */}
-      {!ready && (
-        <div className="ba-loading">
-          <span />
-        </div>
-      )}
-
       {/* Bottom layer — BEFORE (raw footage) */}
       <video
         ref={rawVideoRef}
         src={RAW_SRC}
-        autoPlay muted loop playsInline preload="auto"
+        autoPlay muted loop playsInline preload="none"
         className="ba-video"
-        style={{ visibility: ready ? 'visible' : 'hidden' }}
       />
 
       {/* Top layer — AFTER (edited), revealed by the slanted divider */}
       <div
         className="ba-after"
-        style={{ clipPath: `polygon(${xTop}% 0, 100% 0, 100% 100%, ${xBottom}% 100%)`, visibility: ready ? 'visible' : 'hidden' }}
+        style={{ clipPath: `polygon(${xTop}% 0, 100% 0, 100% 100%, ${xBottom}% 100%)` }}
       >
         <video
           ref={editedVideoRef}
           src={EDITED_SRC}
-          autoPlay muted loop playsInline preload="auto"
+          autoPlay muted loop playsInline preload="none"
           className="ba-video"
         />
       </div>
