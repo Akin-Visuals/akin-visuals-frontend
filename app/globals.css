@@ -173,6 +173,28 @@ body {
   pointer-events: none;
 }
 
+/* Loading spinner until both videos are buffered */
+.ba-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d1535;
+}
+.ba-loading span {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(189, 194, 255, 0.15);
+  border-top-color: var(--color-lilac);
+  border-radius: 999px;
+  animation: baSpin 1s linear infinite;
+}
+@keyframes baSpin {
+  to { transform: rotate(360deg); }
+}
+
 /* EDITED layer — full color, revealed by clip-path */
 .ba-after {
   position: absolute;
@@ -339,6 +361,41 @@ body {
   .yt-marquee-left .yt-marquee-track,
   .yt-marquee-right .yt-marquee-track { animation: none; }
 }
+
+/* Reel marquee (portrait 9:16 cards) */
+.reel-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.reel-marquee-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(200px, 20vw, 270px);
+  height: clamp(356px, 35.5vw, 480px);
+  margin-right: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d1535;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.reel-marquee-card:hover {
+  transform: scale(1.03);
+  border-color: rgba(189, 194, 255, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 30px rgba(92, 109, 255, 0.15);
+}
+.reel-marquee-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.reel-marquee-card:hover .yt-marquee-play { opacity: 1; }
 
 /* ROE7 benefit cards */
 .roe7-benefit {

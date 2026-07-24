@@ -3,13 +3,14 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { REEL_VIDEOS } from '@/lib/data';
+import { REEL_VIDEOS, REEL_MARQUEE_ROW1, REEL_MARQUEE_ROW2, type ReelVideo } from '@/lib/data';
 import { getGsap } from '@/lib/gsap-cdn';
 import type { YtVideo } from '@/lib/youtube';
 import { YT_TO_CLIENT, type ClientId } from '@/lib/analytics-data';
 import dynamic from 'next/dynamic';
 
 const ProjectDetail = dynamic(() => import('@/components/ui/ProjectDetail'));
+const ReelDetail = dynamic(() => import('@/components/ui/ReelDetail'));
 
 function YtIcon({ size = 26 }: { size?: number }) {
   return (
@@ -212,13 +213,84 @@ function YtMarquee({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: 
                   className="yt-marquee-thumb"
                 />
                 <span className="yt-marquee-play" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                </span>
-              </button>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                  </span>
+                </button>
             ))}
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+// Single auto-scrolling Reel row
+function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: 'left' | 'right'; onReelClick: (v: ReelVideo) => void }) {
+  if (!videos.length) return null;
+
+  const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
+  const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('data-vid');
+          if (!id) return;
+          const video = videoRefs.current.get(id);
+          if (!video) return;
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.25, root: null }
+    );
+    itemRefs.current.forEach((item) => {
+      if (item) observer.observe(item);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  // Duplicate enough times so the track fills the viewport (card width ~286px incl. gap)
+  const repeat = Math.max(1, Math.ceil(2400 / ((videos.length || 1) * 286)));
+  const track = [...Array(repeat)].flatMap(() => videos);
+
+  return (
+    <div className="reel-marquee fade-up">
+      <div className={`yt-marquee-row yt-marquee-${dir}`}>
+        <div className="yt-marquee-track">
+          {[...track, ...track].map((v, i) => {
+            const vid = `${v.id}-${i}`;
+            return (
+            <button
+              key={vid}
+              ref={(el) => { if (el) itemRefs.current.set(vid, el); }}
+              data-vid={vid}
+              type="button"
+              className="reel-marquee-card"
+              onClick={() => onReelClick(v)}
+              aria-label={v.title || 'Reel'}
+            >
+              <video
+                ref={(el) => { if (el) videoRefs.current.set(vid, el); }}
+                src={v.src}
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="reel-marquee-thumb"
+              />
+              <span className="yt-marquee-play" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+              </span>
+            </button>
+          );
+        })}
+        </div>
+      </div>
     </div>
   );
 }
@@ -235,6 +307,11 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
     channel: string;
     views: string;
     clientId: ClientId;
+  } | null>(null);
+  const [reelDetail, setReelDetail] = useState<{
+    src: string;
+    title: string;
+    client: string;
   } | null>(null);
 
   const ytTeaserRef = useRef<HTMLDivElement>(null);
@@ -271,6 +348,7 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
   };
 
   const openProjectDetail = (video: YtVideo) => {
+    setReelDetail(null);
     const clientId = YT_TO_CLIENT[video.id] || 'coach-x';
     setProjectDetail({
       videoId: video.id,
@@ -281,6 +359,16 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
     });
   };
   const closeProjectDetail = () => setProjectDetail(null);
+
+  const openReelDetail = (video: ReelVideo) => {
+    setProjectDetail(null);
+    setReelDetail({
+      src: video.src,
+      title: video.title,
+      client: video.client,
+    });
+  };
+  const closeReelDetail = () => setReelDetail(null);
 
   return (
     <section id="work" className="py-28 relative section-snap section-dark">
@@ -301,6 +389,10 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
 
         {/* New: 3-row auto-scrolling YouTube wall */}
         <YtMarquee videos={ytVideos} onVideoClick={openProjectDetail} />
+
+        {/* New: 2-row auto-scrolling Reel wall */}
+        <ReelMarquee videos={REEL_MARQUEE_ROW1} dir="left" onReelClick={openReelDetail} />
+        <ReelMarquee videos={REEL_MARQUEE_ROW2} dir="right" onReelClick={openReelDetail} />
 
         {/* Legacy platform cards — preserved, toggle SHOW_LEGACY_PLATFORMS to restore */}
         {SHOW_LEGACY_PLATFORMS && (
@@ -368,6 +460,16 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
           views={projectDetail.views}
           clientId={projectDetail.clientId}
           onClose={closeProjectDetail}
+        />
+      )}
+
+      {/* Reel Detail overlay */}
+      {reelDetail && (
+        <ReelDetail
+          src={reelDetail.src}
+          title={reelDetail.title}
+          client={reelDetail.client}
+          onClose={closeReelDetail}
         />
       )}
     </section>
