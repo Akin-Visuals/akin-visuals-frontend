@@ -29,6 +29,16 @@ function TtIcon({ size = 30 }: { size?: number }) {
   );
 }
 
+function IgIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 22 22" fill="none">
+      <rect x="1.5" y="1.5" width="19" height="19" rx="5" stroke="white" strokeWidth="1.8"/>
+      <circle cx="11" cy="11" r="4.5" stroke="white" strokeWidth="1.8"/>
+      <circle cx="16.75" cy="5.25" r="1.3" fill="white"/>
+    </svg>
+  );
+}
+
 function YtMockup({ videos, onVideoClick }: { videos: YtVideo[]; onVideoClick: (v: YtVideo) => void }) {
   const [failedThumbs, setFailedThumbs] = useState<Set<string>>(new Set());
 
@@ -419,12 +429,33 @@ export default function Portfolio({ ytVideos }: { ytVideos: YtVideo[] }) {
           </p>
         </div>
 
-        {/* New: 3-row auto-scrolling YouTube wall */}
-        <YtMarquee videos={ytVideos} onVideoClick={openProjectDetail} />
+        {/* ── Long Form ── */}
+        <div className="portfolio-block fade-up">
+          <div className="portfolio-block-header">
+            <YtIcon size={22} />
+            <div>
+              <h3 className="portfolio-block-title">{t('longFormTitle')}</h3>
+              <p className="portfolio-block-sub">{t('longFormSub')}</p>
+            </div>
+          </div>
+          <YtMarquee videos={ytVideos} onVideoClick={openProjectDetail} />
+        </div>
 
-        {/* New: 2-row auto-scrolling Reel wall */}
-        <ReelMarquee videos={REEL_MARQUEE_ROW1} dir="left" onReelClick={openReelDetail} />
-        <ReelMarquee videos={REEL_MARQUEE_ROW2} dir="right" onReelClick={openReelDetail} />
+        {/* ── Short Form ── */}
+        <div className="portfolio-block fade-up">
+          <div className="portfolio-block-header">
+            <div className="portfolio-block-icons">
+              <TtIcon size={22} />
+              <IgIcon size={22} />
+            </div>
+            <div>
+              <h3 className="portfolio-block-title">{t('shortFormTitle')}</h3>
+              <p className="portfolio-block-sub">{t('shortFormSub')}</p>
+            </div>
+          </div>
+          <ReelMarquee videos={REEL_MARQUEE_ROW1} dir="left" onReelClick={openReelDetail} />
+          <ReelMarquee videos={REEL_MARQUEE_ROW2} dir="right" onReelClick={openReelDetail} />
+        </div>
 
         {/* Legacy platform cards — preserved, toggle SHOW_LEGACY_PLATFORMS to restore */}
         {SHOW_LEGACY_PLATFORMS && (

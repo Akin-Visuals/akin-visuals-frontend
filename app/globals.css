@@ -377,6 +377,50 @@ body {
 }
 .reel-marquee-card:hover .yt-marquee-play { opacity: 1; }
 
+/* Portfolio section blocks (Long Form / Short Form) */
+.portfolio-block {
+  margin-bottom: 3.5rem;
+}
+.portfolio-block:last-child {
+  margin-bottom: 0;
+}
+.portfolio-block-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0 0.25rem;
+  text-align: center;
+}
+.portfolio-block-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.portfolio-block-title {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+.portfolio-block-sub {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(225, 226, 231, 0.45);
+  line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .portfolio-block {
+    margin-bottom: 2.5rem;
+  }
+  .portfolio-block-title {
+    font-size: 1.1rem;
+  }
+}
+
 /* Reel card shimmer skeleton while video is loading */
 .reel-shimmer {
   position: absolute;

@@ -43,7 +43,11 @@
     "ytCardDesc": "Long-form video's bewerkt voor maximale retentie en groei op YouTube.",
     "ttCardDesc": "Short-form clips voor dagelijkse groei, sterke hooks en viraal bereik.",
     "openYoutube": "Open YouTube",
-    "openTiktok": "Open TikTok"
+    "openTiktok": "Open TikTok",
+    "longFormTitle": "Long Form",
+    "longFormSub": "YouTube-content met verhalende montage",
+    "shortFormTitle": "Short Form",
+    "shortFormSub": "TikTok & Reels voor viraal bereik"
   },
   "services": {
     "label": "Wat Wij Bieden",

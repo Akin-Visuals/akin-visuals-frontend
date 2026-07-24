@@ -43,7 +43,11 @@
     "ytCardDesc": "Long-form videos edited for maximum retention and growth on YouTube.",
     "ttCardDesc": "Short-form clips built for daily posting, hooks, and viral growth.",
     "openYoutube": "Open YouTube",
-    "openTiktok": "Open TikTok"
+    "openTiktok": "Open TikTok",
+    "longFormTitle": "Long Form",
+    "longFormSub": "YouTube content with story-driven editing",
+    "shortFormTitle": "Short Form",
+    "shortFormSub": "TikTok & Reels built for viral growth"
   },
   "services": {
     "label": "What We Offer",
