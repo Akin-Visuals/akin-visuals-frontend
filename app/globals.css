@@ -375,6 +375,36 @@ body {
 }
 .reel-marquee-card:hover .yt-marquee-play { opacity: 1; }
 
+/* Reel card placeholder while video is loading */
+.reel-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(145deg, #0d1535, #1a1a3a);
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+.reel-placeholder.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.reel-placeholder svg {
+  width: 28px;
+  height: 28px;
+  color: rgba(189, 194, 255, 0.4);
+}
+.reel-placeholder span {
+  font-family: var(--font-label);
+  font-size: 0.55rem;
+  color: rgba(189, 194, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
 /* ROE7 benefit cards */
 .roe7-benefit {
   background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012));
@@ -1874,6 +1904,115 @@ footer {
   }
   #pd-analytics {
     padding: 1rem;
+  }
+}
+
+/* ════════════════════════════
+   REEL DETAIL — Full-screen popup
+   ════════════════════════════ */
+
+.rd-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rd-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 17, 23, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.rd-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(225, 226, 231, 0.8);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.rd-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.rd-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  padding: 3.5rem 1rem 1.5rem;
+  animation: rdEnter 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes rdEnter {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.rd-video-wrap {
+  position: relative;
+  width: 100%;
+  max-height: calc(100vh - 140px);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.rd-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 140px);
+  object-fit: contain;
+}
+
+.rd-meta {
+  margin-top: 1rem;
+  text-align: center;
+  width: 100%;
+}
+
+.rd-title {
+  font-family: var(--font-headline);
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
+}
+
+.rd-client {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(225, 226, 231, 0.45);
+}
+
+@media (min-width: 640px) {
+  .rd-panel {
+    padding: 4rem 1.5rem 2rem;
+    max-width: 520px;
+  }
+  .rd-video-wrap {
+    border-radius: 20px;
   }
 }
 

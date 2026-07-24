@@ -25,53 +25,35 @@ export default function ReelDetail({ src, title, client, onClose }: ReelDetailPr
 
   return (
     <div
-      id="project-detail"
+      className="rd-overlay"
       role="dialog"
       aria-modal="true"
       aria-label={`${title} — ${client}`}
     >
-      <div id="pd-backdrop" onClick={onClose} />
-      <div
-        id="pd-panel"
-        style={{
-          width: 'min(96vw, 480px)',
-          gridTemplateColumns: '1fr',
-          overflowY: 'hidden',
-        }}
-      >
-        <button id="pd-close" onClick={onClose} aria-label="Close">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+      <div className="rd-backdrop" onClick={onClose} />
 
-        <div id="pd-video">
-          <div
-            id="pd-video-inner"
-            style={{ aspectRatio: '9/16', maxHeight: '70vh' }}
-          >
-            <video
-              src={src}
-              autoPlay
-              muted={false}
-              loop
-              playsInline
-              controls
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                border: 'none',
-              }}
-            />
-          </div>
-          <div id="pd-video-meta">
-            <h3 id="pd-video-title">{title}</h3>
-            <p id="pd-video-channel">{client}</p>
-          </div>
+      <button className="rd-close" onClick={onClose} aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      <div className="rd-panel">
+        <div className="rd-video-wrap">
+          <video
+            src={src}
+            autoPlay
+            muted={false}
+            loop
+            playsInline
+            controls
+            className="rd-video"
+          />
+        </div>
+        <div className="rd-meta">
+          <h3 className="rd-title">{title}</h3>
+          <p className="rd-client">{client}</p>
         </div>
       </div>
     </div>

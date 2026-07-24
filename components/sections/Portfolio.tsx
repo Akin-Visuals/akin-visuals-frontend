@@ -274,8 +274,19 @@ function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: '
               onClick={() => onReelClick(v)}
               aria-label={v.title || 'Reel'}
             >
+              <div className="reel-placeholder" id={`ph-${vid}`}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><polygon points="9,8 9,16 17,12" fill="currentColor" stroke="none"/></svg>
+                <span>Loading</span>
+              </div>
               <video
-                ref={(el) => { if (el) videoRefs.current.set(vid, el); }}
+                ref={(el) => {
+                  if (!el) return;
+                  videoRefs.current.set(vid, el);
+                  el.onloadeddata = () => {
+                    const ph = document.getElementById(`ph-${vid}`);
+                    if (ph) ph.classList.add('hidden');
+                  };
+                }}
                 src={v.src}
                 muted
                 loop
