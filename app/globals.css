@@ -372,37 +372,33 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: 2;
 }
 .reel-marquee-card:hover .yt-marquee-play { opacity: 1; }
 
-/* Reel card placeholder while video is loading */
-.reel-placeholder {
+/* Reel card shimmer skeleton while video is loading */
+.reel-shimmer {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: linear-gradient(145deg, #0d1535, #1a1a3a);
   z-index: 1;
-  transition: opacity 0.3s ease;
+  background: linear-gradient(
+    110deg,
+    rgba(13, 21, 53, 0.8) 30%,
+    rgba(30, 35, 80, 0.6) 50%,
+    rgba(13, 21, 53, 0.8) 70%
+  );
+  background-size: 200% 100%;
+  animation: reelShimmer 1.8s ease-in-out infinite;
+  transition: opacity 0.4s ease;
 }
-.reel-placeholder.hidden {
+.reel-shimmer.hidden {
   opacity: 0;
   pointer-events: none;
 }
-.reel-placeholder svg {
-  width: 28px;
-  height: 28px;
-  color: rgba(189, 194, 255, 0.4);
-}
-.reel-placeholder span {
-  font-family: var(--font-label);
-  font-size: 0.55rem;
-  color: rgba(189, 194, 255, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
+@keyframes reelShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 /* ROE7 benefit cards */

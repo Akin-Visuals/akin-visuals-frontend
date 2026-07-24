@@ -232,7 +232,24 @@ function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: '
   const itemRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // Preload metadata 100px before entering viewport so the first frame is ready
+    const preloadObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute('data-vid');
+          if (!id) return;
+          const video = videoRefs.current.get(id);
+          if (!video) return;
+          if (entry.isIntersecting) {
+            video.preload = 'auto';
+          }
+        });
+      },
+      { rootMargin: '100px', threshold: 0 }
+    );
+
+    // Play only when truly in view, pause when out of view
+    const playObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const id = entry.target.getAttribute('data-vid');
@@ -248,10 +265,17 @@ function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: '
       },
       { threshold: 0.25, root: null }
     );
+
     itemRefs.current.forEach((item) => {
-      if (item) observer.observe(item);
+      if (item) {
+        preloadObserver.observe(item);
+        playObserver.observe(item);
+      }
     });
-    return () => observer.disconnect();
+    return () => {
+      preloadObserver.disconnect();
+      playObserver.disconnect();
+    };
   }, []);
 
   // Duplicate enough times so the track fills the viewport (card width ~286px incl. gap)
@@ -274,24 +298,21 @@ function ReelMarquee({ videos, dir, onReelClick }: { videos: ReelVideo[]; dir: '
               onClick={() => onReelClick(v)}
               aria-label={v.title || 'Reel'}
             >
-              <div className="reel-placeholder" id={`ph-${vid}`}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><polygon points="9,8 9,16 17,12" fill="currentColor" stroke="none"/></svg>
-                <span>Loading</span>
-              </div>
+              <div className="reel-shimmer" id={`sh-${vid}`} />
               <video
                 ref={(el) => {
                   if (!el) return;
                   videoRefs.current.set(vid, el);
                   el.onloadeddata = () => {
-                    const ph = document.getElementById(`ph-${vid}`);
-                    if (ph) ph.classList.add('hidden');
+                    const sh = document.getElementById(`sh-${vid}`);
+                    if (sh) sh.classList.add('hidden');
                   };
                 }}
                 src={v.src}
                 muted
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
                 className="reel-marquee-thumb"
               />
               <span className="yt-marquee-play" aria-hidden="true">
